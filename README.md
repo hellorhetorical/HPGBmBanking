@@ -1,38 +1,53 @@
 # HPGBmBanking
 
-AngularJS + Capacitor blank canvas for the HPGBmBanking mobile app.
+Mobile banking app shell built with AngularJS (1.x) and Capacitor.
 
 ## Prerequisites
-- Node.js 18+ with npm
-- Android Studio + SDK (for Android builds)
+- Node.js 18+
+- npm 9+
+- Android Studio + Android SDK (for Android builds)
 
-## Setup
+## Quick Start
 ```sh
 npm install
 npm run setup:web
-```
-
-## Build web assets
-```sh
 npm run build
 ```
 
-## Add Android platform
+Build artifacts are generated in `www/`.
+
+## Build Modes
+- `npm run build`: Demo build (`--demo`) including mock data/config.
+- `npm run build:prod`: Production-style build (no demo mock injection).
+- `npm run build:raw`: Direct copy of `src/` to `www/` (no bundling/template cache/SRI).
+
+## Capacitor / Android
+If Android platform is not added yet:
 ```sh
 npx cap init "HPGBmBanking" "com.hpgbmbanking.app" --web-dir www
 npm run cap:android
 ```
 
-## Sync after changes
+After any web code changes:
 ```sh
 npm run cap:sync
 ```
 
-## Deployment hardening checklist (non-local use)
-- Migrate off AngularJS 1.x or document the accepted risk (known XSS/ReDoS advisories with no fix).
-- Disable demo mode and remove mock data/credentials from production bundles.
-- Enforce secure storage for secrets (no sessionStorage/localStorage fallback for passcode/biometric flags).
-- Add passcode brute-force protections (attempt limits, exponential backoff, wipe/lockout policy).
-- Review CSP for any external endpoints and keep `script-src` locked to trusted sources only.
-- Add runtime logging/telemetry for auth and security events (lock/unlock, failures).
-# HPGBmBanking
+## Security / Quality Checks
+```sh
+npm run scan:security
+```
+
+## Project Layout
+- `src/`: App source (views, controllers, services, styles, assets)
+- `scripts/build.js`: Bundles JS/CSS, preloads view templates, injects SRI + cache-busting
+- `www/`: Generated web bundle used by Capacitor
+- `android/`: Native Android project
+
+## Deployment Hardening Checklist
+- Migrate off AngularJS 1.x or formally accept known ecosystem risk.
+- Disable demo mode and remove mock credentials/data from production bundles.
+- Enforce secure secret storage (avoid browser storage fallback for auth flags).
+- Add passcode brute-force controls (attempt limits, backoff, lockout/wipe policy).
+- Keep CSP strict and limited to trusted endpoints/sources.
+- Add runtime telemetry for auth/security events.
