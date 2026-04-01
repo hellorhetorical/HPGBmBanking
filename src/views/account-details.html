@@ -1,0 +1,26 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Account Details</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="fd-hero-art" aria-hidden="true"></div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">info</span>
+        <div>
+          <div class="binddevice-step-title">Account information</div>
+          <div class="binddevice-step-text">Review account particulars and profile information.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="account-details-stack">
+      <div class="account-detail-row" ng-repeat="detail in vm.details">
+        <div class="account-detail-label">{{ detail.label }}</div>
+        <div class="account-detail-value">{{ detail.value }}</div>
+      </div>
+    </div>
+  </section>
+</div>

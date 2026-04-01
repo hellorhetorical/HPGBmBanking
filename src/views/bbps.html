@@ -1,0 +1,37 @@
+<div class="binddevice-page bbps-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">BBPS</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">receipt_long</span>
+        <div>
+          <div class="binddevice-step-title">Bill services</div>
+          <div class="binddevice-step-text">Pay, review, and track BBPS requests.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">support_agent</span>
+        <div>
+          <div class="binddevice-step-title">Support</div>
+          <div class="binddevice-step-text">Raise or track complaints.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">Bill Pay</div>
+    <div class="bbps-list">
+      <div class="bbps-item" ng-repeat="item in vm.items" ng-if="!item.link">
+        <span>{{ item.label }}</span>
+        <span class="material-icons" aria-hidden="true">chevron_right</span>
+      </div>
+      <a class="bbps-item" ng-repeat="item in vm.items" ng-if="item.link" href="{{ item.link }}" data-external-safe="true" target="_blank" rel="noopener noreferrer">
+        <span>{{ item.label }}</span>
+        <span class="material-icons" aria-hidden="true">chevron_right</span>
+      </a>
+    </div>
+  </section>
+</div>

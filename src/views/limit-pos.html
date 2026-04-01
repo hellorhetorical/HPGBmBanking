@@ -1,0 +1,157 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Update POS Limit</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">tune</span>
+        <div>
+          <div class="binddevice-step-title">Adjust POS spending limit</div>
+          <div class="binddevice-step-text">Authenticate and submit your new limit.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'note'">
+    <div class="binddevice-card-title">Update POS Limit</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select
+        ng-model="vm.form.account"
+        ng-options="account as vm.getAccountLabel(account) for account in vm.accounts"
+        ng-change="vm.updateCards()"
+      ></select>
+    </label>
+    <div class="card-mgmt-note">
+      Please note:
+      <br />
+      You can update your POS spending limit for the selected debit card.
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromNote()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'auth'">
+    <div class="binddevice-card-title">Debit Card Authentication</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select
+        ng-model="vm.form.account"
+        ng-options="account as vm.getAccountLabel(account) for account in vm.accounts"
+        ng-change="vm.updateCards()"
+      ></select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Debit Card Number</span>
+      <select ng-model="vm.form.card" ng-options="card for card in vm.getCardsForAccount(vm.form.account)"></select>
+    </label>
+    <div class="transfer-inline is-even">
+      <label class="transfer-field">
+        <span class="transfer-field-label">Expiry Month</span>
+        <select ng-model="vm.form.expMonth">
+          <option value="">MM</option>
+          <option ng-repeat="m in [1,2,3,4,5,6,7,8,9,10,11,12]" value="{{ m < 10 ? '0' + m : m }}">
+            {{ m < 10 ? '0' + m : m }}
+          </option>
+        </select>
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">Expiry Year</span>
+        <select ng-model="vm.form.expYear">
+          <option value="">YY</option>
+          <option ng-repeat="y in [24,25,26,27,28,29,30]" value="{{ y }}">{{ y }}</option>
+        </select>
+      </label>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Card PIN</span>
+      <input type="password" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" ng-model="vm.form.cardPin" placeholder="Card PIN" />
+    </label>
+    <div class="transfer-error" ng-if="vm.cardPinError">{{ vm.cardPinError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromAuth()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'update'">
+    <div class="binddevice-card-title">Update POS limit</div>
+    <div class="limit-standard">
+      <span>Standard limit</span>
+      <strong>{{ vm.standardLimit }}</strong>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">New limit</span>
+      <input type="text" ng-model="vm.form.posLimit" placeholder="Enter new limit" />
+    </label>
+    <button class="limit-link" type="button" ng-click="vm.viewApplicableLimits()">
+      Click here to view applicable limits
+    </button>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromUpdate()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'applicable'">
+    <div class="binddevice-card-title">Update POS Limit</div>
+    <div class="limit-note">
+      First six digits on your debit card are refereed to as Bank Identification Number (BIN). To know the
+      maximum daily limit of your card, please refer below table displaying Banks major BIN Limits.
+    </div>
+    <div class="limit-table">
+      <div class="limit-table-row limit-table-head">
+        <span>BIN</span>
+        <span>Daily ATM Cash Withdrawl Limit</span>
+        <span>Daily E-Comm/POS Limit</span>
+        <span>Daily ContactLess Limit</span>
+      </div>
+      <div class="limit-table-row" ng-repeat="row in [
+        { bin: '204533', atm: '1000', pos: '2000', contactless: '4000' },
+        { bin: '12312', atm: '2000', pos: '2000', contactless: '2000' },
+        { bin: '123456', atm: '3000', pos: '2000', contactless: '4000' },
+        { bin: '123432', atm: '4000', pos: '2000', contactless: '3000' },
+        { bin: '647362', atm: '5000', pos: '2000', contactless: '4000' },
+        { bin: '747382', atm: '7000', pos: '2000', contactless: '4000' }
+      ]">
+        <span>{{ row.bin }}</span>
+        <span>{{ row.atm }}</span>
+        <span>{{ row.pos }}</span>
+        <span>{{ row.contactless }}</span>
+      </div>
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.backToUpdate()">Back</button>
+  </section>
+
+  <section class="binddevice-card transfer-authorize" ng-if="vm.step === 'authorize'">
+    <div class="binddevice-card-title">Confirm And Authorize</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <div class="transfer-currency-chip">{{ vm.form.account.number | maskAccount }}</div>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Debit Card Number</span>
+      <div class="transfer-currency-chip">{{ vm.form.card }}</div>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">New limit</span>
+      <div class="transfer-currency-chip">{{ vm.form.posLimit }}</div>
+    </label>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">Submit</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'success'">
+    <div class="binddevice-card-title">Update POS Limit</div>
+    <div class="transfer-status-message">Limit updated successfully.</div>
+    <button class="account-statement-button" type="button" ng-click="vm.goHome()">Dashboard</button>
+  </section>
+</div>

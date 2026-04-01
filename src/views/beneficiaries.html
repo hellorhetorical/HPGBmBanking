@@ -1,0 +1,68 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">My Payees</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">groups</span>
+        <div>
+          <div class="binddevice-step-title">Manage payees</div>
+          <div class="binddevice-step-text">Add, search, and view beneficiary details.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">person_add</span>
+        <div>
+          <div class="binddevice-step-title">Add new payee</div>
+          <div class="binddevice-step-text">Create a new beneficiary within seconds.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+      <div class="beneficiary-toolbar">
+      <div class="beneficiary-search">
+        <span class="material-icons" aria-hidden="true">search</span>
+        <input type="text" placeholder="Search payee" aria-label="Search payees" ng-model="vm.search" />
+      </div>
+      <button class="beneficiary-add" type="button" ng-click="vm.openAddSheet()">
+        <span class="material-icons" aria-hidden="true">add</span>
+        Add new payee
+      </button>
+    </div>
+
+    <div class="beneficiary-list">
+      <div class="beneficiary-row" ng-repeat="payee in vm.filteredPayees track by $index">
+        <div class="beneficiary-avatar">{{ payee.initials }}</div>
+        <div class="beneficiary-info">
+          <div class="beneficiary-account">{{ payee.account }}</div>
+          <div class="beneficiary-meta">{{ payee.name }} &bull; {{ payee.bank }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="beneficiary-sheet-backdrop" ng-class="{ open: vm.showAddSheet }" ng-click="vm.closeAddSheet()"></div>
+  <div
+    class="beneficiary-sheet"
+    ng-class="{ open: vm.showAddSheet }"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Add new payee"
+    tabindex="-1"
+  >
+    <div class="beneficiary-sheet-handle"></div>
+    <div class="beneficiary-sheet-title">Add new payee</div>
+    <button id="beneficiary-add-same" class="beneficiary-sheet-item" type="button" ng-click="vm.startAdd('same')">
+      Same bank
+      <span class="material-icons" aria-hidden="true">chevron_right</span>
+    </button>
+    <button class="beneficiary-sheet-item" type="button" ng-click="vm.startAdd('other')">
+      Other bank
+      <span class="material-icons" aria-hidden="true">chevron_right</span>
+    </button>
+    <button id="beneficiary-sheet-cancel" class="beneficiary-sheet-cancel" type="button" ng-click="vm.closeAddSheet()">Cancel</button>
+  </div>
+</div>

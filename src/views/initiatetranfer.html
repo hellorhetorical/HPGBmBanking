@@ -1,0 +1,127 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Make a transfer</div>
+    <div class="binddevice-title">Send money securely</div>
+    <div class="binddevice-subtitle">
+      Complete the form to {{ vm.flowLabel.toLowerCase() }}.
+    </div>
+    <div class="fd-hero-art" aria-hidden="true"></div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">swap_horiz</span>
+        <div>
+          <div class="binddevice-step-title">Transfer details</div>
+          <div class="binddevice-step-text">Choose accounts and enter amount.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">lock</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm using your TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <form class="binddevice-card transfer-form" ng-submit="vm.submit()">
+    <div class="binddevice-card-title">Transfer details</div>
+    <div class="transfer-section">
+      <div class="transfer-label">Transaction type</div>
+      <div class="transfer-segment">
+        <button
+          type="button"
+          class="transfer-option"
+          ng-repeat="type in vm.transactionTypes"
+          ng-class="{ active: vm.form.transactionType === type.value }"
+          ng-click="vm.setTransactionType(type.value)"
+          ng-disabled="vm.showAuthorize"
+        >
+          <span class="transfer-option-label">{{ type.label }}</span>
+          <span class="material-icons" aria-hidden="true" ng-if="vm.form.transactionType === type.value">
+            check
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <label class="transfer-field">
+      <span class="transfer-field-label">From</span>
+      <select ng-model="vm.form.fromAccount" ng-options="account.number as (account.number | maskAccount) for account in vm.fromAccounts" ng-disabled="vm.showAuthorize" ng-class="{ 'is-invalid': vm.showValidation && !vm.form.fromAccount }" ng-change="vm.clearFieldError('fromAccount')">
+        <option value="" disabled>Select account</option>
+      </select>
+    </label>
+    <div class="transfer-balance">Balance: INR {{ vm.getBalance(vm.form.fromAccount) }}</div>
+
+    <label class="transfer-field">
+      <span class="transfer-field-label">To</span>
+      <select ng-model="vm.form.toAccount" ng-options="beneficiary.value as beneficiary.label for beneficiary in vm.beneficiaries" ng-disabled="vm.showAuthorize" ng-class="{ 'is-invalid': vm.showValidation && !vm.form.toAccount }" ng-change="vm.clearFieldError('toAccount')">
+        <option value="">Select beneficiary</option>
+      </select>
+    </label>
+
+    <div class="transfer-inline">
+      <div class="transfer-currency">
+        <div class="transfer-field-label">Currency</div>
+        <div class="transfer-currency-chip">{{ vm.form.currency }}</div>
+      </div>
+      <label class="transfer-field">
+        <span class="transfer-field-label">Amount</span>
+        <input type="number" min="1" step="0.01" ng-model="vm.form.amount" placeholder="Enter amount" ng-disabled="vm.showAuthorize" ng-class="{ 'is-invalid': vm.showValidation && (!vm.form.amount || vm.fieldErrors.amount) }" ng-change="vm.clearFieldError('amount')" />
+        <span class="transfer-error inline" ng-if="vm.fieldErrors.amount">{{ vm.fieldErrors.amount }}</span>
+      </label>
+    </div>
+
+    <div class="binddevice-card-title">Payment</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Payment option</span>
+      <select ng-model="vm.form.paymentOption" ng-disabled="vm.showAuthorize" ng-class="{ 'is-invalid': vm.showValidation && !vm.form.paymentOption }" ng-change="vm.clearFieldError('paymentOption')">
+        <option value="" disabled>Select option</option>
+        <option value="Pay">Pay</option>
+        <option value="Schedule">Schedule</option>
+      </select>
+    </label>
+    <div ng-if="vm.form.paymentOption === 'Schedule'">
+      <label class="transfer-field">
+        <span class="transfer-field-label">Schedule date</span>
+        <input
+          type="date"
+          ng-model="vm.form.scheduleDate"
+          ng-disabled="vm.showAuthorize"
+          ng-class="{ 'is-invalid': vm.showValidation && (!vm.form.scheduleDate || vm.fieldErrors.scheduleDate) }"
+          ng-change="vm.clearFieldError('scheduleDate')"
+        />
+      </label>
+      <div class="transfer-error" ng-if="vm.fieldErrors.scheduleDate">{{ vm.fieldErrors.scheduleDate }}</div>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Remarks</span>
+      <input type="text" ng-model="vm.form.remarks" placeholder="Add a remark" ng-disabled="vm.showAuthorize" ng-class="{ 'is-invalid': vm.showValidation && (!vm.form.remarks || vm.fieldErrors.remarks) }" ng-change="vm.clearFieldError('remarks')" />
+    </label>
+    <div class="transfer-error" ng-if="vm.fieldErrors.remarks">{{ vm.fieldErrors.remarks }}</div>
+
+    <button class="transfer-submit" type="submit" ng-disabled="vm.showAuthorize">
+      Pay now
+    </button>
+
+    <div class="transfer-authorize" ng-if="vm.showAuthorize">
+      <div class="binddevice-card-title">Authorize</div>
+      <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+      <label class="transfer-field">
+        <span class="transfer-field-label">TPIN</span>
+        <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN" ng-class="{ 'is-invalid': vm.showValidation && !vm.form.transactionPassword }"></pin-input>
+      </label>
+      <div class="transfer-error" ng-if="vm.passwordError">{{ vm.passwordError }}</div>
+      <button
+        class="transfer-confirm"
+        type="button"
+        ng-click="$event.preventDefault(); vm.confirmAuthorization()"
+      >
+        Confirm
+      </button>
+
+    </div>
+
+    <div class="transfer-error" ng-if="vm.passwordError">{{ vm.passwordError }}</div>
+  </form>
+</div>

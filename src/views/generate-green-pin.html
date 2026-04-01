@@ -1,0 +1,130 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Generate Green PIN</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">pin</span>
+        <div>
+          <div class="binddevice-step-title">Request OTP</div>
+          <div class="binddevice-step-text">Send the OTP request from your registered mobile.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Set new PIN</div>
+          <div class="binddevice-step-text">Confirm the OTP and create a new PIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'note'">
+    <div class="binddevice-card-title">Green PIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select ng-model="vm.form.account" ng-options="account as vm.getAccountLabel(account) for account in vm.accounts"></select>
+    </label>
+    <div class="transfer-helper">
+      Please note:
+      <br />
+      1. For setting Debit Card PIN, OTP is required which can be obtained by sending SMS from registered
+      Mobile Number as under:
+      <br />
+      (a) Send SMS DCPIN &lt;16 digit Debit card Number&gt; to +91-9212361889.
+      <br />
+      2. You will receive an OTP which is need to enter in next screen to set Debit card PIN.
+      <br />
+      3. Select Account Number from above dropdown menu. Click on Continue.
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.continue()">Continue</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'details'">
+    <div class="binddevice-card-title">Green PIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <div class="transfer-currency-chip">{{ vm.form.account.number | maskAccount }}</div>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Card Number</span>
+      <input type="text" placeholder="Enter debit card number" ng-model="vm.form.cardNumber" />
+    </label>
+    <div class="transfer-inline is-even">
+      <label class="transfer-field">
+        <span class="transfer-field-label">Expiry Month</span>
+        <select ng-model="vm.form.expMonth">
+          <option value="">MM</option>
+          <option ng-repeat="m in [1,2,3,4,5,6,7,8,9,10,11,12]" value="{{ m < 10 ? '0' + m : m }}">
+            {{ m < 10 ? '0' + m : m }}
+          </option>
+        </select>
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">Expiry Year</span>
+        <select ng-model="vm.form.expYear">
+          <option value="">YY</option>
+          <option ng-repeat="y in [24,25,26,27,28,29,30]" value="{{ y }}">{{ y }}</option>
+        </select>
+      </label>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Enter 6 digit OTP delivered on your mobile</span>
+    </label>
+    <div class="binddevice-otp-inputs" role="group" aria-label="One-time password">
+      <div class="otp-input-wrapper" ng-attr-data-filled="{{ vm.otpDigits[0] ? 'true' : 'false' }}">
+        <input class="binddevice-otp-input" type="tel" maxlength="1" inputmode="numeric" autocomplete="one-time-code" aria-label="OTP digit 1" ng-model="vm.otpDigits[0]"  ng-keyup="vm.onOtpKeyup(0, $event)" />
+        <span class="otp-mask" aria-hidden="true"><span class="otp-dot"></span></span>
+      </div>
+      <div class="otp-input-wrapper" ng-attr-data-filled="{{ vm.otpDigits[1] ? 'true' : 'false' }}">
+        <input class="binddevice-otp-input" type="tel" maxlength="1" inputmode="numeric" aria-label="OTP digit 2" ng-model="vm.otpDigits[1]"  ng-keyup="vm.onOtpKeyup(1, $event)" />
+        <span class="otp-mask" aria-hidden="true"><span class="otp-dot"></span></span>
+      </div>
+      <div class="otp-input-wrapper" ng-attr-data-filled="{{ vm.otpDigits[2] ? 'true' : 'false' }}">
+        <input class="binddevice-otp-input" type="tel" maxlength="1" inputmode="numeric" aria-label="OTP digit 3" ng-model="vm.otpDigits[2]"  ng-keyup="vm.onOtpKeyup(2, $event)" />
+        <span class="otp-mask" aria-hidden="true"><span class="otp-dot"></span></span>
+      </div>
+      <div class="otp-input-wrapper" ng-attr-data-filled="{{ vm.otpDigits[3] ? 'true' : 'false' }}">
+        <input class="binddevice-otp-input" type="tel" maxlength="1" inputmode="numeric" aria-label="OTP digit 4" ng-model="vm.otpDigits[3]"  ng-keyup="vm.onOtpKeyup(3, $event)" />
+        <span class="otp-mask" aria-hidden="true"><span class="otp-dot"></span></span>
+      </div>
+      <div class="otp-input-wrapper" ng-attr-data-filled="{{ vm.otpDigits[4] ? 'true' : 'false' }}">
+        <input class="binddevice-otp-input" type="tel" maxlength="1" inputmode="numeric" aria-label="OTP digit 5" ng-model="vm.otpDigits[4]"  ng-keyup="vm.onOtpKeyup(4, $event)" />
+        <span class="otp-mask" aria-hidden="true"><span class="otp-dot"></span></span>
+      </div>
+      <div class="otp-input-wrapper" ng-attr-data-filled="{{ vm.otpDigits[5] ? 'true' : 'false' }}">
+        <input class="binddevice-otp-input" type="tel" maxlength="1" inputmode="numeric" aria-label="OTP digit 6" ng-model="vm.otpDigits[5]"  ng-keyup="vm.onOtpKeyup(5, $event)" />
+        <span class="otp-mask" aria-hidden="true"><span class="otp-dot"></span></span>
+      </div>
+    </div> 
+
+    <div class="binddevice-error" ng-if="vm.otpError">{{ vm.otpError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.verifyOtp()" ng-if="!vm.otpVerified">
+      Verify OTP
+    </button>
+    <div class="green-pin-section" ng-if="vm.otpVerified">
+      <div class="green-pin-title">Set new PIN</div>
+      <div class="green-pin-subtitle">Choose a 4-digit PIN you can remember.</div>
+      <label class="green-pin-field">
+        <span>Enter New PIN</span>
+        <input type="password" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" ng-model="vm.form.newPin" placeholder="Enter New PIN" maxlength="4" inputmode="numeric" />
+      </label>
+      <label class="green-pin-field">
+        <span>Confirm New PIN</span>
+        <input type="password" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" ng-model="vm.form.confirmPin" placeholder="Confirm New PIN" maxlength="4" inputmode="numeric" />
+      </label>
+      <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+      <button class="account-statement-button" type="button" ng-click="vm.submit()">Continue</button>
+    </div>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'success'">
+    <div class="binddevice-card-title">Generate Green PIN</div>
+    <div class="transfer-status-message">
+      Your Debit card PIN has been set. Please do not share it with anyone.
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.done()">OK</button>
+  </section>
+</div>

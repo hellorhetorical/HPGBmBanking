@@ -1,0 +1,36 @@
+{
+  "name": "hpgbmbanking",
+  "private": true,
+  "version": "0.1.0",
+  "description": "HPGBmBanking mobile app (AngularJS + Capacitor)",
+  "scripts": {
+    "setup:web": "mkdir -p src/vendor src/vendor/fonts && cp node_modules/angular/angular.min.js src/vendor/angular.min.js && cp node_modules/angular-route/angular-route.min.js src/vendor/angular-route.min.js && cp node_modules/material-design-icons-iconfont/dist/material-design-icons.css src/vendor/material-icons.css && cp node_modules/material-design-icons-iconfont/dist/fonts/* src/vendor/fonts/",
+    "build": "node scripts/build.js --demo",
+    "build:prod": "node scripts/build.js",
+    "build:raw": "rm -rf www && mkdir www && cp -R src/* www/",
+    "postinstall": "node scripts/patch-capacitor-cli.js",
+    "cap:sync": "npm run build && npx cap sync",
+    "cap:android": "npm run build && npx cap add android",
+    "scan:security": "scripts/scan-security.sh",
+    "scan:security:ci": "scripts/scan-security.sh"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.0.1",
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/core": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.0",
+    "@capgo/capacitor-navigation-bar": "^8.0.12",
+    "angular": "^1.8.3",
+    "angular-route": "^1.8.3",
+    "debug": "^4.4.3",
+    "material-design-icons-iconfont": "^6.7.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.0.1"
+  },
+  "overrides": {
+    "tar": "^7.5.4",
+    "minimatch": "^3.1.3"
+  }
+}

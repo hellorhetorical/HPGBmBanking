@@ -1,0 +1,32 @@
+<div class="page-card deposit-more-page">
+  <div class="page-header">
+    <div class="page-title">{{ vm.title }}</div>
+    <div class="page-subtitle">{{ vm.subtitle }}</div>
+  </div>
+
+  <div class="loan-hero">
+    <div>
+      <div class="loan-hero-title">Manage every deposit journey</div>
+      <div class="loan-hero-subtitle">
+        Open, close, or track fixed and recurring deposits without leaving the app.
+      </div>
+    </div>
+  </div>
+
+  <div class="card-list loan-list">
+    <div
+      class="loan-card is-clickable"
+      ng-repeat="action in vm.actions"
+      ng-click="vm.goTo(action.route)"
+    >
+      <div class="loan-card-icon">
+        <span class="material-icons" aria-hidden="true">{{ action.icon }}</span>
+      </div>
+      <div class="loan-card-body">
+        <div class="row-title">{{ action.title }}</div>
+        <div class="row-subtitle">{{ action.subtitle }}</div>
+      </div>
+      <div class="loan-pill">{{ action.pill }}</div>
+    </div>
+  </div>
+</div>

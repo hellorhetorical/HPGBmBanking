@@ -1,0 +1,409 @@
+<div class="binddevice-page pmsby-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">PMSBY</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">task_alt</span>
+        <div>
+          <div class="binddevice-step-title">Accept terms</div>
+          <div class="binddevice-step-text">Review and consent to auto-debit.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">assignment</span>
+        <div>
+          <div class="binddevice-step-title">Nominee details</div>
+          <div class="binddevice-step-text">Provide nominee and guardian details.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm with your TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'terms'">
+    <div class="binddevice-card-title">PMSBY Enrollment</div>
+    <div class="card-mgmt-note">
+      Dear Customer, please read and accept the terms &amp; conditions.
+    </div>
+    <button class="limit-link" type="button" ng-click="vm.viewTerms()">Terms and Conditions</button>
+    <label class="fd-terms">
+      <input type="checkbox" ng-model="vm.acceptedTerms" />
+      <span>I have read and I accept the Terms and Conditions</span>
+    </label>
+    <div class="pmjjby-terms">
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Undertaking</div>
+        <div class="pmjjby-list">
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">1)</span>
+            I hereby authorize you to debit today my Saving Bank Account with your Branch with Rs.20/- (Rupees Twelve only)
+            plus Service Tax, if applicable or a revised amount that may be decided with immediate intimation to me.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">2)</span>
+            I declare that I am not insured under Pradhan Mantri Suraksha Bima Yojana under any other Savings Bank Account.
+            In case the same is found to exist, premium shall stand forfeited and no claims would be paid.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">3)</span>
+            I hereby declare that the above statements are true in all respects and that I agree and declare that the above
+            information shall form the basis of admission to the above Scheme and that if any information be found untrue,
+            my membership to the Scheme shall be treated as cancelled.
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="account-statement-button" type="button" ng-disabled="!vm.acceptedTerms" ng-click="vm.continueFromTerms()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'terms-detail'">
+    <div class="binddevice-card-title">Terms &amp; Conditions</div>
+    <div class="pmjjby-terms">
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Undertaking</div>
+        <div class="pmjjby-list">
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">1)</span>
+            I hereby authorize you to debit today my Saving Bank Account with your Branch with Rs.20/- (Rupees Twelve only)
+            plus Service Tax, if applicable or a revised amount that may be decided with immediate intimation to me.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">2)</span>
+            I declare that I am not insured under Pradhan Mantri Suraksha Bima Yojana under any other Savings Bank Account.
+            In case the same is found to exist, premium shall stand forfeited and no claims would be paid.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">3)</span>
+            I hereby declare that the above statements are true in all respects and that I agree and declare that the above
+            information shall form the basis of admission to the above Scheme and that if any information be found untrue,
+            my membership to the Scheme shall be treated as cancelled.
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.backToTerms()">Back</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">Applicant Details</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select ng-model="vm.form.account" ng-options="account.number as vm.getAccountLabel(account) for account in vm.accounts" ng-class="{ 'is-placeholder': !vm.form.account }">
+        <option value="">Account number</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Email ID</span>
+      <input type="email" ng-model="vm.form.email" placeholder="Email ID" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Father/Spouse Name</span>
+      <input type="text" ng-model="vm.form.fatherSpouseName" placeholder="Father/Spouse Name" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Name</span>
+      <input type="text" ng-model="vm.form.nomineeName" placeholder="Nominee Name" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee DOB</span>
+      <input type="date" ng-model="vm.form.nomineeDob" placeholder="Nominee DOB" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Relation</span>
+      <select ng-model="vm.form.nomineeRelation" ng-options="relation for relation in vm.nomineeRelations" ng-class="{ 'is-placeholder': !vm.form.nomineeRelation }">
+        <option value="">Nominee Relation</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Address Line 1</span>
+      <input type="text" ng-model="vm.form.nomineeAddress1" placeholder="Nominee Address Line 1" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Address Line 2</span>
+      <input type="text" ng-model="vm.form.nomineeAddress2" placeholder="Nominee Address Line 2" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee City</span>
+      <input type="text" ng-model="vm.form.nomineeCity" placeholder="Nominee City" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee State</span>
+      <select ng-model="vm.form.nomineeState" ng-options="state for state in vm.indiaStates" ng-class="{ 'is-placeholder': !vm.form.nomineeState }">
+        <option value="">Nominee State</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Address PIN</span>
+      <input type="text" ng-model="vm.form.nomineePin" placeholder="PIN Code" />
+    </label>
+    <div class="transfer-field">
+      <span class="transfer-field-label">Nominee is Minor</span>
+      <div class="pmjjby-radio-group">
+        <label class="pmjjby-radio">
+          <input type="radio" ng-model="vm.form.nomineeMinor" value="No" />
+          <span>No</span>
+        </label>
+        <label class="pmjjby-radio">
+          <input type="radio" ng-model="vm.form.nomineeMinor" value="Yes" />
+          <span>Yes</span>
+        </label>
+      </div>
+    </div>
+    <label class="transfer-field" ng-if="vm.form.nomineeMinor === 'Yes'">
+      <span class="transfer-field-label">Guardian Name</span>
+      <input type="text" ng-model="vm.form.guardianName" placeholder="Guardian Name" />
+    </label>
+    <label class="transfer-field" ng-if="vm.form.nomineeMinor === 'Yes'">
+      <span class="transfer-field-label">Guardian Address Line 1</span>
+      <input type="text" ng-model="vm.form.guardianAddress1" placeholder="Guardian Address Line 1" />
+    </label>
+    <label class="transfer-field" ng-if="vm.form.nomineeMinor === 'Yes'">
+      <span class="transfer-field-label">Guardian Address Line 2</span>
+      <input type="text" ng-model="vm.form.guardianAddress2" placeholder="Guardian Address Line 2" />
+    </label>
+    <label class="transfer-field" ng-if="vm.form.nomineeMinor === 'Yes'">
+      <span class="transfer-field-label">Guardian City</span>
+      <input type="text" ng-model="vm.form.guardianCity" placeholder="Guardian City" />
+    </label>
+    <label class="transfer-field" ng-if="vm.form.nomineeMinor === 'Yes'">
+      <span class="transfer-field-label">Guardian State</span>
+      <select ng-model="vm.form.guardianState" ng-options="state for state in vm.indiaStates" ng-class="{ 'is-placeholder': !vm.form.guardianState }">
+        <option value="">Guardian State</option>
+      </select>
+    </label>
+    <label class="transfer-field" ng-if="vm.form.nomineeMinor === 'Yes'">
+      <span class="transfer-field-label">Guardian Address PIN</span>
+      <input type="text" ng-model="vm.form.guardianPin" placeholder="PIN Code" />
+    </label>
+    <div class="transfer-field">
+      <span class="transfer-field-label">Disable</span>
+      <div class="pmjjby-radio-group">
+        <label class="pmjjby-radio">
+          <input type="radio" ng-model="vm.form.disabled" value="No" />
+          <span>No</span>
+        </label>
+        <label class="pmjjby-radio">
+          <input type="radio" ng-model="vm.form.disabled" value="Yes" />
+          <span>Yes</span>
+        </label>
+      </div>
+    </div>
+    <label class="transfer-field" ng-if="vm.form.disabled === 'Yes'">
+      <span class="transfer-field-label">Disability Details</span>
+      <input type="text" ng-model="vm.form.disabilityDetails" placeholder="Disability Details" />
+    </label>
+    <div class="transfer-error" ng-if="vm.formError">{{ vm.formError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromForm()">Continue</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'confirm'">
+    <div class="binddevice-card-title">Confirm And Authorize</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account number</div>
+        <div>{{ vm.getAccountLabel(vm.form.account) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Email ID</div>
+        <div>{{ vm.form.email }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Father/Spouse Name</div>
+        <div>{{ vm.form.fatherSpouseName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Name</div>
+        <div>{{ vm.form.nomineeName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee DOB</div>
+        <div>{{ vm.form.nomineeDob | date: "dd-MM-yyyy" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Relation</div>
+        <div>{{ vm.form.nomineeRelation }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Address Line 1</div>
+        <div>{{ vm.form.nomineeAddress1 }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Address Line 2</div>
+        <div>{{ vm.form.nomineeAddress2 }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee City</div>
+        <div>{{ vm.form.nomineeCity }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee State</div>
+        <div>{{ vm.form.nomineeState }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Address PIN</div>
+        <div>{{ vm.form.nomineePin }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee is Minor</div>
+        <div>{{ vm.form.nomineeMinor }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Name</div>
+        <div>{{ vm.form.guardianName }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Address Line 1</div>
+        <div>{{ vm.form.guardianAddress1 }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Address Line 2</div>
+        <div>{{ vm.form.guardianAddress2 }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian City</div>
+        <div>{{ vm.form.guardianCity }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian State</div>
+        <div>{{ vm.form.guardianState }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Address PIN</div>
+        <div>{{ vm.form.guardianPin }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Disable</div>
+        <div>{{ vm.form.disabled }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.disabled === 'Yes'">
+        <div>Disability Details</div>
+        <div>{{ vm.form.disabilityDetails }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">Submit</button>
+  </section>
+
+  <section class="binddevice-card transfer-status-card" ng-if="vm.step === 'success'">
+    <div class="transfer-status-check" ng-class="{ success: vm.isSuccess, failure: !vm.isSuccess }">
+      <span class="material-icons" aria-hidden="true">
+        {{ vm.isSuccess ? "check" : "close" }}
+      </span>
+    </div>
+    <div class="transfer-status-result">{{ vm.isSuccess ? "Success" : "Failed" }}</div>
+    <div class="transfer-status-message">Your PMSBY enrollment request has been submitted.</div>
+
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account number</div>
+        <div>{{ vm.getAccountLabel(vm.form.account) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Email ID</div>
+        <div>{{ vm.form.email || "-" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Father/Spouse Name</div>
+        <div>{{ vm.form.fatherSpouseName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Name</div>
+        <div>{{ vm.form.nomineeName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee DOB</div>
+        <div>{{ vm.form.nomineeDob | date: "dd-MM-yyyy" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Relation</div>
+        <div>{{ vm.form.nomineeRelation }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Address Line 1</div>
+        <div>{{ vm.form.nomineeAddress1 }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Address Line 2</div>
+        <div>{{ vm.form.nomineeAddress2 }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee City</div>
+        <div>{{ vm.form.nomineeCity }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee State</div>
+        <div>{{ vm.form.nomineeState }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Address PIN</div>
+        <div>{{ vm.form.nomineePin }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee is Minor</div>
+        <div>{{ vm.form.nomineeMinor }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Name</div>
+        <div>{{ vm.form.guardianName }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Address Line 1</div>
+        <div>{{ vm.form.guardianAddress1 }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Address Line 2</div>
+        <div>{{ vm.form.guardianAddress2 }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian City</div>
+        <div>{{ vm.form.guardianCity }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian State</div>
+        <div>{{ vm.form.guardianState }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Address PIN</div>
+        <div>{{ vm.form.guardianPin }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Disable</div>
+        <div>{{ vm.form.disabled }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.disabled === 'Yes'">
+        <div>Disability Details</div>
+        <div>{{ vm.form.disabilityDetails }}</div>
+      </div>
+    </div>
+
+    <button class="transfer-receipt account-statement-button" type="button">
+      <span class="material-icons" aria-hidden="true">download</span>
+      Receipt
+    </button>
+
+    <div class="transfer-status-actions">
+      <button class="transfer-secondary account-statement-button" type="button" ng-click="vm.newRequest()">
+        New Request
+      </button>
+      <button class="transfer-primary account-statement-button" type="button" ng-click="vm.goHome()">
+        Home
+      </button>
+    </div>
+  </section>
+</div>

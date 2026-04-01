@@ -1,0 +1,183 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Track FD Status</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="fd-hero-art" aria-hidden="true"></div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">filter_alt</span>
+        <div>
+          <div class="binddevice-step-title">Filter FD requests</div>
+          <div class="binddevice-step-text">Set a date range to locate your request.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">fact_check</span>
+        <div>
+          <div class="binddevice-step-title">Review status</div>
+          <div class="binddevice-step-text">Open any entry to see full deposit details.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card fd-search-card" ng-if="!vm.showResults">
+    <div class="fd-search-header">
+      <div>
+        <div class="binddevice-card-title">Track FD Status</div>
+        <div class="binddevice-card-subtitle">Choose a date range to find your FD request.</div>
+      </div>
+      <div class="fd-search-badge">
+        <span class="material-icons" aria-hidden="true">event</span>
+        Search range
+      </div>
+    </div>
+    <div class="transfer-inline is-even">
+      <label class="transfer-field fd-search-field">
+        <span class="transfer-field-label">From date</span>
+        <div class="fd-search-input">
+          <span class="material-icons" aria-hidden="true">south_west</span>
+          <input type="date" ng-model="vm.search.fromDate" required />
+        </div>
+      </label>
+      <label class="transfer-field fd-search-field">
+        <span class="transfer-field-label">To date</span>
+        <div class="fd-search-input">
+          <span class="material-icons" aria-hidden="true">north_east</span>
+          <input type="date" ng-model="vm.search.toDate" required />
+        </div>
+      </label>
+    </div>
+    <div class="fd-search-actions">
+      <button class="account-statement-button fd-search-button" type="button" ng-click="vm.searchStatus()" ng-disabled="!vm.search.fromDate || !vm.search.toDate">
+        Search
+      </button>
+      <button class="fd-reset-button" type="button" ng-click="vm.resetSearch()">Start over</button>
+      <div class="fd-search-note">Tip: Shorter ranges return faster results.</div>
+    </div>
+  </section>
+
+  <section class="binddevice-card fd-status-overview" ng-if="vm.showResults">
+    <div>
+      <div class="fd-status-kicker">Found</div>
+      <div class="fd-status-count">{{ vm.filteredItems.length }}</div>
+      <div class="fd-status-caption">FD requests in your selected range.</div>
+    </div>
+    <div class="fd-status-range">
+      <div class="fd-status-range-label">Date range</div>
+      <div class="fd-status-range-value">
+        {{ vm.search.fromDate | date: 'dd MMM yyyy' }} - {{ vm.search.toDate | date: 'dd MMM yyyy' }}
+      </div>
+    </div>
+  </section>
+
+  <div class="fd-status-grid" ng-if="vm.showResults">
+    <section class="binddevice-card fd-status-list-card">
+      <div class="fd-list-header">
+        <div>
+          <div class="binddevice-card-title">Requests</div>
+          <div class="binddevice-card-subtitle">Tap a request to view details.</div>
+        </div>
+      <div class="fd-list-pill">{{ vm.filteredItems.length }} results</div>
+      </div>
+      <div class="fd-status-list">
+        <button
+          class="fd-status-row"
+          type="button"
+          ng-repeat="item in vm.filteredItems"
+          ng-click="vm.viewDetail(item)"
+          ng-attr-aria-label="View request {{ item.id }}"
+        >
+          <div class="fd-status-icon" ng-class="item.color"></div>
+          <div class="fd-status-meta">
+            <div class="fd-status-id">{{ item.id }}</div>
+            <div class="fd-status-date">Opened {{ item.date | date: 'dd MMM yyyy' }}</div>
+          </div>
+          <div class="fd-status-state">
+            <span class="fd-status-tag" ng-class="item.color">{{ item.status }}</span>
+            <span class="material-icons" aria-hidden="true">chevron_right</span>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <section class="binddevice-card fd-status-detail-card" ng-if="vm.selected">
+      <div class="fd-detail-header">
+        <div>
+          <div class="binddevice-card-title">FD Request Status</div>
+          <div class="binddevice-card-subtitle">Review the request summary and deposit details.</div>
+        </div>
+        <div class="fd-detail-pill">{{ vm.detail.status }}</div>
+      </div>
+      <div class="fd-detail-hero">
+        <div>
+          <div class="fd-detail-label">Transaction Id</div>
+          <div class="fd-detail-title">{{ vm.detail.transactionId }}</div>
+        </div>
+        <div>
+          <div class="fd-detail-label">Deposit amount</div>
+          <div class="fd-detail-amount">₹ {{ vm.detail.amount }}</div>
+        </div>
+      </div>
+      <div class="fd-status-detail">
+        <div>
+          <div class="fd-status-label">Deposit Scheme</div>
+          <div class="fd-status-value">{{ vm.detail.scheme }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Account Open Date</div>
+          <div class="fd-status-value">{{ vm.detail.openDate }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Deposit Duration Years</div>
+          <div class="fd-status-value">{{ vm.detail.durationYears }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Deposit Duration Months</div>
+          <div class="fd-status-value">{{ vm.detail.durationMonths }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Deposit Duration Days</div>
+          <div class="fd-status-value">{{ vm.detail.durationDays }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Customer Name</div>
+          <div class="fd-status-value">{{ vm.detail.customerName }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Deposit Account</div>
+          <div class="fd-status-value">{{ vm.detail.depositAccount }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Maturity Amount</div>
+          <div class="fd-status-value">₹ {{ vm.detail.maturityAmount }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Maturity Date</div>
+          <div class="fd-status-value">{{ vm.detail.maturityDate }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Interest Rate</div>
+          <div class="fd-status-value">{{ vm.detail.interestRate }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Debit account</div>
+          <div class="fd-status-value">{{ vm.detail.debitAccount }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Retain Nominee details</div>
+          <div class="fd-status-value">{{ vm.detail.nomineeRetain }}</div>
+        </div>
+        <div>
+          <div class="fd-status-label">Maturity instructions</div>
+          <div class="fd-status-value">{{ vm.detail.maturityInstruction }}</div>
+        </div>
+      </div>
+      <div class="fd-detail-actions">
+        <button class="account-statement-button fd-download-button" type="button">Download</button>
+        <div class="fd-detail-note">Download the request summary as PDF.</div>
+      </div>
+    </section>
+  </div>
+</div>

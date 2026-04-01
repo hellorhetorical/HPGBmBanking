@@ -1,0 +1,39 @@
+<div class="binddevice-page notifications-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Alerts</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">notifications</span>
+        <div>
+          <div class="binddevice-step-title">Recent alerts</div>
+          <div class="binddevice-step-text">Review messages and status updates.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">mark_email_read</span>
+        <div>
+          <div class="binddevice-step-title">Stay updated</div>
+          <div class="binddevice-step-text">Get notified about activity.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">Notifications</div>
+    <div class="notifications-list" ng-if="vm.notifications.length">
+      <div class="notification-card" ng-repeat="note in vm.notifications" ng-class="{ unread: note.isUnread }">
+        <div class="notification-row">
+          <div class="notification-title">{{ note.title }}</div>
+          <div class="notification-time">{{ note.time }}</div>
+        </div>
+        <div class="notification-message">{{ note.message }}</div>
+      </div>
+    </div>
+    <div class="card-mgmt-note" ng-if="!vm.notifications.length">
+      You have no new notifications.
+    </div>
+  </section>
+</div>

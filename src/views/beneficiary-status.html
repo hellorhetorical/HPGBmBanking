@@ -1,0 +1,37 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Status</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">task_alt</span>
+        <div>
+          <div class="binddevice-step-title">Payee added</div>
+          <div class="binddevice-step-text">Beneficiary details added successfully.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="beneficiary-status-pill">
+      Beneficiary Details added successfully with the id as {{ vm.status.id }}
+    </div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Name</div>
+        <div>{{ vm.status.name }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nick name</div>
+        <div>{{ vm.status.nickname }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Account number</div>
+        <div>{{ vm.status.accountNumber }}</div>
+      </div>
+    </div>
+    <button class="transfer-submit" type="button" ng-click="vm.ok()">OK</button>
+  </section>
+</div>

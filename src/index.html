@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en" ng-app="hpgbmbanking">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self' data:; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+    />
+    <meta name="theme-color" content="#0b5a98" />
+    <style id="splash-temp-style">
+      html, body {
+        background-color: #0b5a98 !important;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <title>mBanking</title>
+    <link rel="stylesheet" href="vendor/material-icons.css" />
+    <link rel="stylesheet" href="styles/base.css?v=2026-01-08" />
+    <link rel="stylesheet" href="styles/layout.css?v=2026-01-08" />
+    <link rel="stylesheet" href="styles/components.css?v=2026-01-08" />
+    <link rel="stylesheet" href="styles/pages.css?v=2026-01-08" />
+  </head>
+  <body ng-controller="MainController as vm" class="login-page" ng-class="{ 'menu-open': vm.isMenuOpen }">
+    <div class="statusbar-scrim" aria-hidden="true"></div>
+    <div class="app-splash" ng-if="vm.showSplash" ng-class="{ 'is-hidden': vm.splashFading }" aria-hidden="true">
+      <div class="app-splash-content">
+        <img src="assets/splash.jpg" alt="" />
+      </div>
+    </div>
+    <div class="login-pane" ng-class="{ 'menu-open': vm.isMenuOpen }">
+      <div
+        class="side-menu-backdrop"
+        ng-class="{ 'is-visible': vm.isMenuOpen }"
+        ng-click="vm.closeMenu()"
+      ></div>
+      <aside
+        id="side-menu"
+        class="side-menu"
+        ng-class="{ 'is-open': vm.isMenuOpen }"
+        role="navigation"
+        aria-label="Main menu"
+        ng-attr-aria-hidden="{{ vm.isMenuOpen ? undefined : 'true' }}"
+        ng-attr-inert="{{ vm.isMenuOpen ? undefined : '' }}"
+      >
+        <div class="menu-top">
+          <div class="menu-brand">
+            <img src="assets/rrb_logo.png" alt="{{ vm.appTitle }}" />
+            <div>
+              <div class="menu-brand-title">{{ vm.appTitle }}</div>
+              <div class="menu-brand-subtitle">{{ vm.appSubtitle }}</div>
+            </div>
+          </div>
+          <div class="menu-actions">
+            <a
+              class="menu-action-button"
+              href="#!/settings/notifications"
+              aria-label="Alerts"
+              ng-click="vm.closeMenu()"
+            >
+              <span class="material-icons">notifications</span>
+            </a>
+            <a
+              class="menu-action-button"
+              href="#!/settings"
+              aria-label="Settings"
+              ng-click="vm.closeMenu()"
+              ng-if="vm.isAuthenticated"
+            >
+              <span class="material-icons">settings</span>
+            </a>
+            <button
+              id="menu-close-button"
+              class="menu-action-button"
+              type="button"
+              aria-label="Close menu"
+              ng-click="vm.closeMenu()"
+            >
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+        </div>
+        <div class="menu-profile" ng-if="!vm.isAuthenticated">
+          <div class="menu-profile-title">Welcome back</div>
+          <div class="menu-profile-subtitle">Your banking dashboard</div>
+          <div class="menu-profile-meta">Secure access, anytime</div>
+        </div>
+        <div class="menu-profile" ng-if="vm.isAuthenticated">
+          <div class="menu-profile-title">{{ vm.user.name }}</div>
+          <div class="menu-profile-subtitle">User ID: {{ vm.getMaskedUserId(vm.user.userId) }}</div>
+          <div class="menu-profile-meta">Session active</div>
+        </div>
+        <div class="menu-quick">
+          <a class="menu-quick-item" href="#!/support" ng-click="vm.closeMenu()">
+            <span class="material-icons">headset_mic</span>
+            <span>Help</span>
+          </a>
+          <a class="menu-quick-item" href="#!/faq" ng-click="vm.closeMenu()">
+            <span class="material-icons">quiz</span>
+            <span>FAQ</span>
+          </a>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">Main</div>
+          <a href="#!/home" class="menu-item" ng-if="vm.isAuthenticated" ng-click="vm.closeMenu()">
+            <span class="material-icons">lock_outline</span>
+            <span>
+              <span class="menu-item-title">Dashboard</span>
+              <span class="menu-item-subtitle">Access your accounts</span>
+            </span>
+          </a>
+          <a href="#!/" class="menu-item" ng-if="!vm.isAuthenticated" ng-click="vm.closeMenu()">
+            <span class="material-icons">lock_outline</span>
+            <span>
+              <span class="menu-item-title">Login</span>
+              <span class="menu-item-subtitle">Access your accounts</span>
+            </span>
+          </a>
+          <button class="menu-item menu-item-button" type="button" ng-if="vm.isAuthenticated" ng-click="vm.logout()">
+            <span class="material-icons">logout</span>
+            <span>
+              <span class="menu-item-title">Logout</span>
+              <span class="menu-item-subtitle">End this session</span>
+            </span>
+          </button>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">Support</div>
+          <a href="#!/support" class="menu-item" ng-click="vm.closeMenu()">
+            <span class="material-icons">headset_mic</span>
+            <span>
+              <span class="menu-item-title">Contact Us</span>
+              <span class="menu-item-subtitle">Reach our support team</span>
+            </span>
+          </a>
+          <a
+            ng-href="assets/user-manual.pdf"
+            class="menu-item"
+            download
+            ng-click="vm.closeMenu()"
+          >
+            <span class="material-icons">menu_book</span>
+            <span>
+              <span class="menu-item-title">User Manual</span>
+              <span class="menu-item-subtitle">Guides and tutorials</span>
+            </span>
+          </a>
+        </div>
+        <div class="menu-footer">
+          <div class="menu-footer-card">
+            <div class="menu-footer-links">
+              <a href="#!/license" class="menu-footer-link" ng-click="vm.closeMenu()">Licenses</a>
+              <span class="menu-footer-dot" aria-hidden="true"></span>
+              <a
+                ng-href="{{ vm.privacyPolicyUrl }}"
+                class="menu-footer-link"
+                data-external-safe="true"
+                target="_blank" rel="noopener noreferrer"
+                ng-click="vm.closeMenu()"
+              >Privacy Policy</a>
+            </div>
+            <div class="menu-footer-meta">Version {{ vm.appVersion }}</div>
+          </div>
+        </div>
+      </aside>
+      <header id="navbar" class="top-bar">
+        <div class="top-left">
+          <button
+            class="icon-button back-button"
+            type="button"
+            aria-label="Go back"
+            ng-if="vm.showBack"
+            ng-click="vm.goBack()"
+          >
+            <span class="material-icons">arrow_back</span>
+          </button>
+          <button
+            class="icon-button"
+            type="button"
+            aria-label="Open menu"
+            aria-controls="side-menu"
+            ng-attr-aria-expanded="{{ vm.isMenuOpen }}"
+            ng-if="!vm.showBack && !vm.isLocked && !vm.isTerms"
+            ng-click="vm.openMenu()"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="icon-button lock-indicator" aria-hidden="true" ng-if="vm.isLocked">
+            <span class="material-icons">lock</span>
+          </div>
+          <div class="icon-button terms-indicator" aria-hidden="true" ng-if="vm.isTerms">
+            <span class="material-icons">policy</span>
+          </div>
+          <div class="top-brand" ng-if="!vm.showBack">
+            <img src="assets/app_logo.png" alt="{{ vm.appName }} {{ vm.appNameSup }} logo" />
+            <div class="top-brand-text">
+              {{ vm.appName }}<sup>{{ vm.appNameSup }}</sup>
+            </div>
+          </div>
+          <div class="top-title" ng-if="vm.showBack" ng-bind="vm.pageTitle"></div>
+        </div>
+        <div class="top-actions">
+          <a
+            class="top-action-icon"
+            href="#!/search"
+            aria-label="Search services"
+            ng-if="vm.showSearchIcon"
+          >
+            <span class="material-icons">search</span>
+          </a>
+          <a class="top-action-icon" href="#!/settings/notifications" aria-label="Alerts" ng-if="!vm.isLocked">
+            <span class="material-icons">notifications</span>
+          </a>
+          <div class="demo-pill" ng-if="vm.isDemoMode">Demo</div>
+        </div>
+      </header>
+
+      <div
+        class="content login-content"
+        ng-class="{ 'no-bottom-nav': !vm.showBottomNav }"
+        ng-attr-aria-hidden="{{ vm.isMenuOpen ? 'true' : undefined }}"
+        ng-attr-inert="{{ vm.isMenuOpen ? '' : undefined }}"
+        ng-click="vm.closeMenu()"
+      >
+        <div class="page-skeleton" ng-if="vm.isPageLoading" aria-hidden="true">
+          <div class="skeleton-line skeleton-shimmer"></div>
+          <div class="skeleton-line skeleton-shimmer"></div>
+          <div class="skeleton-line skeleton-shimmer"></div>
+          <div class="skeleton-block skeleton-shimmer"></div>
+          <div class="skeleton-line skeleton-shimmer"></div>
+        </div>
+        <section class="page-shell" ng-view></section>
+      </div>
+      <nav
+        class="bottom-actionbar"
+        ng-if="vm.showBottomNav"
+        ng-attr-aria-hidden="{{ vm.isMenuOpen ? 'true' : undefined }}"
+        ng-attr-inert="{{ vm.isMenuOpen ? '' : undefined }}"
+      >
+        <a
+          class="action-item"
+          ng-attr-href="{{ vm.isOverview ? undefined : '#!/home' }}"
+          ng-click="vm.isOverview ? $event.preventDefault() : vm.setActive(0)"
+          ng-class="{ active: vm.activeIndex === 0, disabled: vm.isOverview }"
+          ng-attr-aria-current="{{ vm.activeIndex === 0 ? 'page' : undefined }}"
+          ng-attr-aria-disabled="{{ vm.isOverview ? 'true' : undefined }}"
+          ng-attr-tabindex="{{ vm.isOverview ? '-1' : undefined }}"
+        >
+          <span class="material-icons" aria-hidden="true">dashboard</span>
+          <span>Home</span>
+        </a>
+        <a class="action-item" href="#!/loans" ng-click="vm.setActive(1)" ng-class="{ active: vm.activeIndex === 1 }" ng-attr-aria-current="{{ vm.activeIndex === 1 ? 'page' : undefined }}">
+          <span class="material-icons" aria-hidden="true">payments</span>
+          <span>Loans</span>
+        </a>
+        <a class="action-item" href="#!/faq" ng-click="vm.setActive(2)" ng-class="{ active: vm.activeIndex === 2 }" ng-attr-aria-current="{{ vm.activeIndex === 2 ? 'page' : undefined }}">
+          <span class="material-icons" aria-hidden="true">quiz</span>
+          <span>FAQ</span>
+        </a>
+        <a class="action-item" href="#!/more" ng-click="vm.setActive(3)" ng-class="{ active: vm.activeIndex === 3 }" ng-attr-aria-current="{{ vm.activeIndex === 3 ? 'page' : undefined }}">
+          <span class="material-icons" aria-hidden="true">more_horiz</span>
+          <span>More</span>
+        </a>
+      </nav>
+      <div class="modal-backdrop" ng-class="{ open: vm.showExitPrompt }" ng-click="vm.cancelExit()"></div>
+      <div class="modal-sheet exit-sheet" ng-class="{ open: vm.showExitPrompt }" role="dialog" aria-modal="true" aria-label="Exit app">
+        <div class="modal-icon" aria-hidden="true">
+          <span class="material-icons">exit_to_app</span>
+        </div>
+        <div class="modal-title">Exit app?</div>
+        <div class="modal-body">Are you sure you want to close {{ vm.appTitle }}?</div>
+        <div class="modal-actions">
+          <button id="exit-cancel-button" class="modal-button ghost" type="button" ng-click="vm.cancelExit()">Cancel</button>
+          <button id="exit-confirm-button" class="modal-button solid" type="button" ng-click="vm.confirmExit()">Exit</button>
+        </div>
+      </div>
+      <div class="modal-backdrop" ng-class="{ open: vm.showForgotPrompt }" ng-click="vm.closeForgotPrompt()"></div>
+      <div class="modal-sheet forgot-sheet" ng-class="{ open: vm.showForgotPrompt }" role="dialog" aria-modal="true" aria-label="Trouble signing in">
+        <div class="modal-title">Trouble signing in</div>
+        <div class="forgot-options">
+          <button id="forgot-login-button" class="forgot-option" type="button" ng-click="vm.goForgotFlow('login')">Forgot Login PIN</button>
+          <button class="forgot-option" type="button" ng-click="vm.goForgotFlow('transaction')">Forgot TPIN</button>
+          <button class="forgot-option" type="button" ng-click="vm.goForgotFlow('both')">Forgot Login and TPIN</button>
+        </div>
+      </div>
+      <div class="modal-backdrop" ng-class="{ open: vm.showExternalPrompt }" ng-click="vm.closeExternalPrompt()"></div>
+      <div class="modal-sheet external-sheet" ng-class="{ open: vm.showExternalPrompt }" role="dialog" aria-modal="true" aria-label="External link">
+        <div class="modal-title">Leaving the app</div>
+        <div class="modal-body">
+          You are about to open an external website.
+          <div class="external-link-host" ng-if="vm.externalHost">{{ vm.externalHost }}</div>
+          <div class="external-link-label" ng-if="vm.externalUrl">Full link</div>
+          <div class="external-link-url" ng-if="vm.externalUrl" title="{{ vm.externalUrl }}">{{ vm.externalUrl }}</div>
+          <button class="external-copy-button" type="button" ng-click="vm.copyExternalUrl()" ng-if="vm.externalUrl">Copy link</button>
+          <div class="external-copy-status" ng-if="vm.externalCopyMessage">{{ vm.externalCopyMessage }}</div>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-button ghost" type="button" ng-click="vm.closeExternalPrompt()">Cancel</button>
+          <button id="external-continue-button" class="modal-button solid" type="button" ng-click="vm.confirmExternal()">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="vendor/angular.min.js"></script>
+    <script src="vendor/angular-route.min.js"></script>
+    <script src="app-config.js"></script>
+    <script src="mock-data.js"></script>
+    <script src="mock-config.js"></script>
+    <script src="app.constants.js"></script>
+    <script src="app.module.js"></script>
+    <script src="components/pin-input.directive.js"></script>
+    <script src="services/security.service.js"></script>
+    <script src="services/account-context.service.js"></script>
+    <script src="app.routes.js"></script>
+    <script src="app.main.controller.js"></script>
+    <script src="controllers/overview.controller.js"></script>
+    <script src="controllers/terms.controller.js"></script>
+    <script src="controllers/home.controller.js"></script>
+    <script src="controllers/search.controller.js"></script>
+    <script src="controllers/deposit-management-more.controller.js"></script>
+    <script src="controllers/initiate-transfer.controller.js"></script>
+    <script src="controllers/account-view.controller.js"></script>
+    <script src="controllers/account-statement.controller.js"></script>
+    <script src="controllers/m-passbook.controller.js"></script>
+    <script src="controllers/pmjjby.controller.js"></script>
+    <script src="controllers/pmsby.controller.js"></script>
+    <script src="controllers/apy.controller.js"></script>
+    <script src="controllers/inquire-cheque.controller.js"></script>
+    <script src="controllers/stop-cheque.controller.js"></script>
+    <script src="controllers/view-cheque.controller.js"></script>
+    <script src="controllers/pps.controller.js"></script>
+    <script src="controllers/form-15gh.controller.js"></script>
+    <script src="controllers/form-26as.controller.js"></script>
+    <script src="controllers/ckyc.controller.js"></script>
+    <script src="controllers/mobile-recharge.controller.js"></script>
+    <script src="controllers/dth-recharge.controller.js"></script>
+    <script src="controllers/bill-payment.controller.js"></script>
+    <script src="controllers/bbps.controller.js"></script>
+    <script src="controllers/hostlist-debit-card.controller.js"></script>
+    <script src="controllers/generate-green-pin.controller.js"></script>
+    <script src="controllers/card-management.controller.js"></script>
+    <script src="controllers/limit-management.controller.js"></script>
+    <script src="controllers/limit-atm.controller.js"></script>
+    <script src="controllers/limit-pos.controller.js"></script>
+    <script src="controllers/limit-ecomm.controller.js"></script>
+    <script src="controllers/limit-contactless.controller.js"></script>
+    <script src="controllers/open-fd.controller.js"></script>
+    <script src="controllers/open-rd.controller.js"></script>
+    <script src="controllers/fd-closure.controller.js"></script>
+    <script src="controllers/track-fd-status.controller.js"></script>
+    <script src="controllers/track-rd-status.controller.js"></script>
+    <script src="controllers/year-wise-statement.controller.js"></script>
+    <script src="controllers/account-details.controller.js"></script>
+    <script src="controllers/mini-statement.controller.js"></script>
+    <script src="controllers/transfer-otp.controller.js"></script>
+    <script src="controllers/transfer-status.controller.js"></script>
+    <script src="controllers/beneficiaries.controller.js"></script>
+    <script src="controllers/beneficiary-add.controller.js"></script>
+    <script src="controllers/beneficiary-confirm.controller.js"></script>
+    <script src="controllers/beneficiary-status.controller.js"></script>
+    <script src="controllers/quick-pay.controller.js"></script>
+    <script src="controllers/quick-pay-otp.controller.js"></script>
+    <script src="controllers/quick-pay-status.controller.js"></script>
+    <script src="controllers/accounts.controller.js"></script>
+    <script src="controllers/activity.controller.js"></script>
+    <script src="controllers/settings.controller.js"></script>
+    <script src="controllers/security.controller.js"></script>
+    <script src="controllers/lock.controller.js"></script>
+    <script src="controllers/support.controller.js"></script>
+    <script src="controllers/more.controller.js"></script>
+    <script src="controllers/social-media.controller.js"></script>
+    <script src="controllers/loans.controller.js"></script>
+    <script src="controllers/calculator.controller.js"></script>
+    <script src="controllers/bind-device.controller.js"></script>
+    <script src="controllers/forgot-user-id.controller.js"></script>
+    <script src="controllers/forgot-otp.controller.js"></script>
+    <script src="controllers/forgot-card.controller.js"></script>
+    <script src="controllers/forgot-reset.controller.js"></script>
+    <script src="controllers/otp.controller.js"></script>
+    <script src="controllers/new-user.controller.js"></script>
+    <script src="controllers/new-user-otp.controller.js"></script>
+    <script src="controllers/new-user-mpin.controller.js"></script>
+    <script src="controllers/new-user-success.controller.js"></script>
+    <script src="controllers/first-login-setup.controller.js"></script>
+    <script src="controllers/first-login-otp.controller.js"></script>
+    <script src="controllers/emi.controller.js"></script>
+    <script src="controllers/emi-moratorium.controller.js"></script>
+    <script src="controllers/interest.controller.js"></script>
+    <script src="controllers/rd.controller.js"></script>
+    <script src="controllers/fd.controller.js"></script>
+    <script src="controllers/updates.controller.js"></script>
+    <script src="controllers/faq.controller.js"></script>
+    <script src="controllers/license.controller.js"></script>
+    <script src="controllers/profile.controller.js"></script>
+    <script src="controllers/sign-on-password.controller.js"></script>
+    <script src="controllers/transaction-password.controller.js"></script>
+    <script src="controllers/sms-password.controller.js"></script>
+    <script src="controllers/notifications.controller.js"></script>
+    <script src="app.run.js"></script>
+  </body>
+</html>

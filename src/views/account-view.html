@@ -1,0 +1,70 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">My Account</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">View account balances and quick actions.</div>
+    <div class="fd-hero-art" aria-hidden="true"></div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">account_balance</span>
+        <div>
+          <div class="binddevice-step-title">Account overview</div>
+          <div class="binddevice-step-text">Check balances and statements quickly.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">receipt_long</span>
+        <div>
+          <div class="binddevice-step-title">Statements</div>
+          <div class="binddevice-step-text">Access account details and mini statements.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card account-tabs-card">
+    <div class="transfer-segment segment-minimal">
+      <button
+        type="button"
+        class="transfer-option"
+        ng-repeat="tab in vm.visibleTabs track by tab.value"
+        ng-class="{ active: vm.activeTab === tab.value }"
+        ng-click="vm.setTab(tab.value)"
+      >
+        {{ tab.label }}
+      </button>
+    </div>
+  </section>
+
+  <section class="account-view-list">
+    <div class="binddevice-card account-card" ng-repeat="account in vm.activeAccounts track by account.number">
+      <div class="account-card-top">
+      <div class="account-card-type">{{ account.type }}</div>
+        <div class="account-card-name">{{ account.holder | uppercase }}</div>
+        <div class="account-card-number">{{ vm.maskAccount(account.number) }}</div>
+      </div>
+      <div class="account-card-meta">
+        <div>
+          <div class="account-card-label">Branch</div>
+          <div class="account-card-value">{{ account.branch }}</div>
+        </div>
+        <div>
+          <div class="account-card-label">CUR</div>
+          <div class="account-card-value">{{ account.currency }}</div>
+        </div>
+        <div>
+          <div class="account-card-label">Balance</div>
+          <div class="account-card-balance">₹{{ account.balance }}</div>
+        </div>
+      </div>
+      <div class="account-card-actions">
+        <button class="account-link-button" type="button" ng-click="vm.viewAccountDetails(account)">
+          A/c Details
+        </button>
+        <button class="account-link-button" type="button" ng-click="vm.viewMiniStatement(account)">
+          Mini Statement
+        </button>
+      </div>
+    </div>
+  </section>
+</div>

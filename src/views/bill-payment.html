@@ -1,0 +1,154 @@
+<div class="binddevice-page bill-payment-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Bills</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">receipt_long</span>
+        <div>
+          <div class="binddevice-step-title">Bill details</div>
+          <div class="binddevice-step-text">Select biller and account.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm using TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">Bill Payment</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Biller Category</span>
+      <select ng-model="vm.form.category" ng-change="vm.onCategoryChange()" ng-options="category.value as category.label for category in vm.categories" ng-class="{ 'is-placeholder': !vm.form.category }">
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Biller Name</span>
+      <select ng-model="vm.form.biller" ng-options="biller.value as biller.label for biller in vm.billerOptions" ng-class="{ 'is-placeholder': !vm.form.biller }">
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">From accounts</span>
+      <select ng-model="vm.form.fromAccount" ng-change="vm.onAccountChange()" ng-options="account.number as vm.getAccountLabel(account) for account in vm.accountOptions" ng-class="{ 'is-placeholder': !vm.form.fromAccount }">
+      </select>
+    </label>
+    <div class="transfer-field transfer-inline">
+      <span class="transfer-field-label">Available balance</span>
+      <span>{{ vm.selectedAccount ? vm.selectedAccount.balance : "--" }}</span>
+    </div>
+    <div class="transfer-field transfer-inline">
+      <label class="transfer-field">
+        <span class="transfer-field-label">Bill Amount</span>
+        <input type="text" ng-model="vm.form.amount" placeholder="INR" />
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">Mobile Number</span>
+        <input type="text" ng-model="vm.form.mobile" placeholder="10 digit mobile number" />
+      </label>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Bill Number</span>
+      <input type="text" ng-model="vm.form.billNumber" placeholder="Bill Number" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Date</span>
+      <input type="date" ng-model="vm.form.date" />
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.submitForm()">
+      Submit
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'authorize'">
+    <div class="binddevice-card-title">Confirm And Authorize</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Biller Category</div>
+        <div>{{ vm.form.category }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Biller Name</div>
+        <div>{{ vm.form.biller }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Bill Amount</div>
+        <div>{{ vm.form.currency }} {{ vm.form.amount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Mobile Number</div>
+        <div>{{ vm.form.mobile }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Debit from</div>
+        <div>{{ vm.getAccountLabel(vm.form.fromAccount) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Date</div>
+        <div>{{ vm.form.date | date: "MM/dd/yyyy" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Bill Number</div>
+        <div>{{ vm.form.billNumber || "--" }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">
+      Confirm
+    </button>
+  </section>
+
+  <section class="binddevice-card transfer-status-card" ng-if="vm.step === 'success'">
+    <div class="transfer-status-check success">
+      <span class="material-icons" aria-hidden="true">check</span>
+    </div>
+    <div class="transfer-status-result">Success</div>
+    <div class="transfer-status-message">{{ vm.statusMessage }}</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Biller Category</div>
+        <div>{{ vm.form.category }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Biller Name</div>
+        <div>{{ vm.form.biller }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Amount</div>
+        <div>{{ vm.form.currency }} {{ vm.form.amount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>From</div>
+        <div>{{ vm.getAccountLabel(vm.form.fromAccount) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Mobile Number</div>
+        <div>{{ vm.form.mobile }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Date</div>
+        <div>{{ vm.form.date | date: "MM/dd/yyyy" }}</div>
+      </div>
+    </div>
+    <div class="transfer-status-actions">
+      <button class="transfer-secondary account-statement-button" type="button" ng-click="vm.newRequest()">
+        New Payment
+      </button>
+      <button class="transfer-primary account-statement-button" type="button" ng-click="vm.goHome()">
+        Home
+      </button>
+    </div>
+  </section>
+</div>

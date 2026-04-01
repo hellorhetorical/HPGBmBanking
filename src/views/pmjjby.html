@@ -1,0 +1,392 @@
+<div class="binddevice-page pmjjby-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">PMJJBY</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">task_alt</span>
+        <div>
+          <div class="binddevice-step-title">Accept terms</div>
+          <div class="binddevice-step-text">Review and consent to auto-debit.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">assignment</span>
+        <div>
+          <div class="binddevice-step-title">Nominee details</div>
+          <div class="binddevice-step-text">Provide nominee and guardian details.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm with your TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'terms'">
+    <div class="binddevice-card-title">PMJJBY Enrollment</div>
+    <div class="card-mgmt-note">
+      Dear Customer, please read and accept the terms &amp; conditions.
+    </div>
+    <button class="limit-link" type="button" ng-click="vm.viewTerms()">Terms and Conditions</button>
+    <label class="fd-terms">
+      <input type="checkbox" ng-model="vm.acceptedTerms" />
+      <span>I have read and I accept the Terms and Conditions</span>
+    </label>
+    <button class="account-statement-button" type="button" ng-disabled="!vm.acceptedTerms" ng-click="vm.continueFromTerms()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'terms-detail'">
+    <div class="binddevice-card-title">Terms &amp; Conditions</div>
+    <div class="pmjjby-terms">
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Terms &amp; Conditions for PRADHAN MANTRI JEEVAN JYOTI BIMA YOJANA</div>
+      </div>
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Details of the Scheme:</div>
+        <p>
+          The scheme will be a one year cover, renewable from year to year. Insurance Scheme offering life insurance
+          cover for death due to any reason. The scheme would be offered / administered through LIC and other Life
+          Insurance companies willing to offer the product on similar terms with necessary approvals and tie ups with
+          Banks for this purpose. Participating banks will be free to engage any such life insurance company for
+          implementing the scheme for their subscribers.
+        </p>
+      </div>
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Scope of coverage:</div>
+        <p>
+          All savings bank account holders in the age 18 to 50 years in participating banks will be entitled to join.
+          In case of multiple saving bank accounts held by an individual in one or different banks, the person would be
+          eligible to join the scheme through one savings bank account only. Aadhar would be the primary KYC for the
+          bank account.
+        </p>
+        <p>
+          In future years, new entrants into the eligible category or currently eligible individuals who did not join
+          earlier or discontinued their subscription shall be able to join while the scheme is continuing, subject to
+          submission of self-certificate of good health.
+        </p>
+      </div>
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Benefits:</div>
+        <p>Rs.2 lakhs is payable on member's death due to any reason</p>
+      </div>
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Premium:</div>
+        <p>
+          Rs.436/- per annum per member. The premium will be deducted from the account holder's savings bank account
+          through 'auto debit' facility in one installment, as per the option given, on or before 31st May of each annual
+          coverage period under the scheme. Delayed enrollment for prospective cover after 31st May will be possible
+          with full payment of annual premium and submission of a self-certificate of good health. The premium would be
+          reviewed based on annual claims experience. However, barring unforeseen adverse outcomes of extreme nature,
+          efforts would be made to ensure that there is no upward revision of premium in the first three years.
+        </p>
+        <div class="pmjjby-list">
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">a)</span>
+            For enrolment in June, July and August - Full Annual Premium of Rs.436/- is payable.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">b)</span>
+            For enrolment in September, October, and November - pro rata premium of Rs. 342/- is payable.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">c)</span>
+            For enrolment in December, January and February - pro rata premium of Rs. 228/- is payable.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">d)</span>
+            For enrolment in March, April and May - pro rata premium of Rs. 114/- is payable.
+          </div>
+        </div>
+      </div>
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Eligibility Conditions:</div>
+        <div class="pmjjby-list">
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">a)</span>
+            The savings bank account holders of the participating banks aged between 18 years (completed) and 50 years
+            (age nearer birthday) who give their consent to join / enable auto-debit, as per the above modality, will be
+            enrolled into the scheme.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">b)</span>
+            Individuals who join after the initial enrollment period extending up to 31st August 2015 or 30th November
+            2015, as the case may be, will be required to give a self-certification of good health and that he / she does
+            not suffer from any of the critical illnesses as mentioned in the applicable Consent cum Declaration form as
+            on date of enrollment or earlier.
+          </div>
+        </div>
+      </div>
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Master Policy Holder:</div>
+        <p>
+          Participating Banks will be the Master policy holders. A simple and subscriber friendly administration &amp;
+          claim settlement process shall be finalized by LIC / other insurance company in consultation with the
+          participating bank.
+        </p>
+      </div>
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Termination of assurance:</div>
+        <p>
+          The assurance on the life of the member shall terminate on any of the following events and no benefit will
+          become payable there under:
+        </p>
+        <div class="pmjjby-list">
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">1)</span>
+            On attaining age 55 years (age near birth day) subject to annual renewal up to that date (entry, however,
+            will not be possible beyond the age of 50 years).
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">2)</span>
+            Closure of account with the Bank or insufficiency of balance to keep the insurance in force.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">3)</span>
+            In case a member is covered under PMJJBY with LIC of India / other company through more than one account
+            and premium is received by LIC / other company inadvertently, insurance cover will be restricted to Rs. 2
+            Lakh and the premium shall be liable to be forfeited
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">4)</span>
+            If the insurance cover is ceased due to any technical reasons such as insufficient balance on due date or due
+            to any administrative issues, the same can be reinstated on receipt of full annual premium and a satisfactory
+            statement of good health.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">5)</span>
+            Participating Banks shall remit the premium to insurance companies in case of regular enrolment on or before
+            30th of June every year and in other cases in the same month when received.
+          </div>
+        </div>
+      </div>
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Administration:</div>
+        <p>
+          The scheme, subject to the above, will be administered by the LIC P&amp;GS Units / other insurance company
+          setups. The data flow process and data proforma will be informed separately.
+        </p>
+        <p>
+          It will be the responsibility of the participating bank to recover the appropriate annual premium in one
+          installment, as per the option, from the account holders on or before the due date through 'auto-debit'
+          process.
+        </p>
+        <p>
+          Members may also give one-time mandate for auto-debit every year till the scheme is in force.
+        </p>
+        <p>
+          Enrollment form / Auto-debit authorization / Consent cum Declaration form in the prescribed proforma shall be
+          obtained and retained by the participating bank. In case of claim, LIC / insurance company may seek submission
+          of the same. LIC / Insurance Company reserves the right to call for these documents at any point of time.
+        </p>
+        <p>
+          The acknowledgement slip may be made into an acknowledgement slip-cum-certificate of insurance.
+        </p>
+        <p>
+          The experience of the scheme will be monitored on yearly basis for re-calibration etc., as may be necessary.
+        </p>
+      </div>
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Appropriation of Premium:</div>
+        <div class="pmjjby-list">
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">1)</span>
+            Insurance Premium to LIC / insurance company : Rs.289/- per annum per member
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">2)</span>
+            Reimbursement of Expenses to BC/Micro/Corporate/Agent : Rs.30/- per annum per member
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">3)</span>
+            Reimbursement of Administrative expenses to participating Bank: Rs.11/- per annum per member
+          </div>
+        </div>
+        <p>
+          The proposed date of commencement of the scheme will be 1st June 2015. The next Annual renewal date shall be
+          each successive 1st of June in subsequent years.
+        </p>
+        <p>
+          The scheme is liable to be discontinued prior to commencement of a new future renewal date if circumstances
+          so require.
+        </p>
+      </div>
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.backToTerms()">Back</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">Nominee Details</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select ng-model="vm.form.account" ng-options="account.number as vm.getAccountLabel(account) for account in vm.accounts" ng-class="{ 'is-placeholder': !vm.form.account }">
+        <option value="">Account number</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Name</span>
+      <input type="text" ng-model="vm.form.nomineeName" placeholder="Nominee Name" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee DOB</span>
+      <input type="date" ng-model="vm.form.nomineeDob" placeholder="Nominee DOB" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Relation</span>
+      <select ng-model="vm.form.nomineeRelation" ng-options="relation for relation in vm.nomineeRelations" ng-class="{ 'is-placeholder': !vm.form.nomineeRelation }">
+        <option value="">Nominee Relation</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Address</span>
+      <input type="text" ng-model="vm.form.nomineeAddress" placeholder="Nominee Address" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Address PIN</span>
+      <input type="text" ng-model="vm.form.nomineePin" placeholder="PIN Code" />
+    </label>
+    <div class="transfer-field">
+      <span class="transfer-field-label">Nominee is Minor</span>
+      <div class="pmjjby-radio-group">
+        <label class="pmjjby-radio">
+          <input type="radio" ng-model="vm.form.nomineeMinor" value="No" />
+          <span>No</span>
+        </label>
+        <label class="pmjjby-radio">
+          <input type="radio" ng-model="vm.form.nomineeMinor" value="Yes" />
+          <span>Yes</span>
+        </label>
+      </div>
+    </div>
+    <label class="transfer-field" ng-if="vm.form.nomineeMinor === 'Yes'">
+      <span class="transfer-field-label">Guardian Name</span>
+      <input type="text" ng-model="vm.form.guardianName" placeholder="Guardian Name" />
+    </label>
+    <label class="transfer-field" ng-if="vm.form.nomineeMinor === 'Yes'">
+      <span class="transfer-field-label">Guardian Address</span>
+      <input type="text" ng-model="vm.form.guardianAddress" placeholder="Guardian Address" />
+    </label>
+    <div class="transfer-error" ng-if="vm.formError">{{ vm.formError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromForm()">Continue</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'confirm'">
+    <div class="binddevice-card-title">Confirm And Authorize</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account number</div>
+        <div>{{ vm.getAccountLabel(vm.form.account) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Name</div>
+        <div>{{ vm.form.nomineeName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee DOB</div>
+        <div>{{ vm.form.nomineeDob | date: "dd-MM-yyyy" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Relation</div>
+        <div>{{ vm.form.nomineeRelation }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Address</div>
+        <div>{{ vm.form.nomineeAddress }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Address PIN</div>
+        <div>{{ vm.form.nomineePin }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee is Minor</div>
+        <div>{{ vm.form.nomineeMinor }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Name</div>
+        <div>{{ vm.form.guardianName }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Address</div>
+        <div>{{ vm.form.guardianAddress }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">Submit</button>
+  </section>
+
+  <section class="binddevice-card transfer-status-card" ng-if="vm.step === 'success'">
+    <div class="transfer-status-check" ng-class="{ success: vm.isSuccess, failure: !vm.isSuccess }">
+      <span class="material-icons" aria-hidden="true">
+        {{ vm.isSuccess ? "check" : "close" }}
+      </span>
+    </div>
+    <div class="transfer-status-result">{{ vm.isSuccess ? "Success" : "Failed" }}</div>
+    <div class="transfer-status-message">Your PMJJBY enrollment request has been submitted.</div>
+
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account number</div>
+        <div>{{ vm.getAccountLabel(vm.form.account) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Name</div>
+        <div>{{ vm.form.nomineeName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee DOB</div>
+        <div>{{ vm.form.nomineeDob | date: "dd-MM-yyyy" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Relation</div>
+        <div>{{ vm.form.nomineeRelation }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Address</div>
+        <div>{{ vm.form.nomineeAddress }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Address PIN</div>
+        <div>{{ vm.form.nomineePin }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee is Minor</div>
+        <div>{{ vm.form.nomineeMinor }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Name</div>
+        <div>{{ vm.form.guardianName }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Address</div>
+        <div>{{ vm.form.guardianAddress }}</div>
+      </div>
+    </div>
+
+    <button class="transfer-receipt account-statement-button" type="button">
+      <span class="material-icons" aria-hidden="true">download</span>
+      Receipt
+    </button>
+
+    <div class="transfer-status-actions">
+      <button class="transfer-secondary account-statement-button" type="button" ng-click="vm.newRequest()">
+        New Request
+      </button>
+      <button class="transfer-primary account-statement-button" type="button" ng-click="vm.goHome()">
+        Home
+      </button>
+    </div>
+  </section>
+</div>

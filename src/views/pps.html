@@ -1,0 +1,154 @@
+<div class="binddevice-page pps-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">PPS</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">description</span>
+        <div>
+          <div class="binddevice-step-title">Cheque details</div>
+          <div class="binddevice-step-text">Provide cheque information.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Confirm</div>
+          <div class="binddevice-step-text">Submit PPS request.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">Positive Pay System</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select ng-model="vm.form.account" ng-options="account.number as vm.getAccountLabel(account) for account in vm.accounts" ng-class="{ 'is-placeholder': !vm.form.account }">
+        <option value="">Account number</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Issuer Name</span>
+      <input type="text" ng-model="vm.form.issuerName" placeholder="Issuer Name" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Cheque number</span>
+      <input type="text" ng-model="vm.form.chequeNumber" placeholder="Cheque number" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Cheque Alpha</span>
+      <input type="text" ng-model="vm.form.chequeAlpha" placeholder="Cheque Alpha" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Cheque Date</span>
+      <input type="date" ng-model="vm.form.chequeDate" placeholder="Cheque Date" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Cheque Amount</span>
+      <input type="text" ng-model="vm.form.chequeAmount" placeholder="Cheque Amount" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Beneficiary Name</span>
+      <input type="text" ng-model="vm.form.beneficiaryName" placeholder="Beneficiary Name" />
+    </label>
+    <div class="transfer-error" ng-if="vm.formError">{{ vm.formError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueToAuthorize()">Confirm</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'authorize'">
+    <div class="binddevice-card-title">Positive Pay System</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account number</div>
+        <div>{{ vm.getAccountLabel(vm.form.account) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Issuer Name</div>
+        <div>{{ vm.form.issuerName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Cheque number</div>
+        <div>{{ vm.form.chequeNumber }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Cheque Alpha</div>
+        <div>{{ vm.form.chequeAlpha }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Cheque Date</div>
+        <div>{{ vm.form.chequeDate | date: "dd/MM/yyyy" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Cheque Amount</div>
+        <div>{{ vm.form.chequeAmount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Beneficiary Name</div>
+        <div>{{ vm.form.beneficiaryName }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">Confirm</button>
+  </section>
+
+  <section class="binddevice-card transfer-status-card" ng-if="vm.step === 'success'">
+    <div class="transfer-status-check" ng-class="{ success: vm.isSuccess, failure: !vm.isSuccess }">
+      <span class="material-icons" aria-hidden="true">
+        {{ vm.isSuccess ? "check" : "close" }}
+      </span>
+    </div>
+    <div class="transfer-status-result">{{ vm.isSuccess ? "Success" : "Failed" }}</div>
+    <div class="transfer-status-message">{{ vm.statusMessage }}</div>
+
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account number</div>
+        <div>{{ vm.getAccountLabel(vm.form.account) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Issuer Name</div>
+        <div>{{ vm.form.issuerName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Cheque number</div>
+        <div>{{ vm.form.chequeNumber }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Cheque Alpha</div>
+        <div>{{ vm.form.chequeAlpha }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Cheque Date</div>
+        <div>{{ vm.form.chequeDate | date: "dd/MM/yyyy" }}</div>
+      </div>
+      <div class="transfer-status-row highlight">
+        <div>Cheque Amount</div>
+        <div>{{ vm.form.chequeAmount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Beneficiary Name</div>
+        <div>{{ vm.form.beneficiaryName }}</div>
+      </div>
+    </div>
+
+    <button class="transfer-receipt account-statement-button" type="button">
+      <span class="material-icons" aria-hidden="true">download</span>
+      Receipt
+    </button>
+
+    <div class="transfer-status-actions">
+      <button class="transfer-secondary account-statement-button" type="button" ng-click="vm.newRequest()">
+        New Request
+      </button>
+      <button class="transfer-primary account-statement-button" type="button" ng-click="vm.goHome()">Home</button>
+    </div>
+  </section>
+</div>

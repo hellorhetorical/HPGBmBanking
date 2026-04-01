@@ -1,0 +1,28 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">New User</div>
+    <div class="binddevice-title">Set MPIN</div>
+    <div class="binddevice-subtitle">Create your 4-digit MPIN to finish registration.</div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">Create MPIN</div>
+    <div class="binddevice-card-subtitle">MPIN must be exactly 4 digits.</div>
+
+    <label class="transfer-field">
+      <span class="transfer-field-label">New MPIN</span>
+      <pin-input ng-model="vm.form.mpin" pin-label="New MPIN"></pin-input>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Confirm MPIN</span>
+      <pin-input ng-model="vm.form.mpinConfirm" pin-label="Confirm MPIN"></pin-input>
+    </label>
+
+    <div class="binddevice-error" ng-if="vm.error">{{ vm.error }}</div>
+
+    <div class="binddevice-row new-user-actions">
+      <button class="bind-button" type="button" ng-click="vm.goBack()">Back</button>
+      <button class="binddevice-cta" type="button" ng-click="vm.submit()">Continue</button>
+    </div>
+  </section>
+</div>

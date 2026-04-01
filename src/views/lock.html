@@ -1,0 +1,101 @@
+<div class="login-screen lock-page" data-bwignore="true">
+  <div class="hero-logo">
+    <img src="assets/rrb_logo.png" alt="{{ vm.appName }} logo" />
+  </div>
+  <div class="hero-title">
+    <span>{{ vm.bankName }}</span>
+  </div>
+  <div class="hero-subtitle lock-hero-subtitle">Login using MPIN</div>
+
+  <section class="binddevice-card lock-card" data-bwignore="true">
+    <div class="account-statement-card-header lock-card-header">
+        <div>
+          <div class="account-statement-card-title">Secure access required</div>
+          <div class="account-statement-card-subtitle">
+          Use your 4-digit MPIN to continue.
+          </div>
+          <div class="account-statement-card-subtitle lock-user-name" ng-if="vm.userName">
+            {{ vm.userName }}
+          </div>
+        </div>
+    </div>
+
+    <div class="lock-status" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+
+    <button class="lock-biometric" type="button" ng-if="vm.showBiometric" ng-click="vm.tryBiometric()">
+      <span class="material-icons" aria-hidden="true">fingerprint</span>
+      Use biometrics
+    </button>
+
+    <div class="lock-divider" ng-if="vm.showBiometric">or</div>
+
+    <div class="lock-passcode" data-bwignore="true">
+      <div class="lock-passcode-label">MPIN</div>
+      <form class="lock-passcode-inputs" autocomplete="off" data-lpignore="true" data-bwignore="true" data-form-type="other">
+        <input class="lock-passcode-box" type="password" name="passcode-1" maxlength="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-bwignore="true" data-form-type="other" ng-model="vm.mpinDigits[0]" ng-keyup="vm.onPasscodeKeyup(0, $event)" />
+        <input class="lock-passcode-box" type="password" name="passcode-2" maxlength="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-bwignore="true" data-form-type="other" ng-model="vm.mpinDigits[1]" ng-keyup="vm.onPasscodeKeyup(1, $event)" />
+        <input class="lock-passcode-box" type="password" name="passcode-3" maxlength="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-bwignore="true" data-form-type="other" ng-model="vm.mpinDigits[2]" ng-keyup="vm.onPasscodeKeyup(2, $event)" />
+        <input class="lock-passcode-box" type="password" name="passcode-4" maxlength="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-bwignore="true" data-form-type="other" ng-model="vm.mpinDigits[3]" ng-keyup="vm.onPasscodeKeyup(3, $event)" />
+      </form>
+      <div class="lock-passcode-meta">
+        <div class="lock-passcode-hint">Auto-unlocks when all digits are entered.</div>
+        <button class="lock-trouble-link" type="button" ng-click="$root.openForgotPrompt()">
+          Trouble signing in
+        </button>
+      </div>
+    </div>
+
+    <div class="lock-error" ng-if="vm.error">
+      <span class="material-icons" aria-hidden="true">error_outline</span>
+      {{ vm.error }}
+    </div>
+  </section>
+
+  <section class="lock-info">
+    <div class="lock-info-header">
+      <div class="lock-info-badge">
+        <span class="material-icons" aria-hidden="true">security</span>
+        Cyber Safety
+      </div>
+      <div class="lock-info-bank">Protected by {{ vm.bankName }}</div>
+    </div>
+
+    <div class="lock-info-body">
+      <div class="lock-info-callout">
+        <div class="lock-info-callout-content">
+          <div class="lock-info-title">Report Cyber Fraud</div>
+          <div class="lock-info-number">1930</div>
+          <div class="lock-info-meta">National Helpline • 24/7 Service</div>
+        </div>
+        <div class="lock-info-callout-icon">
+          <span class="material-icons" aria-hidden="true">phone_in_talk</span>
+        </div>
+      </div>
+
+      <div class="lock-info-card">
+        <div class="lock-info-card-header">
+          <span class="material-icons" aria-hidden="true">assignment</span>
+          <span>Reporting Checklist</span>
+        </div>
+        <div class="lock-info-grid">
+          <div class="lock-info-item"><span class="lock-info-dot"></span>Victim Name & Mobile</div>
+          <div class="lock-info-item"><span class="lock-info-dot"></span>Police Station & District</div>
+          <div class="lock-info-item"><span class="lock-info-dot"></span>Bank Name & Account No.</div>
+          <div class="lock-info-item"><span class="lock-info-dot"></span>Transaction ID & Date</div>
+          <div class="lock-info-item"><span class="lock-info-dot"></span>Amount Debited</div>
+          <div class="lock-info-item"><span class="lock-info-dot"></span>Fraud Details</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lock-info-footer">
+      <div class="lock-info-toll">
+        Toll Free: <strong>{{ vm.tollfree }}</strong>
+      </div>
+      <a href="https://cybercrime.gov.in" target="_blank" class="lock-info-link">
+        cybercrime.gov.in
+        <span class="material-icons" aria-hidden="true">open_in_new</span>
+      </a>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,48 @@
+:root {
+  color-scheme: light;
+  font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+  background: #f2f4f7;
+  color: #1b2b3b;
+  --hpgb-blue: #1068b2;
+  --hpgb-blue-dark: #0b5a98;
+  --hpgb-green: #50b748;
+  --hpgb-green-dark: #2f8d55;
+  --hpgb-surface: #f7f9fd;
+  --hpgb-border: #d8e2f1;
+  --hpgb-muted: #5a6b80;
+  --bottom-nav-height: 74px;
+  --statusbar-height: 0px;
+  --navbar-height: 0px;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: max(calc(env(safe-area-inset-bottom, 0px) - 6px), 0px);
+  --safe-area-top-adjusted: max(calc(var(--safe-area-top) - 12px), 0px);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  white-space: nowrap;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(160deg, var(--hpgb-blue) 0%, var(--hpgb-blue) 12%, var(--hpgb-green) 100%);
+  overflow-x: hidden;
+}

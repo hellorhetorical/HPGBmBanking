@@ -1,0 +1,54 @@
+<div class="page-card updates-page">
+  <div class="page-header">
+    <div class="page-title">{{ vm.title }}</div>
+    <div class="page-subtitle">{{ vm.subtitle }}</div>
+  </div>
+
+  <div class="loan-hero updates-hero">
+    <div>
+      <div class="loan-hero-title">We’re here to help</div>
+      <div class="loan-hero-subtitle">
+        Reach us through phone, email, or visit your nearest branch for quick assistance.
+      </div>
+    </div>
+    <a class="loan-primary" ng-href="tel:{{ vm.tollfree }}">Call now</a>
+  </div>
+
+  <div class="card-list loan-list">
+    <div class="loan-card">
+      <div class="loan-card-icon">
+        <span class="material-icons" aria-hidden="true">call</span>
+      </div>
+      <div class="loan-card-body">
+        <div class="row-title">24x7 Helpline</div>
+        <div class="row-subtitle">{{ vm.tollfree }}</div>
+      </div>
+      <div class="loan-pill">Instant support</div>
+    </div>
+    <div class="loan-card">
+      <div class="loan-card-icon">
+        <span class="material-icons" aria-hidden="true">mail_outline</span>
+      </div>
+      <div class="loan-card-body">
+        <div class="row-title">Email Support</div>
+        <div class="row-subtitle">{{ vm.supportEmail }}</div>
+      </div>
+      <div class="loan-pill">Response in 24h</div>
+    </div>
+    <div class="loan-card">
+      <div class="loan-card-icon">
+        <span class="material-icons" aria-hidden="true">location_on</span>
+      </div>
+      <div class="loan-card-body">
+        <div class="row-title">Branch Locator</div>
+        <div class="row-subtitle">Find your nearest branch</div>
+      </div>
+      <a
+        class="loan-pill"
+        ng-href="{{ vm.locateBranchUrl }}"
+        data-external-safe="true"
+        target="_blank" rel="noopener noreferrer"
+      >Find a branch</a>
+    </div>
+  </div>
+</div>

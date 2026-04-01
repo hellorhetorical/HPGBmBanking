@@ -1,0 +1,63 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Trouble signing in</div>
+    <div class="binddevice-title">Change PIN</div>
+    <div class="binddevice-subtitle">
+      Create new PIN credentials to complete the reset process.
+    </div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">lock</span>
+        <div>
+          <div class="binddevice-step-title">Set new PIN</div>
+          <div class="binddevice-step-text">Create strong credentials you can remember.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Confirm changes</div>
+          <div class="binddevice-step-text">Update and secure your account.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">Create new PINs</div>
+    <div class="binddevice-card-subtitle">Make sure both entries match.</div>
+    <div class="password-hint">
+      PIN must be exactly 4 digits.
+    </div>
+
+    <div class="binddevice-section" ng-if="vm.flow === 'login' || vm.flow === 'both'">
+      <div class="binddevice-section-title">Login PIN</div>
+      <label class="form-field binddevice-field">
+        <span class="material-icons field-icon" aria-hidden="true">lock_outline</span>
+        <pin-input ng-model="vm.form.loginPassword" pin-label="New Login PIN"></pin-input>
+      </label>
+      <label class="form-field binddevice-field">
+        <span class="material-icons field-icon" aria-hidden="true">lock</span>
+        <pin-input ng-model="vm.form.loginConfirm" pin-label="Confirm Login PIN"></pin-input>
+      </label>
+    </div>
+
+    <div class="binddevice-section" ng-if="vm.flow === 'transaction' || vm.flow === 'both'">
+      <div class="binddevice-section-title">TPIN</div>
+      <label class="form-field binddevice-field">
+        <span class="material-icons field-icon" aria-hidden="true">shield</span>
+        <pin-input ng-model="vm.form.txnPassword" pin-label="New TPIN"></pin-input>
+      </label>
+      <label class="form-field binddevice-field">
+        <span class="material-icons field-icon" aria-hidden="true">shield</span>
+        <pin-input ng-model="vm.form.txnConfirm" pin-label="Confirm TPIN"></pin-input>
+      </label>
+    </div>
+    <div class="binddevice-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="binddevice-cta" type="button" ng-click="vm.resetPassword()">Update PIN</button>
+
+    <div class="binddevice-note">
+      Use a unique 4-digit PIN and do not share it with anyone.
+    </div>
+  </section>
+</div>

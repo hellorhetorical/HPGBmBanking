@@ -1,0 +1,67 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Security</div>
+    <div class="binddevice-title">Keep your account protected</div>
+    <div class="binddevice-subtitle">
+      Set a passcode and enable biometrics for faster, safer access.
+    </div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">pin</span>
+        <div>
+          <div class="binddevice-step-title">Passcode first</div>
+          <div class="binddevice-step-text">Create a 4-digit passcode to secure the app.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">fingerprint</span>
+        <div>
+          <div class="binddevice-step-title">Biometrics optional</div>
+          <div class="binddevice-step-text">Use biometrics instead of the passcode.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card settings-security-card">
+    <div class="binddevice-card-title">Passcode</div>
+    <div class="binddevice-card-subtitle">Create or update your 4-digit passcode.</div>
+
+    <div class="settings-status-row" ng-class="{ ready: vm.isPasscodeSet }">
+      <span class="material-icons" aria-hidden="true">
+        {{ vm.isPasscodeSet ? "verified" : "error_outline" }}
+      </span>
+      <span>{{ vm.passcodeStatus }}</span>
+    </div>
+
+    <div class="settings-passcode-grid">
+      <label class="transfer-field">
+        <span class="transfer-field-label">Passcode</span>
+        <input type="password" maxlength="4" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" ng-model="vm.passcode.value" placeholder="4-digit passcode" />
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">Confirm passcode</span>
+        <input type="password" maxlength="4" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" ng-model="vm.passcode.confirm" placeholder="Confirm passcode" />
+      </label>
+    </div>
+    <div class="settings-inline-note error" ng-if="vm.passcodeError">{{ vm.passcodeError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.savePasscode()">Save passcode</button>
+  </section>
+
+  <section class="binddevice-card settings-security-card">
+    <div class="binddevice-card-title">Biometrics</div>
+    <div class="binddevice-card-subtitle">Enable device biometrics to unlock the app.</div>
+
+    <label class="card-mgmt-toggle">
+      <span>Use biometrics</span>
+      <span>
+        <input type="checkbox" ng-model="vm.useBiometrics" ng-change="vm.toggleBiometrics()" ng-disabled="!vm.isPasscodeSet" />
+        <span class="card-mgmt-switch"></span>
+      </span>
+    </label>
+    <div class="card-mgmt-note">
+      When enabled, biometrics will be used instead of the passcode.
+    </div>
+    <div class="settings-inline-note error" ng-if="vm.biometricError">{{ vm.biometricError }}</div>
+  </section>
+</div>

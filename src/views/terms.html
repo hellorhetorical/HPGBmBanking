@@ -1,0 +1,61 @@
+<div class="login-screen lock-page terms-page">
+  <div class="hero-logo">
+    <img src="assets/rrb_logo.png" alt="{{ vm.appName }} logo" />
+  </div>
+  <div class="hero-title">
+    <span>{{ vm.bankName }}</span>
+  </div>
+  <div class="hero-subtitle lock-hero-subtitle">Terms and Conditions</div>
+
+  <section class="terms-card">
+    <div class="terms-header">
+      <div class="terms-icon">
+        <span class="material-icons" aria-hidden="true">policy</span>
+      </div>
+      <div class="terms-title-group">
+        <h2>Terms of Service</h2>
+        <p>Please review before continuing</p>
+      </div>
+    </div>
+
+    <div class="terms-body">
+      <p class="terms-intro">
+        By using {{ vm.appName }}, you agree to the terms, conditions, and privacy policy of {{ vm.bankName }}.
+      </p>
+
+      <ul class="terms-list">
+        <li>
+          <span class="material-icons" aria-hidden="true">check_circle</span>
+          <span>Messages from {{ vm.bankName }} are service alerts and updates.</span>
+        </li>
+        <li>
+          <span class="material-icons" aria-hidden="true">check_circle</span>
+          <span>Do not share OTPs or credentials with anyone, including callers.</span>
+        </li>
+        <li>
+          <span class="material-icons" aria-hidden="true">check_circle</span>
+          <span>Continuing implies consent to receive SMS notifications.</span>
+        </li>
+      </ul>
+
+      <div class="terms-full-container" ng-if="vm.showFullTerms">
+        <div class="terms-full-content">
+          Please read Terms and Conditions available at
+          <a class="terms-link-inline" ng-href="{{ vm.termsUrl }}" target="_blank" rel="noopener noreferrer">{{ vm.termsUrl }}</a> prior to using the products and services offered by {{ vm.bankName }}. By using the product, you agree to be legally bound to the terms and conditions and privacy policy and terms of services (including without limitation all disclaimers, exclusion of warrantees and limitations of liability contained therein). If you do not agree with these terms, please do not use the products and services offered by {{ vm.bankName }}. KEY TERMS AND CONDITIONS (for reference only): You may receive text messages (SMS) from {{ vm.bankName }} containing new product information, updates, alerts. You agree that messages from {{ vm.bankName }} received on your mobile number will not constitute an unsolicited commercial communication irrespective of their having signed up to any Do Not Call registry.
+        </div>
+      </div>
+
+      <button class="terms-toggle-btn" type="button" ng-click="vm.toggleFullTerms()">
+        {{ vm.showFullTerms ? "Hide full terms" : "Read full terms" }}
+        <span class="material-icons" aria-hidden="true">{{ vm.showFullTerms ? 'expand_less' : 'expand_more' }}</span>
+      </button>
+    </div>
+
+    <div class="terms-action">
+      <button class="lock-biometric full-width" type="button" ng-click="vm.acceptTerms()">
+        I Agree
+      </button>
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,67 @@
+<div class="login-screen login-home">
+  <div class="hero-logo">
+    <img src="assets/rrb_logo.png" alt="{{ vm.appName }} logo" />
+  </div>
+  <div class="hero-title">
+    <span>{{ vm.bankName }}</span>
+  </div>
+  <div class="hero-subtitle">Login</div>
+
+  <section class="login-card">
+    <div class="card-title">Welcome back</div>
+    <div class="card-subtitle">Sign in with your User ID to continue</div>
+    <div class="demo-banner" ng-if="vm.demoMode">
+      Demo mode is enabled. Login uses mock credentials only.
+    </div>
+    <div class="demo-banner demo-banner-warning" ng-if="!vm.demoMode">
+      Demo mode is disabled. Login is unavailable in this build.
+    </div>
+    <div class="bind-status success" ng-if="vm.bindResult && vm.bindResult.status === 'success'">
+      {{ vm.bindResult.message }}
+    </div>
+
+    <form class="space-y-3" ng-submit="vm.submitLogin($event)">
+      <label class="sr-only" for="login-user-id">User ID</label>
+      <div class="form-field">
+        <span class="material-icons field-icon" aria-hidden="true">person_outline</span>
+        <input
+          id="login-user-id"
+          name="login-user-id"
+          type="text"
+          placeholder="User ID"
+          ng-model="vm.login.username"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="none"
+          spellcheck="false"
+          data-lpignore="true"
+          data-bwignore="true"
+          data-form-type="other"
+        />
+      </div>
+      <label class="form-field login-pin-field">
+        <span class="sr-only">Login PIN</span>
+        <pin-input ng-model="vm.login.password" pin-label="Login PIN"></pin-input>
+      </label>
+      <div class="login-error" ng-if="vm.error">{{ vm.error }}</div>
+
+      <button class="login-button" type="button" ng-click="vm.submitLogin($event)">Login</button>
+    </form>
+
+    <div class="login-actions">
+      <a class="bind-button forgot-button link-plain" href="#!/new-user">New user</a>
+      <button
+        type="button"
+        class="bind-button forgot-button"
+        ng-click="$root.openForgotPrompt()"
+      >
+        Trouble signing in
+      </button>
+    </div>
+
+    <div class="help-text">
+      Need help? Contact your nearest branch or call our Helpline.
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,106 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Account Statement</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="fd-hero-art" aria-hidden="true"></div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">description</span>
+        <div>
+          <div class="binddevice-step-title">Select account & range</div>
+          <div class="binddevice-step-text">
+            Statements can be downloaded for up to 366 days at a time.
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card account-statement-card">
+    <div class="account-statement-section account-statement-select-card">
+      <div class="account-statement-card-header">
+        <div class="account-statement-card-icon">
+          <span class="material-icons" aria-hidden="true">account_balance</span>
+        </div>
+        <div>
+          <div class="account-statement-card-title">Select account</div>
+          <div class="account-statement-card-subtitle">Choose the account for your statement.</div>
+        </div>
+      </div>
+      <label class="account-statement-field">
+        <span>Account</span>
+        <select
+          class="account-statement-select"
+          ng-model="vm.statementForm.account"
+          ng-options="account as (account.type + ' • ' + vm.maskAccount(account.number) + ' • ₹' + account.balance) for account in vm.accounts"
+        ></select>
+      </label>
+      <div class="account-statement-account-summary" ng-if="vm.statementForm.account">
+        <div class="account-statement-account-type">{{ vm.statementForm.account.type }}</div>
+        <div class="account-statement-account-number">
+          {{ vm.maskAccount(vm.statementForm.account.number) }}
+        </div>
+        <div class="account-statement-account-meta">
+          <span class="account-statement-chip">Branch {{ vm.statementForm.account.branch }}</span>
+          <span class="account-statement-chip">CUR {{ vm.statementForm.account.currency }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="account-statement-section">
+      <div class="account-statement-label">Statement period</div>
+      <label class="account-statement-field">
+        <span>Period</span>
+        <select class="account-statement-select" ng-model="vm.statementForm.rangeType">
+          <option value="week">Last 1 Week</option>
+          <option value="date">Specific Date</option>
+          <option value="range">Pick a date range</option>
+        </select>
+      </label>
+      <div class="account-statement-dates" ng-if="vm.statementForm.rangeType === 'date'">
+        <label class="account-statement-field">
+          <span>Date</span>
+          <input type="date" ng-model="vm.statementForm.specificDate" />
+        </label>
+      </div>
+      <div class="account-statement-dates" ng-if="vm.statementForm.rangeType === 'range'">
+        <label class="account-statement-field">
+          <span>From</span>
+          <input type="date" ng-model="vm.statementForm.rangeStart" />
+        </label>
+        <label class="account-statement-field">
+          <span>To</span>
+          <input type="date" ng-model="vm.statementForm.rangeEnd" />
+        </label>
+      </div>
+    </div>
+
+    <div class="account-statement-preview" ng-if="vm.isStatementReady()">
+      <div class="account-statement-preview-title">Statement ready</div>
+      <div class="account-statement-preview-row">
+        <span>Account</span>
+        <span>{{ vm.statementForm.account.type }} • {{ vm.maskAccount(vm.statementForm.account.number) }}</span>
+      </div>
+      <div class="account-statement-preview-row">
+        <span>Period</span>
+        <span>{{ vm.getStatementWindow() }}</span>
+      </div>
+      <div class="account-statement-preview-row">
+        <span>Max range</span>
+        <span>366 days</span>
+      </div>
+      <div class="account-statement-hint">
+        PDF password:
+        <span ng-if="vm.showPdfPassword">{{ vm.maskAccount(vm.statementForm.account.number) }}</span>
+        <span ng-if="!vm.showPdfPassword">Hidden</span>
+        <button class="limit-link" type="button" ng-click="vm.togglePdfPassword()">
+          {{ vm.showPdfPassword ? "Hide" : "Show" }}
+        </button>
+      </div>
+      <button class="account-statement-button" type="button" ng-click="vm.downloadStatement()">
+        Download Statement (PDF)
+      </button>
+    </div>
+  </section>
+</div>

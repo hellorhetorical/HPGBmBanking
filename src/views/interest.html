@@ -1,0 +1,103 @@
+<div class="page-card updates-page emi-page">
+  <div class="page-header">
+    <div class="page-title">{{ vm.title }}</div>
+    <div class="page-subtitle">{{ vm.subtitle }}</div>
+  </div>
+
+  <div class="loan-hero updates-hero emi-hero">
+    <div>
+      <div class="loan-hero-title">Estimate interest quickly</div>
+      <div class="loan-hero-subtitle">
+        Choose simple or compound interest, set your period, and calculate total returns instantly.
+      </div>
+    </div>
+    <a class="loan-primary" href="#!/calculator">Back to calculators</a>
+  </div>
+
+  <div class="emi-form">
+    <label class="emi-field">
+      <span class="emi-label">Principal Amount</span>
+      <span class="emi-input">
+        <span class="emi-addon">Rs</span>
+        <input type="number" inputmode="decimal" placeholder="Enter amount" ng-model="vm.form.principal" />
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Interest Rate</span>
+      <span class="emi-input">
+        <span class="emi-addon">%</span>
+        <input type="number" inputmode="decimal" placeholder="Enter rate of interest" ng-model="vm.form.rate" />
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Interest Type</span>
+      <span class="emi-input">
+        <span class="emi-addon">
+          <span class="material-icons" aria-hidden="true">list</span>
+        </span>
+        <select class="emi-select" ng-model="vm.form.type">
+          <option value="compound">Compound</option>
+          <option value="simple">Simple</option>
+        </select>
+      </span>
+    </label>
+
+    <label class="emi-field" ng-if="vm.form.type === 'compound'">
+      <span class="emi-label">Interest Compounding</span>
+      <span class="emi-input">
+        <span class="emi-addon">
+          <span class="material-icons" aria-hidden="true">sync</span>
+        </span>
+        <select class="emi-select" ng-model="vm.form.compounding">
+          <option value="monthly">Monthly</option>
+          <option value="quarterly">Quarterly</option>
+          <option value="halfyearly">Half-yearly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Period (Months)</span>
+      <span class="emi-input">
+        <span class="emi-addon">
+          <span class="material-icons" aria-hidden="true">schedule</span>
+        </span>
+        <input type="number" inputmode="numeric" placeholder="Enter period in months" ng-model="vm.form.months" />
+      </span>
+    </label>
+
+    <button class="emi-button" type="button" ng-click="vm.calculate()">Calculate</button>
+    <button class="emi-button secondary" type="button" ng-click="vm.reset()">Start Over</button>
+  </div>
+
+  <div class="emi-result" ng-if="vm.result">
+    <div class="emi-result-header">
+      <div>
+        <div class="result-title">Result</div>
+        <div class="result-subtitle">Interest calculation snapshot</div>
+      </div>
+      <div class="result-pill">₹{{ vm.result.total | number:2 }}</div>
+    </div>
+    <div class="emi-result-grid">
+      <div class="result-card">
+        <div class="result-label">Principal</div>
+        <div class="result-value">₹{{ vm.form.principal | number:2 }}</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Rate</div>
+        <div class="result-value">{{ vm.form.rate }}%</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Period</div>
+        <div class="result-value">{{ vm.form.months }} months</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Interest</div>
+        <div class="result-value">₹{{ vm.result.interest | number:2 }}</div>
+      </div>
+    </div>
+  </div>
+</div>

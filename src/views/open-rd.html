@@ -1,0 +1,171 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Open RD</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="fd-hero-art" aria-hidden="true"></div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">savings</span>
+        <div>
+          <div class="binddevice-step-title">Choose RD details</div>
+          <div class="binddevice-step-text">Set amount, tenure, and schedule preferences.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm using your TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card fd-search-card" ng-if="vm.step === 'terms'">
+    <div class="fd-search-header">
+      <div>
+        <div class="binddevice-card-title">Open Recurring Deposit</div>
+        <div class="binddevice-card-subtitle">Review the terms before you continue.</div>
+      </div>
+      <div class="fd-search-badge">
+        <span class="material-icons" aria-hidden="true">fact_check</span>
+        Terms
+      </div>
+    </div>
+    <div class="card-mgmt-note">
+      Dear Customer, please read and accept the terms &amp; conditions.
+    </div>
+    <button class="limit-link" type="button" ng-click="vm.viewTerms()" aria-label="Terms and Conditions for Open Recurring Deposit">Terms and Conditions</button>
+    <label class="fd-terms">
+      <input type="checkbox" ng-model="vm.acceptedTerms" />
+      <span>I have read and I accept the Terms and Conditions</span>
+    </label>
+    <button class="account-statement-button" type="button" ng-disabled="!vm.acceptedTerms" ng-click="vm.continueFromTerms()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card fd-status-list-card" ng-if="vm.step === 'form'">
+    <div class="fd-list-header">
+      <div>
+        <div class="binddevice-card-title">Open Recurring Deposit</div>
+        <div class="binddevice-card-subtitle">Fill in the RD details to proceed.</div>
+      </div>
+      <div class="fd-list-pill">Step 2</div>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Amount</span>
+      <input
+        type="text"
+        ng-model="vm.form.amount"
+        placeholder="Amount"
+        ng-change="vm.clearBalanceError()"
+      />
+    </label>
+    <div class="transfer-inline is-even">
+      <label class="transfer-field">
+        <span class="transfer-field-label">Years</span>
+        <input type="text" ng-model="vm.form.years" placeholder="0" />
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">Months</span>
+        <input type="text" ng-model="vm.form.months" placeholder="0" />
+      </label>
+    </div>
+    <div class="transfer-field">
+      <span class="transfer-field-label">Account Open Date</span>
+      <div class="transfer-field-label">{{ vm.form.openingDate }}</div>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Debit Account</span>
+      <select
+        ng-model="vm.form.debitAccount"
+        ng-options="account as vm.getAccountLabel(account) for account in vm.accounts"
+      ></select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Retain nominee details of selected operative account</span>
+      <select ng-model="vm.form.nomineeRetain" ng-options="option for option in vm.nomineeOptions"></select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Do you want to schedule installments</span>
+      <select ng-model="vm.form.scheduleInstallments" ng-options="option for option in vm.scheduleOptions"></select>
+    </label>
+    <label class="transfer-field" ng-if="vm.form.scheduleInstallments === 'Yes'">
+      <span class="transfer-field-label">Date on which you want to make payment</span>
+      <select ng-model="vm.form.paymentDate" ng-options="date for date in vm.paymentDates"></select>
+    </label>
+    <div class="transfer-error" ng-if="vm.balanceError">{{ vm.balanceError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromForm()">Continue</button>
+  </section>
+
+  <section class="binddevice-card fd-status-detail-card" ng-if="vm.step === 'confirm'">
+    <div class="fd-detail-header">
+      <div>
+        <div class="binddevice-card-title">Confirm And Authorize</div>
+        <div class="binddevice-card-subtitle">Review the summary before submitting.</div>
+      </div>
+      <div class="fd-detail-pill">Review</div>
+    </div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Amount</div>
+        <div>INR {{ vm.form.amount || "0" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Debit account</div>
+        <div>{{ vm.getAccountLabel(vm.form.debitAccount) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Months</div>
+        <div>{{ vm.form.months }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Years</div>
+        <div>{{ vm.form.years }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Account Opening Date</div>
+        <div>{{ vm.form.openingDate }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Retain nominee details of selected operative account</div>
+        <div>{{ vm.form.nomineeRetain }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Do you want to schedule installments</div>
+        <div>{{ vm.form.scheduleInstallments }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.scheduleInstallments === 'Yes'">
+        <div>Date on which you want to make payment</div>
+        <div>{{ vm.form.paymentDate }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Interest rate</div>
+        <div>{{ vm.getInterestRateLabel() }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Maturity amount</div>
+        <div>Maturity Amount: {{ vm.getMaturityAmount() }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">Submit</button>
+  </section>
+
+  <section class="binddevice-card fd-status-overview" ng-if="vm.step === 'success'">
+    <div>
+      <div class="fd-status-kicker">Success</div>
+      <div class="fd-status-count">Done</div>
+      <div class="fd-status-caption">Your recurring deposit request has been submitted.</div>
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.goHome()">Dashboard</button>
+  </section>
+</div>

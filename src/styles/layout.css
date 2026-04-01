@@ -1,0 +1,159 @@
+.statusbar-scrim {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--safe-area-top-adjusted);
+  background: var(--hpgb-blue);
+  z-index: 24;
+  pointer-events: none;
+}
+
+.login-page {
+  background: inherit;
+}
+
+.login-pane {
+  position: relative;
+  min-height: 100vh;
+}
+
+.login-pane.menu-open {
+  overflow: hidden;
+}
+
+.binddevice-page {
+  width: 100%;
+  min-height: auto;
+  padding: 18px 16px 48px;
+  display: block;
+  gap: 12px;
+  background: radial-gradient(circle at top, #e9f1ff 0%, #f7faff 55%, #f1f5fb 100%);
+}
+
+.binddevice-page.full-bleed {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.binddevice-page.full-bleed .binddevice-hero,
+.binddevice-page.full-bleed .binddevice-card {
+  width: 100%;
+  border-radius: 0;
+}
+
+.binddevice-hero {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(16, 104, 178, 0.12), rgba(80, 183, 72, 0.12));
+  border: 1px solid rgba(16, 104, 178, 0.12);
+  border-radius: 20px;
+  padding: 20px;
+  display: grid;
+  gap: 12px;
+  box-shadow: 0 16px 32px rgba(10, 28, 52, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.binddevice-badge {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(16, 104, 178, 0.16);
+  color: #0f5ea0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.binddevice-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f2a44;
+  letter-spacing: 0.2px;
+  margin-bottom: -4px;
+}
+
+.binddevice-subtitle {
+  font-size: 14px;
+  color: #4b5e75;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+.binddevice-steps {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.binddevice-step {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 16px;
+  padding: 8px 10px;
+  border: 1px solid rgba(16, 32, 54, 0.06);
+}
+
+.binddevice-step .material-icons {
+  font-size: 20px;
+  color: #1561a6;
+  margin-top: 2px;
+}
+
+.binddevice-step-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #15304a;
+}
+
+.binddevice-step-text {
+  font-size: 12px;
+  color: #5a6c84;
+  margin-top: 4px;
+}
+
+.binddevice-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 14px 30px rgba(12, 30, 54, 0.08);
+  border: 1px solid #e6edf7;
+  display: grid;
+  gap: 8px;
+}
+
+.binddevice-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #12253a;
+  line-height: 1.3;
+}
+
+.binddevice-card-subtitle {
+  font-size: 12px;
+  color: #6a7a90;
+  line-height: 1.4;
+}
+
+.binddevice-card.transfer-status-card {
+  width: 100%;
+}
+
+.binddevice-page > * + * {
+  margin-top: 18px;
+}
+
+.binddevice-page .binddevice-card > * + * {
+  margin-top: 12px;
+}
+
+.binddevice-page .transfer-inline.is-even {
+  margin: 8px 0 12px;
+}

@@ -1,0 +1,61 @@
+<div class="page-card updates-page">
+  <div class="page-header">
+    <div class="page-title">{{ vm.title }}</div>
+    <div class="page-subtitle">{{ vm.subtitle }}</div>
+  </div>
+
+  <div class="loan-hero updates-hero social-hero">
+    <div>
+      <div class="loan-hero-title">Connect with {{ vm.bankShortName }}</div>
+      <div class="loan-hero-subtitle">
+        Stay in touch across our official channels for news, offers, and service updates.
+      </div>
+    </div>
+    <a class="loan-primary" ng-href="{{ vm.socialLinks.facebook }}" data-external-safe="true" target="_blank" rel="noopener noreferrer">
+      Visit Facebook
+    </a>
+  </div>
+
+  <div class="card-list loan-list social-list">
+    <div class="loan-card social-card social-facebook">
+      <div class="loan-card-icon">
+        <span class="material-icons" aria-hidden="true">thumb_up</span>
+      </div>
+      <div class="loan-card-body">
+        <div class="row-title">Facebook</div>
+        <div class="row-subtitle">@{{ vm.socialLinks.handles.facebook }}</div>
+      </div>
+      <a class="loan-pill" ng-href="{{ vm.socialLinks.facebook }}" data-external-safe="true" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+    <div class="loan-card social-card social-x">
+      <div class="loan-card-icon">
+        <span class="material-icons" aria-hidden="true">campaign</span>
+      </div>
+      <div class="loan-card-body">
+        <div class="row-title">X (Twitter)</div>
+        <div class="row-subtitle">@{{ vm.socialLinks.handles.x }}</div>
+      </div>
+      <a class="loan-pill" ng-href="{{ vm.socialLinks.x }}" data-external-safe="true" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+    <div class="loan-card social-card social-instagram">
+      <div class="loan-card-icon">
+        <span class="material-icons" aria-hidden="true">photo_camera</span>
+      </div>
+      <div class="loan-card-body">
+        <div class="row-title">Instagram</div>
+        <div class="row-subtitle">@{{ vm.socialLinks.handles.instagram }}</div>
+      </div>
+      <a class="loan-pill" ng-href="{{ vm.socialLinks.instagram }}" data-external-safe="true" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+    <div class="loan-card social-card social-youtube">
+      <div class="loan-card-icon">
+        <span class="material-icons" aria-hidden="true">play_circle</span>
+      </div>
+      <div class="loan-card-body">
+        <div class="row-title">YouTube</div>
+        <div class="row-subtitle">@{{ vm.socialLinks.handles.youtube }}</div>
+      </div>
+      <a class="loan-pill" ng-href="{{ vm.socialLinks.youtube }}" data-external-safe="true" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </div>
+</div>

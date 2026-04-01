@@ -1,0 +1,77 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Transfer status</div>
+    <div class="binddevice-title">Transaction summary</div>
+    <div class="binddevice-subtitle">
+      Review the status of your transfer.
+    </div>
+    <div class="fd-hero-art" aria-hidden="true"></div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">task_alt</span>
+        <div>
+          <div class="binddevice-step-title">Status update</div>
+          <div class="binddevice-step-text">Success or failure details are shown below.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">receipt_long</span>
+        <div>
+          <div class="binddevice-step-title">Receipt</div>
+          <div class="binddevice-step-text">Download your transaction receipt.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card transfer-status-card">
+    <div class="transfer-status-check" ng-class="{ success: vm.isSuccess, failure: !vm.isSuccess }">
+      <span class="material-icons" aria-hidden="true">
+        {{ vm.isSuccess ? "check" : "close" }}
+      </span>
+    </div>
+    <div class="transfer-status-result">{{ vm.isSuccess ? "Success" : "Failed" }}</div>
+    <div class="transfer-status-message">
+      {{ vm.statusMessage }}
+    </div>
+
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>From</div>
+        <div>{{ vm.summary.from }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>To</div>
+        <div>{{ vm.summary.to }}</div>
+      </div>
+      <div class="transfer-status-row highlight">
+        <div>Amount</div>
+        <div>INR {{ vm.summary.amount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Remarks</div>
+        <div>{{ vm.summary.remarks }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Transfer date</div>
+        <div>{{ vm.summary.date }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.summary.paymentOption === 'Schedule'">
+        <div>Schedule date</div>
+        <div>{{ vm.summary.scheduleDate }}</div>
+      </div>
+    </div>
+
+    <button class="transfer-receipt account-statement-button" type="button">
+      <span class="material-icons" aria-hidden="true">download</span>
+      Receipt
+    </button>
+
+    <div class="transfer-status-actions">
+      <button class="transfer-secondary account-statement-button" type="button" ng-click="vm.newTransfer()">
+        New Transaction
+      </button>
+      <button class="transfer-primary account-statement-button" type="button" ng-click="vm.goHome()">Home</button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,137 @@
+<div class="binddevice-page dth-recharge-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">DTH</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">tv</span>
+        <div>
+          <div class="binddevice-step-title">Recharge details</div>
+          <div class="binddevice-step-text">Enter subscriber and recharge info.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm using TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">DTH Recharge</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Subscriber ID</span>
+      <input type="text" ng-model="vm.form.subscriberId" placeholder="Subscriber ID" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Service provider</span>
+      <select ng-model="vm.form.provider" ng-options="provider.value as provider.label for provider in vm.providers" ng-class="{ 'is-placeholder': !vm.form.provider }">
+      </select>
+    </label>
+    <div class="transfer-field transfer-inline">
+      <label class="transfer-field">
+        <span class="transfer-field-label">Currency</span>
+        <input type="text" ng-model="vm.form.currency" readonly />
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">Amount</span>
+        <input type="text" ng-model="vm.form.amount" placeholder="Amount" />
+      </label>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">From accounts</span>
+      <select ng-model="vm.form.fromAccount" ng-change="vm.onAccountChange()" ng-options="account.number as vm.getAccountLabel(account) for account in vm.accountOptions" ng-class="{ 'is-placeholder': !vm.form.fromAccount }">
+      </select>
+    </label>
+    <div class="transfer-field transfer-inline">
+      <span class="transfer-field-label">Available balance</span>
+      <span>{{ vm.selectedAccount ? vm.selectedAccount.balance : "--" }}</span>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Remarks (optional)</span>
+      <input type="text" ng-model="vm.form.remarks" placeholder="Remarks (optional)" />
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.submitForm()">
+      Submit
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'authorize'">
+    <div class="binddevice-card-title">DTH Recharge</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Subscriber ID</div>
+        <div>{{ vm.form.subscriberId }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Service provider</div>
+        <div>{{ vm.form.provider }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Amount</div>
+        <div>{{ vm.form.currency }} {{ vm.form.amount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>From account</div>
+        <div>{{ vm.getAccountLabel(vm.form.fromAccount) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Remarks</div>
+        <div>{{ vm.form.remarks || "--" }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">
+      Confirm
+    </button>
+  </section>
+
+  <section class="binddevice-card transfer-status-card" ng-if="vm.step === 'success'">
+    <div class="transfer-status-check success">
+      <span class="material-icons" aria-hidden="true">check</span>
+    </div>
+    <div class="transfer-status-result">Success</div>
+    <div class="transfer-status-message">{{ vm.statusMessage }}</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Subscriber ID</div>
+        <div>{{ vm.form.subscriberId }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Service provider</div>
+        <div>{{ vm.form.provider }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Amount</div>
+        <div>{{ vm.form.currency }} {{ vm.form.amount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>From account</div>
+        <div>{{ vm.getAccountLabel(vm.form.fromAccount) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Remarks</div>
+        <div>{{ vm.form.remarks || "--" }}</div>
+      </div>
+    </div>
+    <div class="transfer-status-actions">
+      <button class="transfer-secondary account-statement-button" type="button" ng-click="vm.newRequest()">
+        New Recharge
+      </button>
+      <button class="transfer-primary account-statement-button" type="button" ng-click="vm.goHome()">
+        Home
+      </button>
+    </div>
+  </section>
+</div>

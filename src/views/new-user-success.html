@@ -1,0 +1,32 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">New User</div>
+    <div class="binddevice-title">Registration Successful</div>
+    <div class="binddevice-subtitle">Your account access has been set up successfully.</div>
+  </header>
+
+  <section class="binddevice-card transfer-status-card">
+    <div class="transfer-status-check success">
+      <span class="material-icons" aria-hidden="true">check</span>
+    </div>
+    <div class="transfer-status-result">Success</div>
+    <div class="transfer-status-message">You can now sign in using your User ID and MPIN.</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account Number</div>
+        <div>{{ vm.accountNumber }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Facility</div>
+        <div>{{ vm.facility }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>User ID</div>
+        <div>{{ vm.generatedUserId }}</div>
+      </div>
+    </div>
+    <button class="account-statement-button full-width" type="button" ng-click="vm.goLogin()">
+      Back to Login
+    </button>
+  </section>
+</div>

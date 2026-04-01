@@ -1,0 +1,136 @@
+0 verbose cli /usr/bin/node /usr/bin/npm
+1 info using npm@10.9.4
+2 info using node@v22.22.0
+3 silly config load:file:/usr/lib/node_modules/npm/npmrc
+4 silly config load:file:/home/ashwani/HPGBmBanking/HPGBmBanking/.npmrc
+5 silly config load:file:/home/ashwani/.npmrc
+6 silly config load:file:/usr/etc/npmrc
+7 verbose title npm audit
+8 verbose argv "audit"
+9 verbose logfile logs-max:10 dir:/home/ashwani/HPGBmBanking/HPGBmBanking/.npm-cache/_logs/2026-01-21T05_49_20_474Z-
+10 verbose logfile /home/ashwani/HPGBmBanking/HPGBmBanking/.npm-cache/_logs/2026-01-21T05_49_20_474Z-debug-0.log
+11 silly logfile done cleaning log files
+12 http fetch GET https://registry.npmjs.org/npm attempt 1 failed with EAI_AGAIN
+13 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+14 silly audit bulk request {
+14 silly audit   '@capacitor/android': [ '8.0.1' ],
+14 silly audit   '@capacitor/app': [ '8.0.0' ],
+14 silly audit   '@capacitor/cli': [ '8.0.1' ],
+14 silly audit   'fs-extra': [ '11.3.3', '9.1.0' ],
+14 silly audit   '@capacitor/core': [ '8.0.1' ],
+14 silly audit   '@capacitor/status-bar': [ '8.0.0' ],
+14 silly audit   '@capgo/capacitor-navigation-bar': [ '8.0.12' ],
+14 silly audit   '@ionic/cli-framework-output': [ '2.2.8' ],
+14 silly audit   '@ionic/utils-array': [ '2.1.6' ],
+14 silly audit   '@ionic/utils-fs': [ '3.1.7' ],
+14 silly audit   '@ionic/utils-object': [ '2.1.6' ],
+14 silly audit   '@ionic/utils-process': [ '2.1.12' ],
+14 silly audit   '@ionic/utils-stream': [ '3.1.7' ],
+14 silly audit   '@ionic/utils-subprocess': [ '3.0.1' ],
+14 silly audit   '@ionic/utils-terminal': [ '2.3.5' ],
+14 silly audit   '@isaacs/balanced-match': [ '4.0.1' ],
+14 silly audit   '@isaacs/brace-expansion': [ '5.0.0' ],
+14 silly audit   '@isaacs/fs-minipass': [ '4.0.1' ],
+14 silly audit   '@types/fs-extra': [ '8.1.5' ],
+14 silly audit   '@types/node': [ '25.0.3' ],
+14 silly audit   '@types/slice-ansi': [ '4.0.0' ],
+14 silly audit   '@xmldom/xmldom': [ '0.8.11' ],
+14 silly audit   angular: [ '1.8.3' ],
+14 silly audit   'angular-route': [ '1.8.3' ],
+14 silly audit   'ansi-regex': [ '5.0.1' ],
+14 silly audit   'ansi-styles': [ '4.3.0' ],
+14 silly audit   'astral-regex': [ '2.0.0' ],
+14 silly audit   'at-least-node': [ '1.0.0' ],
+14 silly audit   'base64-js': [ '1.5.1' ],
+14 silly audit   'big-integer': [ '1.6.52' ],
+14 silly audit   'bplist-parser': [ '0.3.2' ],
+14 silly audit   'buffer-crc32': [ '0.2.13' ],
+14 silly audit   chownr: [ '3.0.0' ],
+14 silly audit   'color-convert': [ '2.0.1' ],
+14 silly audit   'color-name': [ '1.1.4' ],
+14 silly audit   commander: [ '12.1.0' ],
+14 silly audit   'cross-spawn': [ '7.0.6' ],
+14 silly audit   debug: [ '4.4.3' ],
+14 silly audit   'define-lazy-prop': [ '2.0.0' ],
+14 silly audit   elementtree: [ '0.1.7' ],
+14 silly audit   'emoji-regex': [ '8.0.0' ],
+14 silly audit   'env-paths': [ '2.2.1' ],
+14 silly audit   'fd-slicer': [ '1.1.0' ],
+14 silly audit   glob: [ '13.0.0' ],
+14 silly audit   'graceful-fs': [ '4.2.11' ],
+14 silly audit   inherits: [ '2.0.4' ],
+14 silly audit   ini: [ '4.1.3' ],
+14 silly audit   'is-docker': [ '2.2.1' ],
+14 silly audit   'is-fullwidth-code-point': [ '3.0.0' ],
+14 silly audit   'is-wsl': [ '2.2.0' ],
+14 silly audit   isexe: [ '2.0.0' ],
+14 silly audit   jsonfile: [ '6.2.0' ],
+14 silly audit   kleur: [ '4.1.5', '3.0.3' ],
+14 silly audit   'lru-cache': [ '11.2.4' ],
+14 silly audit   'material-design-icons-iconfont': [ '6.7.0' ],
+14 silly audit   minimatch: [ '10.1.1' ],
+14 silly audit   minipass: [ '7.1.2' ],
+14 silly audit   minizlib: [ '3.1.0' ],
+14 silly audit   ms: [ '2.1.3' ],
+14 silly audit   'native-run': [ '2.0.3' ],
+14 silly audit   open: [ '8.4.2' ],
+14 silly audit   'package-json-from-dist': [ '1.0.1' ],
+14 silly audit   'path-key': [ '3.1.1' ],
+14 silly audit   'path-scurry': [ '2.0.1' ],
+14 silly audit   pend: [ '1.2.0' ],
+14 silly audit   plist: [ '3.1.0' ],
+14 silly audit   prompts: [ '2.4.2' ],
+14 silly audit   'readable-stream': [ '3.6.2' ],
+14 silly audit   rimraf: [ '6.1.2' ],
+14 silly audit   'safe-buffer': [ '5.2.1' ],
+14 silly audit   sax: [ '1.1.4' ],
+14 silly audit   semver: [ '7.7.3' ],
+14 silly audit   'shebang-command': [ '2.0.0' ],
+14 silly audit   'shebang-regex': [ '3.0.0' ],
+14 silly audit   'signal-exit': [ '3.0.7' ],
+14 silly audit   sisteransi: [ '1.0.5' ],
+14 silly audit   'slice-ansi': [ '4.0.0' ],
+14 silly audit   split2: [ '4.2.0' ],
+14 silly audit   string_decoder: [ '1.3.0' ],
+14 silly audit   'string-width': [ '4.2.3' ],
+14 silly audit   'strip-ansi': [ '6.0.1' ],
+14 silly audit   tar: [ '7.5.6' ],
+14 silly audit   through2: [ '4.0.2' ],
+14 silly audit   'tree-kill': [ '1.2.2' ],
+14 silly audit   tslib: [ '2.8.1' ],
+14 silly audit   'undici-types': [ '7.16.0' ],
+14 silly audit   universalify: [ '2.0.1' ],
+14 silly audit   untildify: [ '4.0.0' ],
+14 silly audit   'util-deprecate': [ '1.0.2' ],
+14 silly audit   which: [ '2.0.2' ],
+14 silly audit   'wrap-ansi': [ '7.0.0' ],
+14 silly audit   xml2js: [ '0.6.2' ],
+14 silly audit   xmlbuilder: [ '11.0.1', '15.1.1' ],
+14 silly audit   yallist: [ '5.0.0' ],
+14 silly audit   yauzl: [ '2.10.0' ]
+14 silly audit }
+15 silly audit bulk request failed undefined
+16 verbose audit error FetchError: request to https://registry.npmjs.org/-/npm/v1/security/audits/quick failed, reason: getaddrinfo EAI_AGAIN registry.npmjs.org
+16 verbose audit error     at ClientRequest.<anonymous> (/usr/lib/node_modules/npm/node_modules/minipass-fetch/lib/index.js:130:14)
+16 verbose audit error     at ClientRequest.emit (node:events:519:28)
+16 verbose audit error     at emitErrorEvent (node:_http_client:107:11)
+16 verbose audit error     at _destroy (node:_http_client:954:9)
+16 verbose audit error     at onSocketNT (node:_http_client:974:5)
+16 verbose audit error     at process.processTicksAndRejections (node:internal/process/task_queues:91:21) {
+16 verbose audit error   code: 'EAI_AGAIN',
+16 verbose audit error   errno: 'EAI_AGAIN',
+16 verbose audit error   syscall: 'getaddrinfo',
+16 verbose audit error   hostname: 'registry.npmjs.org',
+16 verbose audit error   type: 'system'
+16 verbose audit error }
+17 silly audit error undefined
+18 silly audit report null
+19 warn audit request to https://registry.npmjs.org/-/npm/v1/security/audits/quick failed, reason: getaddrinfo EAI_AGAIN registry.npmjs.org
+20 error audit endpoint returned an error
+21 verbose cwd /home/ashwani/HPGBmBanking/HPGBmBanking
+22 verbose os Linux 6.14.0-37-generic
+23 verbose node v22.22.0
+24 verbose npm  v10.9.4
+25 verbose exit 1
+26 verbose code 1
+27 error A complete log of this run can be found in: /home/ashwani/HPGBmBanking/HPGBmBanking/.npm-cache/_logs/2026-01-21T05_49_20_474Z-debug-0.log

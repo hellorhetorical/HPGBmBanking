@@ -1,0 +1,57 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Quick Pay</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="fd-hero-art" aria-hidden="true"></div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">bolt</span>
+        <div>
+          <div class="binddevice-step-title">Payment details</div>
+          <div class="binddevice-step-text">Send money instantly with minimal details.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <form class="binddevice-card transfer-form" ng-submit="vm.submit()">
+    <div class="binddevice-card-title">Payment details</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">From account</span>
+      <select ng-model="vm.form.fromAccount" ng-options="account.number as (account.number | maskAccount) for account in vm.fromAccounts" ng-disabled="vm.showAuthorize" ng-class="{ 'is-invalid': vm.showValidation && !vm.form.fromAccount }" ng-change="vm.clearFieldError('fromAccount')">
+        <option value="" disabled>Select account</option>
+      </select>
+    </label>
+    <div class="transfer-balance">Balance: INR {{ vm.getBalance(vm.form.fromAccount) }}</div>
+
+    <label class="transfer-field">
+      <span class="transfer-field-label">To account</span>
+      <input type="text" ng-model="vm.form.toAccount" placeholder="To account" ng-disabled="vm.showAuthorize" ng-class="{ 'is-invalid': vm.showValidation && (!vm.form.toAccount || vm.fieldErrors.toAccount) }" ng-change="vm.clearFieldError('toAccount')" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Confirm to account</span>
+      <input type="text" ng-model="vm.form.confirmToAccount" placeholder="Confirm to account" ng-disabled="vm.showAuthorize" ng-class="{ 'is-invalid': vm.showValidation && (!vm.form.confirmToAccount || vm.fieldErrors.confirmToAccount) }" ng-change="vm.clearFieldError('confirmToAccount')" />
+      <span class="transfer-error inline" ng-if="vm.fieldErrors.confirmToAccount">{{ vm.fieldErrors.confirmToAccount }}</span>
+    </label>
+
+    <label class="transfer-field">
+      <span class="transfer-field-label">Amount</span>
+      <input type="number" min="1" step="0.01" ng-model="vm.form.amount" placeholder="Enter amount" ng-disabled="vm.showAuthorize" ng-class="{ 'is-invalid': vm.showValidation && (!vm.form.amount || vm.fieldErrors.amount) }" ng-change="vm.clearFieldError('amount')" />
+      <span class="transfer-error inline" ng-if="vm.fieldErrors.amount">{{ vm.fieldErrors.amount }}</span>
+    </label>
+
+    <button class="transfer-submit" type="submit" ng-disabled="vm.showAuthorize">Pay</button>
+
+    <div class="transfer-authorize" ng-if="vm.showAuthorize">
+      <div class="binddevice-card-title">Authorize</div>
+      <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+      <label class="transfer-field">
+        <span class="transfer-field-label">TPIN</span>
+        <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN" ng-class="{ 'is-invalid': vm.showValidation && !vm.form.transactionPassword }"></pin-input>
+      </label>
+      <div class="transfer-error" ng-if="vm.passwordError">{{ vm.passwordError }}</div>
+      <button class="transfer-submit" type="button" ng-click="vm.confirmAuthorization()">Confirm</button>
+    </div>
+  </form>
+</div>

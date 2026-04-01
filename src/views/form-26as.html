@@ -1,0 +1,50 @@
+<div class="binddevice-page form-26as-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">26AS</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">badge</span>
+        <div>
+          <div class="binddevice-step-title">Verify details</div>
+          <div class="binddevice-step-text">Confirm customer and PAN details.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">receipt_long</span>
+        <div>
+          <div class="binddevice-step-title">Generate</div>
+          <div class="binddevice-step-text">View Form 26AS.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">Form 26 AS Generation</div>
+    <div class="beneficiary-row">
+      <div class="beneficiary-avatar">{{ vm.initial }}</div>
+      <div>
+        <div class="beneficiary-account">{{ vm.form.customerId }}</div>
+        <div class="beneficiary-meta">{{ vm.form.pan }}</div>
+      </div>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Customer ID</span>
+      <input type="text" ng-model="vm.form.customerId" placeholder="Customer ID" readonly />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Unique Transaction Number</span>
+      <input type="text" ng-model="vm.form.pan" placeholder="Unique Transaction Number" readonly />
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <a
+      class="account-statement-button"
+      ng-href="{{ vm.form26asUrl }}"
+      data-external-safe="true"
+      target="_blank" rel="noopener noreferrer"
+      ng-click="vm.viewForm()"
+    >View Form 26AS</a>
+  </section>
+</div>

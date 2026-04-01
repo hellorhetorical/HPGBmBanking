@@ -1,0 +1,44 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Trouble signing in</div>
+    <div class="binddevice-title">Verify your User ID</div>
+    <div class="binddevice-subtitle">
+      Enter your User ID to continue the password recovery process.
+    </div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">person_outline</span>
+        <div>
+          <div class="binddevice-step-title">User ID check</div>
+          <div class="binddevice-step-text">We’ll verify your account details.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">sms</span>
+        <div>
+          <div class="binddevice-step-title">OTP verification</div>
+          <div class="binddevice-step-text">Confirm with the OTP sent to your phone.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">User verification</div>
+    <div class="binddevice-card-subtitle">Enter the User ID linked to your account.</div>
+
+    <label class="form-field binddevice-field">
+      <span class="material-icons field-icon" aria-hidden="true">person_outline</span>
+      <input type="text" placeholder="User ID" ng-model="vm.userId" />
+    </label>
+    <div class="binddevice-error" ng-if="vm.error">{{ vm.error }}</div>
+
+    <button class="binddevice-cta" type="button" ng-click="vm.continue()">
+      Continue
+    </button>
+
+    <div class="binddevice-note">
+      You’ll receive an OTP on your registered mobile number.
+    </div>
+  </section>
+</div>

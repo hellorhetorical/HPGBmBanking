@@ -1,0 +1,335 @@
+<div class="binddevice-page apy-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">APY</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">task_alt</span>
+        <div>
+          <div class="binddevice-step-title">Accept terms</div>
+          <div class="binddevice-step-text">Review and consent to auto-debit.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">assignment</span>
+        <div>
+          <div class="binddevice-step-title">Subscriber details</div>
+          <div class="binddevice-step-text">Provide account and nominee details.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm with your TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'terms'">
+    <div class="binddevice-card-title">APY Enrollment</div>
+    <div class="card-mgmt-note">
+      Dear Customer, please read and accept the terms &amp; conditions.
+    </div>
+    <button class="limit-link" type="button" ng-click="vm.viewTerms()">Terms and Conditions</button>
+    <label class="fd-terms">
+      <input type="checkbox" ng-model="vm.acceptedTerms" />
+      <span>I have read and I accept the Terms and Conditions</span>
+    </label>
+    <div class="pmjjby-terms">
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Undertaking</div>
+        <div class="pmjjby-list">
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">1)</span>
+            I hereby authorize the bank to debit my above mentioned bank account till the age of 60 for making payment
+            under APY as applicable based on my age and the Pension Amount selected by me. If the transaction is delayed
+            or not effected at all for insufficient balance I would not hold the bank responsible. I also undertake to
+            deposit the additional amount together with penalty thereon.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">2)</span>
+            I meet the prescribed eligibility criteria for assistance under APY and I have read and understood the terms
+            and conditions of the Scheme. I hereby agree to the same and declare that the information furnished by me is
+            true and correct, to the best of my knowledge and belief. I undertake to immediately inform the bank of any
+            change in the above information furnished by me. Further, I do not hold any pre-existing account under APY.
+            I understand that I shall be fully liable for submission of any false or incorrect information or documents.
+            I have read/been explained and have understood the APY guidelines. I further agree to be bound by the terms
+            and conditions of provision of services under the scheme as approved by PFRDA/Govt. of India.
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="account-statement-button" type="button" ng-disabled="!vm.acceptedTerms" ng-click="vm.continueFromTerms()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'terms-detail'">
+    <div class="binddevice-card-title">Terms &amp; Conditions</div>
+    <div class="pmjjby-terms">
+      <div class="pmjjby-section">
+        <div class="pmjjby-section-title">Undertaking</div>
+        <div class="pmjjby-list">
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">1)</span>
+            I hereby authorize the bank to debit my above mentioned bank account till the age of 60 for making payment
+            under APY as applicable based on my age and the Pension Amount selected by me. If the transaction is delayed
+            or not effected at all for insufficient balance I would not hold the bank responsible. I also undertake to
+            deposit the additional amount together with penalty thereon.
+          </div>
+          <div class="pmjjby-list-item">
+            <span class="pmjjby-list-marker">2)</span>
+            I meet the prescribed eligibility criteria for assistance under APY and I have read and understood the terms
+            and conditions of the Scheme. I hereby agree to the same and declare that the information furnished by me is
+            true and correct, to the best of my knowledge and belief. I undertake to immediately inform the bank of any
+            change in the above information furnished by me. Further, I do not hold any pre-existing account under APY.
+            I understand that I shall be fully liable for submission of any false or incorrect information or documents.
+            I have read/been explained and have understood the APY guidelines. I further agree to be bound by the terms
+            and conditions of provision of services under the scheme as approved by PFRDA/Govt. of India.
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.backToTerms()">Back</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">Subscriber Details</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Select account</span>
+      <select ng-model="vm.form.account" ng-options="account.number as vm.getAccountLabel(account) for account in vm.accounts" ng-class="{ 'is-placeholder': !vm.form.account }">
+        <option value="">Select account</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Select Title</span>
+      <select ng-model="vm.form.title" ng-options="title for title in vm.titles" ng-class="{ 'is-placeholder': !vm.form.title }">
+        <option value="">Select Title</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Marital Status</span>
+      <select ng-model="vm.form.maritalStatus" ng-options="status for status in vm.maritalStatuses" ng-class="{ 'is-placeholder': !vm.form.maritalStatus }">
+        <option value="">Marital Status</option>
+      </select>
+    </label>
+    <div class="transfer-field">
+      <span class="transfer-field-label">Subscriber's Aadhar Number</span>
+      <div class="apy-aadhar-group">
+        <input class="apy-aadhar-input" type="text" maxlength="4" ng-model="vm.form.aadharPart1" placeholder="XXXX" />
+        <input class="apy-aadhar-input" type="text" maxlength="4" ng-model="vm.form.aadharPart2" placeholder="XXXX" />
+        <input class="apy-aadhar-input" type="text" maxlength="4" ng-model="vm.form.aadharPart3" placeholder="XXXX" />
+      </div>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Beneficiary of other social security scheme</span>
+      <select ng-model="vm.form.otherScheme" ng-options="option for option in vm.otherSchemeOptions" ng-class="{ 'is-placeholder': !vm.form.otherScheme }">
+        <option value="">Beneficiary of other social security scheme</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Pension Amount</span>
+      <select ng-model="vm.form.pensionAmount" ng-options="amount for amount in vm.pensionAmounts" ng-class="{ 'is-placeholder': !vm.form.pensionAmount }">
+        <option value="">Pension Amount</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Place of application</span>
+      <input type="text" ng-model="vm.form.placeOfApplication" placeholder="Place of application" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Income tax payer</span>
+      <select ng-model="vm.form.incomeTaxPayer" ng-options="option for option in vm.incomeTaxOptions" ng-class="{ 'is-placeholder': !vm.form.incomeTaxPayer }">
+        <option value="">Income tax payer</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Name</span>
+      <input type="text" ng-model="vm.form.nomineeName" placeholder="Nominee Name" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee DOB</span>
+      <input type="date" ng-model="vm.form.nomineeDob" placeholder="Nominee DOB" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Relation</span>
+      <select ng-model="vm.form.nomineeRelation" ng-options="relation for relation in vm.nomineeRelations" ng-class="{ 'is-placeholder': !vm.form.nomineeRelation }">
+        <option value="">Nominee Relation</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nominee Minor</span>
+      <select ng-model="vm.form.nomineeMinor" ng-options="option for option in vm.minorOptions" ng-class="{ 'is-placeholder': !vm.form.nomineeMinor }">
+        <option value="">Nominee Minor</option>
+      </select>
+    </label>
+    <label class="transfer-field" ng-if="vm.form.nomineeMinor === 'Yes'">
+      <span class="transfer-field-label">Guardian Name (If Nominee Minor)</span>
+      <input type="text" ng-model="vm.form.guardianName" placeholder="Guardian Name" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Contribution Type</span>
+      <select ng-model="vm.form.contributionType" ng-options="option for option in vm.contributionTypes" ng-class="{ 'is-placeholder': !vm.form.contributionType }">
+        <option value="">Contribution Type</option>
+      </select>
+    </label>
+    <div class="transfer-error" ng-if="vm.formError">{{ vm.formError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromForm()">Continue</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'confirm'">
+    <div class="binddevice-card-title">Confirm And Authorize</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account</div>
+        <div>{{ vm.getAccountLabel(vm.form.account) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Title</div>
+        <div>{{ vm.form.title }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Marital Status</div>
+        <div>{{ vm.form.maritalStatus }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Aadhar Number</div>
+        <div>{{ vm.form.aadharPart1 }} {{ vm.form.aadharPart2 }} {{ vm.form.aadharPart3 }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Other Scheme</div>
+        <div>{{ vm.form.otherScheme }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Pension Amount</div>
+        <div>{{ vm.form.pensionAmount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Place of Application</div>
+        <div>{{ vm.form.placeOfApplication }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Income Tax Payer</div>
+        <div>{{ vm.form.incomeTaxPayer }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Name</div>
+        <div>{{ vm.form.nomineeName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee DOB</div>
+        <div>{{ vm.form.nomineeDob | date: "dd-MM-yyyy" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Relation</div>
+        <div>{{ vm.form.nomineeRelation }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Minor</div>
+        <div>{{ vm.form.nomineeMinor }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Name</div>
+        <div>{{ vm.form.guardianName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Contribution Type</div>
+        <div>{{ vm.form.contributionType }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">Submit</button>
+  </section>
+
+  <section class="binddevice-card transfer-status-card" ng-if="vm.step === 'success'">
+    <div class="transfer-status-check" ng-class="{ success: vm.isSuccess, failure: !vm.isSuccess }">
+      <span class="material-icons" aria-hidden="true">
+        {{ vm.isSuccess ? "check" : "close" }}
+      </span>
+    </div>
+    <div class="transfer-status-result">{{ vm.isSuccess ? "Success" : "Failed" }}</div>
+    <div class="transfer-status-message">Your APY enrollment request has been submitted.</div>
+
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account</div>
+        <div>{{ vm.getAccountLabel(vm.form.account) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Title</div>
+        <div>{{ vm.form.title }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Marital Status</div>
+        <div>{{ vm.form.maritalStatus }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Aadhar Number</div>
+        <div>{{ vm.form.aadharPart1 }} {{ vm.form.aadharPart2 }} {{ vm.form.aadharPart3 }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Other Scheme</div>
+        <div>{{ vm.form.otherScheme }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Pension Amount</div>
+        <div>{{ vm.form.pensionAmount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Place of Application</div>
+        <div>{{ vm.form.placeOfApplication }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Income Tax Payer</div>
+        <div>{{ vm.form.incomeTaxPayer }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Name</div>
+        <div>{{ vm.form.nomineeName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee DOB</div>
+        <div>{{ vm.form.nomineeDob | date: "dd-MM-yyyy" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Relation</div>
+        <div>{{ vm.form.nomineeRelation }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nominee Minor</div>
+        <div>{{ vm.form.nomineeMinor }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.nomineeMinor === 'Yes'">
+        <div>Guardian Name</div>
+        <div>{{ vm.form.guardianName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Contribution Type</div>
+        <div>{{ vm.form.contributionType }}</div>
+      </div>
+    </div>
+
+    <button class="transfer-receipt account-statement-button" type="button">
+      <span class="material-icons" aria-hidden="true">download</span>
+      Receipt
+    </button>
+
+    <div class="transfer-status-actions">
+      <button class="transfer-secondary account-statement-button" type="button" ng-click="vm.newRequest()">
+        New Request
+      </button>
+      <button class="transfer-primary account-statement-button" type="button" ng-click="vm.goHome()">
+        Home
+      </button>
+    </div>
+  </section>
+</div>

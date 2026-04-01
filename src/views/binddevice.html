@@ -1,0 +1,69 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Secure Device Binding</div>
+    <div class="binddevice-title">Bind this device to your User ID</div>
+    <div class="binddevice-subtitle">
+      Add this phone as a trusted device for quicker logins and stronger protection.
+    </div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">person_outline</span>
+        <div>
+          <div class="binddevice-step-title">Enter User ID</div>
+          <div class="binddevice-step-text">We’ll confirm it with a one-time code.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">sms</span>
+        <div>
+          <div class="binddevice-step-title">Verify OTP</div>
+          <div class="binddevice-step-text">Confirm ownership to bind this device.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">User verification</div>
+    <div class="binddevice-card-subtitle">Enter the User ID linked to your account.</div>
+
+    <label class="form-field binddevice-field">
+      <span class="material-icons field-icon" aria-hidden="true">person_outline</span>
+      <input
+        type="text"
+        placeholder="User ID"
+        ng-model="vm.form.userId"
+        maxlength="9"
+        inputmode="text"
+        autocomplete="off"
+        autocapitalize="characters"
+      />
+    </label>
+    <div class="binddevice-error" ng-if="vm.error">{{ vm.error }}</div>
+
+    <button class="binddevice-cta" type="button" ng-click="vm.proceed()">
+      Proceed to OTP
+    </button>
+
+    <div class="binddevice-note">
+      We’ll send an OTP to your registered mobile number.
+    </div>
+  </section>
+
+  <section class="binddevice-tips">
+    <div class="binddevice-tip">
+      <span class="material-icons" aria-hidden="true">verified_user</span>
+      <div>
+        <div class="binddevice-tip-title">Protection built in</div>
+        <div class="binddevice-tip-text">Binding helps prevent unauthorized access.</div>
+      </div>
+    </div>
+    <div class="binddevice-tip">
+      <span class="material-icons" aria-hidden="true">lock</span>
+      <div>
+        <div class="binddevice-tip-title">Never share OTPs</div>
+        <div class="binddevice-tip-text">{{ vm.bankShortName }} will never ask for OTP over calls.</div>
+      </div>
+    </div>
+  </section>
+</div>

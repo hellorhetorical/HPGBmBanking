@@ -1,0 +1,88 @@
+<div class="binddevice-page inquire-cheque-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Inquire Cheque</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">account_balance</span>
+        <div>
+          <div class="binddevice-step-title">Select account</div>
+          <div class="binddevice-step-text">Choose account and date range.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">search</span>
+        <div>
+          <div class="binddevice-step-title">Search status</div>
+          <div class="binddevice-step-text">View cheque book details.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="!vm.showResult">
+    <div class="binddevice-card-title">Inquire Cheque Status</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select ng-model="vm.form.account" ng-options="account.number as vm.getAccountLabel(account) for account in vm.accounts" ng-class="{ 'is-placeholder': !vm.form.account }">
+        <option value="">Account number</option>
+      </select>
+    </label>
+    <div class="transfer-inline is-even">
+      <label class="transfer-field">
+        <span class="transfer-field-label">From date</span>
+        <input type="date" ng-model="vm.form.fromDate" placeholder="From date" />
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">To date</span>
+        <input type="date" ng-model="vm.form.toDate" placeholder="To date" />
+      </label>
+    </div>
+    <div class="transfer-error" ng-if="vm.formError">{{ vm.formError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.search()">Search</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.showResult">
+    <div class="binddevice-card-title">Inquire Cheque Status</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account number</div>
+        <div>{{ vm.getAccountLabel(vm.form.account) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>From date</div>
+        <div>{{ vm.form.fromDate | date: "dd/MM/yyyy" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>To date</div>
+        <div>{{ vm.form.toDate | date: "dd/MM/yyyy" }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Cheque Book</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Select cheque book</span>
+      <select ng-model="vm.selectedBook" ng-options="book as (book.startNumber + ' • ' + book.chequeLeaves + ' leaves') for book in vm.chequeBooks" ng-class="{ 'is-placeholder': !vm.selectedBook }">
+        <option value="">Select cheque book</option>
+      </select>
+    </label>
+    <div class="transfer-status-table" ng-if="vm.selectedBook">
+      <div class="transfer-status-row highlight">
+        <div>Start number</div>
+        <div>{{ vm.selectedBook.startNumber }}</div>
+      </div>
+      <div class="transfer-status-row highlight">
+        <div>Cheque leaves</div>
+        <div>{{ vm.selectedBook.chequeLeaves }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle" ng-if="vm.selectedBook">Cheque Leaf Details</div>
+    <div class="transfer-status-table" ng-if="vm.selectedBook">
+      <div class="transfer-status-row" ng-repeat="leaf in vm.leafDetails[vm.selectedBook.id]">
+        <div>{{ leaf.number }}</div>
+        <div>{{ leaf.status }}</div>
+      </div>
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.reset()">Back</button>
+  </section>
+</div>

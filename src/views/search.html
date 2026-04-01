@@ -1,0 +1,43 @@
+<div class="service-search-page">
+  <div class="service-search-card">
+    <div class="service-search-label">Search services</div>
+    <div class="service-search-input">
+      <span class="material-icons" aria-hidden="true">search</span>
+      <input
+        type="search"
+        placeholder="Type a service name"
+        aria-label="Search services"
+        ng-model="vm.searchQuery"
+        ng-change="vm.updateSearch()"
+      />
+    </div>
+  </div>
+
+  <div class="service-search-results" ng-if="vm.hasResults">
+    <div class="home-section" ng-repeat="section in vm.sections">
+      <div class="home-section-header">
+        <div class="home-section-title">{{ section.title }}</div>
+      </div>
+      <div class="home-action-grid">
+        <button
+          class="home-action"
+          type="button"
+          ng-repeat="item in section.items"
+          ng-class="{ 'is-clickable': item.route }"
+          ng-click="item.route && vm.goTo(item.route)"
+          ng-disabled="!item.route"
+        >
+          <div class="home-action-icon">
+            <span class="material-icons" aria-hidden="true">{{ item.icon }}</span>
+          </div>
+          <div class="home-action-label">{{ item.label }}</div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-search-empty" ng-if="!vm.hasResults">
+    <span class="material-icons" aria-hidden="true">search_off</span>
+    <div>No services found. Try a different name.</div>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">FD Closure</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">lock</span>
+        <div>
+          <div class="binddevice-step-title">Select FD account</div>
+          <div class="binddevice-step-text">Choose the deposit account to close.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">assignment_turned_in</span>
+        <div>
+          <div class="binddevice-step-title">Review payout</div>
+          <div class="binddevice-step-text">Confirm the closure amount and credit account.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm using your TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">Premature FD Closure</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">FD Account to be closed</span>
+      <select
+        ng-model="vm.form.fdAccount"
+        ng-options="account as vm.getFdAccountLabel(account) for account in vm.fdAccounts"
+        ng-change="vm.updateFdAccount()"
+      ></select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">FD Account Holder Name</span>
+      <input type="text" ng-model="vm.form.holderName" disabled />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account to be credited</span>
+      <select
+        ng-model="vm.form.creditAccount"
+        ng-options="account as vm.getCreditAccountLabel(account) for account in vm.creditAccounts"
+      ></select>
+    </label>
+    <div class="card-mgmt-note">
+      <strong>Please note:</strong>
+      <ol>
+        <li>Only deposit accounts opened through Internet or Mobile Banking can be closed here.</li>
+        <li>Select any operative account under the same customer ID for credit of funds.</li>
+        <li>You are eligible for a loan against selected online FDR. Avail it to avoid interest loss.</li>
+      </ol>
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromForm()">Continue</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'confirm'">
+    <div class="binddevice-card-title">Confirm And Authorize</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>FD Account to be closed</div>
+        <div>{{ vm.form.fdAccount.number }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>FD Account Holder Name</div>
+        <div>{{ vm.form.holderName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Original FD Amount</div>
+        <div>₹ {{ vm.form.fdAccount.originalAmount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Original Maturity Date</div>
+        <div>{{ vm.form.fdAccount.maturityDate }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Original Maturity Amount</div>
+        <div>₹ {{ vm.form.fdAccount.maturityAmount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Original Interest Rate</div>
+        <div>{{ vm.form.fdAccount.interestRate }}%</div>
+      </div>
+    </div>
+
+    <div class="binddevice-section">
+      <div class="binddevice-section-title">After Premature Closure (if closed today)</div>
+    </div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row highlight">
+        <div>Amount Payable on Premature Closure</div>
+        <div>₹ {{ vm.form.fdAccount.closureAmount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Account to be credited</div>
+        <div>{{ vm.form.creditAccount.number }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Applicable Interest Rate</div>
+        <div>{{ vm.form.fdAccount.applicableRate }}%</div>
+      </div>
+    </div>
+
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">Continue</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'success'">
+    <div class="binddevice-card-title">FD Closure</div>
+    <div class="transfer-status-message">Your FD closure request has been submitted.</div>
+    <button class="account-statement-button" type="button" ng-click="vm.goHome()">Dashboard</button>
+  </section>
+</div>

@@ -1,0 +1,77 @@
+<div class="binddevice-page stop-cheque-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Stop Cheque</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">description</span>
+        <div>
+          <div class="binddevice-step-title">Cheque details</div>
+          <div class="binddevice-step-text">Select account and cheque number.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">lock</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm using TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">Stop Cheque</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select ng-model="vm.form.account" ng-options="account.number as vm.getAccountLabel(account) for account in vm.accounts" ng-class="{ 'is-placeholder': !vm.form.account }">
+        <option value="">Account number</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Cheque number</span>
+      <input type="text" ng-model="vm.form.chequeNumber" placeholder="Cheque number" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Reason</span>
+      <select ng-model="vm.form.reason" ng-options="reason for reason in vm.reasons" ng-class="{ 'is-placeholder': !vm.form.reason }">
+        <option value="">Reason</option>
+      </select>
+    </label>
+    <div class="transfer-error" ng-if="vm.formError">{{ vm.formError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueToAuthorize()">Stop</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'authorize'">
+    <div class="binddevice-card-title">Stop Cheque</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account number</div>
+        <div>{{ vm.getAccountLabel(vm.form.account) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Cheque number</div>
+        <div>{{ vm.form.chequeNumber }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Reason</div>
+        <div>{{ vm.form.reason }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">Confirm</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'success'">
+    <div class="binddevice-card-title">Stop Cheque</div>
+    <div class="transfer-status-message">Your cheque stop request has been submitted.</div>
+    <button class="account-statement-button" type="button" ng-click="vm.goHome()">Dashboard</button>
+  </section>
+</div>

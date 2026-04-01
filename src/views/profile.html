@@ -1,0 +1,33 @@
+<div class="binddevice-page profile-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Profile</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">lock</span>
+        <div>
+          <div class="binddevice-step-title">Manage credentials</div>
+          <div class="binddevice-step-text">Update Login PIN, TPIN, and SMS password.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">check_circle</span>
+        <div>
+          <div class="binddevice-step-title">Stay secure</div>
+          <div class="binddevice-step-text">Keep your account protected.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">My Profile</div>
+    <div class="bbps-list">
+      <a class="bbps-item" ng-repeat="item in vm.items" href="{{ item.route }}">
+        <span>{{ item.label }}</span>
+        <span class="material-icons" aria-hidden="true">chevron_right</span>
+      </a>
+    </div>
+  </section>
+</div>

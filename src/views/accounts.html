@@ -1,0 +1,14 @@
+<div class="page">
+  <div class="page-header">
+    <h1>{{ vm.title }}</h1>
+    <p>{{ vm.subtitle }}</p>
+  </div>
+  <div class="tile-grid">
+    <div class="tile" ng-repeat="account in vm.accounts">
+      <h3>{{ account.label }}</h3>
+      <p class="text-sm">Account Name: {{ account.name }}</p>
+      <p class="text-sm">Account Number: {{ vm.maskAccount(account.number) }}</p>
+      <p class="text-sm">Balance: {{ account.balance }}</p>
+    </div>
+  </div>
+</div>

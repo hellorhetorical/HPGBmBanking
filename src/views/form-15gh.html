@@ -1,0 +1,231 @@
+<div class="binddevice-page form-15gh-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">15G/H</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">fact_check</span>
+        <div>
+          <div class="binddevice-step-title">Accept terms</div>
+          <div class="binddevice-step-text">Review and accept the declaration.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">person</span>
+        <div>
+          <div class="binddevice-step-title">Personal details</div>
+          <div class="binddevice-step-text">Confirm the details on record.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">assignment</span>
+        <div>
+          <div class="binddevice-step-title">Declaration</div>
+          <div class="binddevice-step-text">Provide assessment details.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'terms'">
+    <div class="binddevice-card-title">Form 15G/H Submission</div>
+    <div class="card-mgmt-note">
+      Dear Customer, please read and accept the terms &amp; conditions.
+    </div>
+    <button class="limit-link" type="button" ng-click="vm.viewTerms()" aria-label="Terms and Conditions for Form 15G/H submission">Terms and Conditions</button>
+    <label class="fd-terms">
+      <input type="checkbox" ng-model="vm.acceptedTerms" />
+      <span>I have read and I accept the Terms and Conditions</span>
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromTerms()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'details'">
+    <div class="binddevice-card-title">Form 15G/H Submission</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Customer Name</span>
+      <input type="text" ng-model="vm.form.customerName" placeholder="Customer Name" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">PAN</span>
+      <input type="text" ng-model="vm.form.pan" placeholder="PAN" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Date of birth</span>
+      <input type="text" ng-model="vm.form.dob" placeholder="DD-MM-YYYY" ng-change="vm.onDobChange()" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Mobile Number</span>
+      <input type="text" ng-model="vm.form.mobile" placeholder="Mobile Number" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Residential Status</span>
+      <input type="text" ng-model="vm.form.residentialStatus" placeholder="Residential Status" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">E-Mail ID</span>
+      <input type="text" ng-model="vm.form.email" placeholder="E-Mail ID" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">PIN Code</span>
+      <input type="text" ng-model="vm.form.pin" placeholder="PIN Code" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Address</span>
+      <input type="text" ng-model="vm.form.address" placeholder="Address" />
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromDetails()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'assessment'">
+    <div class="binddevice-card-title">Form 15G/H Submission</div>
+    <div class="transfer-field">
+      <span class="transfer-field-label">
+        Whether assessed to tax under Income Tax Act 1961 for any of the assessment year out of six
+        assessment years preceding the year in which the declaration is filed
+      </span>
+      <div class="pmjjby-radio-group">
+        <label class="pmjjby-radio">
+          <input type="radio" ng-model="vm.form.assessedToTax" value="Yes" />
+          <span>Yes</span>
+        </label>
+        <label class="pmjjby-radio">
+          <input type="radio" ng-model="vm.form.assessedToTax" value="No" />
+          <span>No</span>
+        </label>
+      </div>
+    </div>
+    <label class="transfer-field" ng-if="vm.form.assessedToTax === 'Yes'">
+      <span class="transfer-field-label">Latest assessment year</span>
+      <select ng-model="vm.form.latestAssessmentYear" ng-options="year for year in vm.assessmentYears"></select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Form Type</span>
+      <input type="text" ng-model="vm.form.formType" placeholder="Form Type" readonly />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Estimated income earned from deposit(s)</span>
+      <input type="text" ng-model="vm.form.estimatedIncome" placeholder="0.00" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Income from other sources</span>
+      <input type="text" ng-model="vm.form.otherIncome" placeholder="0" />
+    </label>
+    <div class="transfer-field">
+      <span class="transfer-field-label">
+        Details of Form No. 15G/15H other than this form filled during the current financial year
+      </span>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">No. of forms filled</span>
+      <input type="text" ng-model="vm.form.formsFilled" placeholder="0" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Aggregate Amount From Other Banks</span>
+      <input type="text" ng-model="vm.form.aggregateAmount" placeholder="0" />
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.submitForm()">
+      Submit
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'authorize'">
+    <div class="binddevice-card-title">Form 15G/H Submission</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Customer Name</div>
+        <div>{{ vm.form.customerName }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>PAN</div>
+        <div>{{ vm.form.pan }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Date of birth</div>
+        <div>{{ vm.form.dob }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Mobile Number</div>
+        <div>{{ vm.form.mobile }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Residential Status</div>
+        <div>{{ vm.form.residentialStatus }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>E-Mail ID</div>
+        <div>{{ vm.form.email }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>PIN Code</div>
+        <div>{{ vm.form.pin }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Address</div>
+        <div>{{ vm.form.address }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Assessed to tax</div>
+        <div>{{ vm.form.assessedToTax }}</div>
+      </div>
+      <div class="transfer-status-row" ng-if="vm.form.assessedToTax === 'Yes'">
+        <div>Latest assessment year</div>
+        <div>{{ vm.form.latestAssessmentYear }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Form Type</div>
+        <div>{{ vm.form.formType }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Estimated income earned from deposit(s)</div>
+        <div>{{ vm.form.estimatedIncome }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Income from other sources</div>
+        <div>{{ vm.form.otherIncome }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>No. of forms filled</div>
+        <div>{{ vm.form.formsFilled }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Aggregate Amount From Other Banks</div>
+        <div>{{ vm.form.aggregateAmount }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">
+      Confirm
+    </button>
+  </section>
+
+  <section class="binddevice-card transfer-status-card" ng-if="vm.step === 'success'">
+    <div class="transfer-status-check success">
+      <span class="material-icons" aria-hidden="true">check</span>
+    </div>
+    <div class="transfer-status-result">Success</div>
+    <div class="transfer-status-message">{{ vm.statusMessage }}</div>
+    <div class="transfer-status-actions">
+      <button class="transfer-secondary account-statement-button" type="button" ng-click="vm.newRequest()">
+        New Request
+      </button>
+      <button class="transfer-primary account-statement-button" type="button" ng-click="vm.goHome()">
+        Home
+      </button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,61 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">First Login</div>
+    <div class="binddevice-title">Set MPIN and TPIN</div>
+    <div class="binddevice-subtitle">
+      For User ID <span class="otp-user-id">{{ vm.userId }}</span>, set your 4-digit MPIN and TPIN.
+    </div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">pin</span>
+        <div>
+          <div class="binddevice-step-title">Create PINs</div>
+          <div class="binddevice-step-text">Set new MPIN and TPIN to secure your account.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">sms</span>
+        <div>
+          <div class="binddevice-step-title">OTP verification</div>
+          <div class="binddevice-step-text">Verify setup with OTP on next screen.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">Create new PINs</div>
+    <div class="binddevice-card-subtitle">PIN must be exactly 4 digits.</div>
+
+    <div class="binddevice-section">
+      <div class="binddevice-section-title">MPIN</div>
+      <label class="form-field binddevice-field">
+        <span class="material-icons field-icon" aria-hidden="true">lock_outline</span>
+        <pin-input ng-model="vm.form.mpin" pin-label="New MPIN"></pin-input>
+      </label>
+      <label class="form-field binddevice-field">
+        <span class="material-icons field-icon" aria-hidden="true">lock</span>
+        <pin-input ng-model="vm.form.mpinConfirm" pin-label="Confirm MPIN"></pin-input>
+      </label>
+    </div>
+
+    <div class="binddevice-section">
+      <div class="binddevice-section-title">TPIN</div>
+      <label class="form-field binddevice-field">
+        <span class="material-icons field-icon" aria-hidden="true">shield</span>
+        <pin-input ng-model="vm.form.tpin" pin-label="New TPIN"></pin-input>
+      </label>
+      <label class="form-field binddevice-field">
+        <span class="material-icons field-icon" aria-hidden="true">verified_user</span>
+        <pin-input ng-model="vm.form.tpinConfirm" pin-label="Confirm TPIN"></pin-input>
+      </label>
+    </div>
+
+    <div class="binddevice-error" ng-if="vm.error">{{ vm.error }}</div>
+
+    <div class="binddevice-row new-user-actions">
+      <button class="bind-button" type="button" ng-click="vm.goBack()">Back</button>
+      <button class="binddevice-cta" type="button" ng-click="vm.continueToOtp()">Continue</button>
+    </div>
+  </section>
+</div>

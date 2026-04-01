@@ -1,0 +1,95 @@
+<div class="binddevice-page ckyc-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">CKYC</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Review status</div>
+          <div class="binddevice-step-text">Confirm CKYC details.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">check_circle</span>
+        <div>
+          <div class="binddevice-step-title">Confirm</div>
+          <div class="binddevice-step-text">Acknowledge and continue.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">CKYC</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">KYC Status</span>
+      <input type="text" ng-model="vm.form.status" placeholder="KYC Status" readonly />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">KYC Complied Date</span>
+      <input type="text" ng-model="vm.form.compliedDate" placeholder="KYC Complied Date" readonly />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">CKYC Number</span>
+      <input type="text" ng-model="vm.form.number" placeholder="CKYC Number" readonly />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">KYC Due Date</span>
+      <input type="text" ng-model="vm.form.dueDate" placeholder="KYC Due Date" readonly />
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.confirm()">
+      Confirm
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'authorize'">
+    <div class="binddevice-card-title">CKYC</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>KYC Status</div>
+        <div>{{ vm.form.status }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>KYC Complied Date</div>
+        <div>{{ vm.form.compliedDate }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>CKYC Number</div>
+        <div>{{ vm.form.number }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>KYC Due Date</div>
+        <div>{{ vm.form.dueDate }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">
+      Confirm
+    </button>
+  </section>
+
+  <section class="binddevice-card transfer-status-card" ng-if="vm.step === 'success'">
+    <div class="transfer-status-check success">
+      <span class="material-icons" aria-hidden="true">check</span>
+    </div>
+    <div class="transfer-status-result">Success</div>
+    <div class="transfer-status-message">{{ vm.statusMessage }}</div>
+    <div class="transfer-status-actions">
+      <button class="transfer-secondary account-statement-button" type="button" ng-click="vm.newRequest()">
+        New Request
+      </button>
+      <button class="transfer-primary account-statement-button" type="button" ng-click="vm.goHome()">
+        Home
+      </button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,43 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">New User</div>
+    <div class="binddevice-title">Register Account</div>
+    <div class="binddevice-subtitle">Enter account details to continue registration.</div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">Account details</div>
+    <div class="binddevice-card-subtitle">Provide your account number and select facility.</div>
+
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account Number</span>
+      <input
+        type="text"
+        inputmode="numeric"
+        maxlength="18"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="none"
+        spellcheck="false"
+        ng-model="vm.form.accountNumber"
+        placeholder="Enter account number"
+      />
+    </label>
+
+    <label class="transfer-field">
+      <span class="transfer-field-label">Facility</span>
+      <select ng-model="vm.form.facility">
+        <option value="Transaction and View">Transaction and View</option>
+      </select>
+    </label>
+
+    <div class="binddevice-error" ng-if="vm.error">{{ vm.error }}</div>
+
+    <div class="binddevice-row new-user-actions">
+      <button class="bind-button" type="button" ng-click="vm.goBack()">Back to Login</button>
+      <button class="binddevice-cta new-user-continue" type="button" ng-click="vm.continue()">
+        Continue
+      </button>
+    </div>
+  </section>
+</div>

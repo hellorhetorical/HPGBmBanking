@@ -1,0 +1,91 @@
+<div class="page-card updates-page emi-page">
+  <div class="page-header">
+    <div class="page-title">{{ vm.title }}</div>
+    <div class="page-subtitle">{{ vm.subtitle }}</div>
+  </div>
+
+  <div class="loan-hero updates-hero emi-hero">
+    <div>
+      <div class="loan-hero-title">Estimate your monthly EMI</div>
+      <div class="loan-hero-subtitle">
+        Enter loan details to calculate monthly payments, total interest, and overall repayment amount instantly.
+      </div>
+    </div>
+    <a class="loan-primary" href="#!/calculator">Back to calculators</a>
+  </div>
+
+  <div class="emi-form">
+    <label class="emi-field">
+      <span class="emi-label">Loan Amount</span>
+      <span class="emi-input">
+        <span class="emi-addon">Rs</span>
+        <input type="number" inputmode="decimal" placeholder="Loan amount" ng-model="vm.form.amount" />
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Repayment in months</span>
+      <span class="emi-input">
+        <span class="emi-addon">
+          <span class="material-icons" aria-hidden="true">schedule</span>
+        </span>
+        <input type="number" inputmode="numeric" placeholder="Period in months" ng-model="vm.form.months" />
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Interest Rate</span>
+      <span class="emi-input">
+        <span class="emi-addon">%</span>
+        <input type="number" inputmode="decimal" placeholder="Rate of interest" ng-model="vm.form.rate" />
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Extra Monthly Payment</span>
+      <span class="emi-input">
+        <span class="emi-addon">Rs</span>
+        <input type="number" inputmode="decimal" placeholder="0" ng-model="vm.form.extra" />
+      </span>
+    </label>
+
+    <button class="emi-button" type="button" ng-click="vm.calculate()">Calculate</button>
+    <button class="emi-button secondary" type="button" ng-click="vm.reset()">Start Over</button>
+  </div>
+
+  <div class="emi-result" ng-if="vm.result">
+    <div class="emi-result-header">
+      <div>
+        <div class="result-title">Result</div>
+        <div class="result-subtitle">Your repayment snapshot</div>
+      </div>
+      <div class="result-pill">₹{{ vm.result.emi | number:2 }}/mo</div>
+    </div>
+    <div class="emi-result-grid">
+      <div class="result-card">
+        <div class="result-label">Loan Amount</div>
+        <div class="result-value">₹{{ vm.form.amount | number:2 }}</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Months</div>
+        <div class="result-value">{{ vm.form.months }}</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Interest Rate</div>
+        <div class="result-value">{{ vm.form.rate }}%</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Base EMI</div>
+        <div class="result-value">₹{{ vm.result.emi | number:2 }}</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Extra / mo</div>
+        <div class="result-value">₹{{ (vm.form.extra || 0) | number:2 }}</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Total EMI</div>
+        <div class="result-value">₹{{ vm.result.adjustedEmi | number:2 }}</div>
+      </div>
+    </div>
+  </div>
+</div>

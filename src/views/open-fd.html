@@ -1,0 +1,166 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Open FD</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">savings</span>
+        <div>
+          <div class="binddevice-step-title">Choose FD details</div>
+          <div class="binddevice-step-text">Select tenure, amount, and maturity instruction.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm using your TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'terms'">
+    <div class="binddevice-card-title">Open Fixed Deposit</div>
+    <div class="card-mgmt-note">
+      Dear Customer, please read and accept the terms &amp; conditions.
+    </div>
+    <button class="limit-link" type="button" ng-click="vm.viewTerms()" aria-label="Terms and Conditions for Open Fixed Deposit">Terms and Conditions</button>
+    <label class="fd-terms">
+      <input type="checkbox" ng-model="vm.acceptedTerms" />
+      <span>I have read and I accept the Terms and Conditions</span>
+    </label>
+    <button class="account-statement-button" type="button" ng-disabled="!vm.acceptedTerms" ng-click="vm.continueFromTerms()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'form'">
+    <div class="binddevice-card-title">Open New Fixed Deposit</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">FD Type</span>
+      <select ng-model="vm.form.fdType" ng-options="type for type in vm.fdTypes" ng-change="vm.updateFdType()"></select>
+    </label>
+    <label class="transfer-field" ng-if="vm.form.fdType !== 'Tax Saver'">
+      <span class="transfer-field-label">Partial Withdraw</span>
+      <select ng-model="vm.form.partialWithdrawal" ng-options="option for option in vm.partialWithdrawals"></select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Maturity instructions</span>
+      <select ng-model="vm.form.maturityInstruction" ng-options="option for option in vm.maturityInstructions" ng-disabled="vm.form.fdType === 'Tax Saver'"></select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Deposit amount</span>
+      <input
+        type="text"
+        ng-model="vm.form.depositAmount"
+        placeholder="Deposit amount"
+        ng-change="vm.clearBalanceError()"
+      />
+    </label>
+    <div class="transfer-error" ng-if="vm.balanceError">{{ vm.balanceError }}</div>
+    <div class="fd-tenure">
+      <label class="transfer-field">
+        <span class="transfer-field-label">Year</span>
+        <input type="text" ng-model="vm.form.tenureYears" placeholder="0" ng-disabled="vm.form.fdType === 'Tax Saver'" />
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">Month</span>
+        <input type="text" ng-model="vm.form.tenureMonths" placeholder="0" ng-disabled="vm.form.fdType === 'Tax Saver'" />
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">Days</span>
+        <input type="text" ng-model="vm.form.tenureDays" placeholder="0" ng-disabled="vm.form.fdType === 'Tax Saver'" />
+      </label>
+    </div>
+    <label class="transfer-field" ng-if="vm.form.fdType === 'Tax Saver'">
+      <span class="transfer-field-label">FD Interest Payment Option</span>
+      <select ng-model="vm.form.interestOption" ng-options="option for option in vm.interestOptions"></select>
+    </label>
+    <div class="fd-interest-rate" ng-if="vm.form.fdType">
+      {{ vm.getInterestRateLabel() }}
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Debit account</span>
+      <select
+        ng-model="vm.form.debitAccount"
+        ng-options="account as vm.getAccountLabel(account) for account in vm.accounts"
+        ng-change="vm.clearBalanceError()"
+      ></select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Retain the nominee details of selected operator</span>
+      <select ng-model="vm.form.nomineeRetain" ng-options="option for option in vm.nomineeOptions"></select>
+    </label>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromForm()">Continue</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'confirm'">
+    <div class="binddevice-card-title">Confirm And Authorize</div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+      <div>Deposit amount</div>
+        <div>₹ {{ vm.form.depositAmount || "0.00" }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Debit account</div>
+        <div>{{ vm.getAccountLabel(vm.form.debitAccount) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Year</div>
+        <div>{{ vm.form.tenureYears }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Months</div>
+        <div>{{ vm.form.tenureMonths }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Days</div>
+        <div>{{ vm.form.tenureDays }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>FD Type</div>
+        <div>{{ vm.form.fdType }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Partial Withdraw</div>
+        <div>{{ vm.form.partialWithdrawal }}</div>
+      </div>
+      <div class="transfer-status-row">
+      <div>Maturity instructions</div>
+      <div>{{ vm.form.maturityInstruction }}</div>
+    </div>
+    <div class="transfer-status-row">
+      <div>Interest Rate</div>
+      <div>{{ vm.getInterestRateLabel() }}</div>
+    </div>
+      <div class="transfer-status-row">
+        <div>Maturity Amount</div>
+        <div>Maturity Amount: {{ vm.getMaturityAmount() }}</div>
+      </div>
+      <div class="transfer-status-row">
+      <div>FD Interest Payment Option</div>
+      <div>{{ vm.form.interestOption }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Retain nominee details</div>
+        <div>{{ vm.form.nomineeRetain }}</div>
+      </div>
+    </div>
+    <div class="binddevice-card-subtitle">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">Submit</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'success'">
+    <div class="binddevice-card-title">Open Fixed Deposit</div>
+    <div class="transfer-status-message">Your fixed deposit request has been submitted.</div>
+    <button class="account-statement-button" type="button" ng-click="vm.goHome()">Dashboard</button>
+  </section>
+</div>

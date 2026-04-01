@@ -1,0 +1,116 @@
+<div class="page-card updates-page emi-page">
+  <div class="page-header">
+    <div class="page-title">{{ vm.title }}</div>
+    <div class="page-subtitle">{{ vm.subtitle }}</div>
+  </div>
+
+  <div class="loan-hero updates-hero emi-hero">
+    <div>
+      <div class="loan-hero-title">Plan payments after moratorium</div>
+      <div class="loan-hero-subtitle">
+        Add a moratorium period to see the adjusted EMI once repayments begin.
+      </div>
+    </div>
+    <a class="loan-primary" href="#!/calculator">Back to calculators</a>
+  </div>
+
+  <div class="emi-form">
+    <label class="emi-field">
+      <span class="emi-label">Loan Date</span>
+      <span class="emi-input date-field" ng-class="{ 'has-value': vm.form.date }">
+        <span class="emi-addon">
+          <span class="material-icons" aria-hidden="true">event</span>
+        </span>
+        <span class="emi-placeholder">DD/MM/YYYY</span>
+        <input class="date-input" type="date" ng-model="vm.form.date" />
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Loan Amount</span>
+      <span class="emi-input">
+        <span class="emi-addon">Rs</span>
+        <input type="number" inputmode="decimal" placeholder="Loan amount" ng-model="vm.form.amount" />
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Interest Rate (% per annum)</span>
+      <span class="emi-input">
+        <span class="emi-addon">%</span>
+        <input type="number" inputmode="decimal" placeholder="Rate of Interest" ng-model="vm.form.rate" />
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Loan Period (in months)</span>
+      <span class="emi-input">
+        <span class="emi-addon">
+          <span class="material-icons" aria-hidden="true">schedule</span>
+        </span>
+        <input type="number" inputmode="numeric" placeholder="Loan period" ng-model="vm.form.months" />
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Moratorium Period (in months)</span>
+      <span class="emi-input">
+        <span class="emi-addon">
+          <span class="material-icons" aria-hidden="true">schedule</span>
+        </span>
+        <input type="number" inputmode="numeric" placeholder="Moratorium period" ng-model="vm.form.moratorium" />
+      </span>
+    </label>
+
+    <label class="emi-field">
+      <span class="emi-label">Additional Payment (per month)</span>
+      <span class="emi-input">
+        <span class="emi-addon">Rs</span>
+        <input type="number" inputmode="decimal" placeholder="0" ng-model="vm.form.extra" />
+      </span>
+    </label>
+
+    <button class="emi-button" type="button" ng-click="vm.calculate()">Calculate</button>
+    <button class="emi-button secondary" type="button" ng-click="vm.reset()">Start Over</button>
+  </div>
+
+  <div class="emi-result" ng-if="vm.result">
+    <div class="emi-result-header">
+      <div>
+        <div class="result-title">Result</div>
+        <div class="result-subtitle">Moratorium repayment snapshot</div>
+      </div>
+      <div class="result-pill">₹{{ vm.result.adjustedEmi | number:2 }}/mo</div>
+    </div>
+    <div class="emi-result-grid">
+      <div class="result-card">
+        <div class="result-label">Loan Period</div>
+        <div class="result-value">{{ vm.form.months }} mo</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Repayment Period</div>
+        <div class="result-value">{{ vm.result.remainingMonths }} mo</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Loan Date</div>
+        <div class="result-value">{{ vm.result.formattedDate }}</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Additional / mo</div>
+        <div class="result-value">₹{{ (vm.form.extra || 0) | number:2 }}</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">EMI</div>
+        <div class="result-value">₹{{ vm.result.baseEmi | number:2 }}</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Total Repaid</div>
+        <div class="result-value">₹{{ vm.result.totalPayment | number:2 }}</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Total Interest</div>
+        <div class="result-value">₹{{ vm.result.totalInterest | number:2 }}</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div class="home-page">
+  <div class="home-profile">
+    <div class="home-profile-rail">
+      <div class="home-avatar">
+        <span class="material-icons" aria-hidden="true">person</span>
+      </div>
+      <div class="home-profile-chip">Active</div>
+    </div>
+    <div class="home-profile-body">
+      <div class="home-profile-top">
+        <div class="home-name">{{ vm.user.name }}</div>
+      </div>
+      <div class="home-id">User ID: {{ vm.user.userId }}</div>
+      <div class="home-profile-meta">
+        <span class="material-icons" aria-hidden="true">verified</span>
+        {{ vm.getLastLoginLabel() }}
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="home-highlight-slider"
+    ng-init="vm.initSlider()"
+    tabindex="0"
+    role="region"
+    aria-roledescription="carousel"
+    aria-label="Account highlights"
+    aria-live="polite"
+    aria-atomic="true"
+    ng-keydown="vm.onHighlightKeydown($event)"
+  >
+    <div
+      class="home-highlight-card"
+      ng-repeat="account in vm.highlightAccounts track by $index"
+      role="group"
+      aria-roledescription="slide"
+      ng-attr-aria-label="{{ account.title }} account {{ $index + 1 }} of {{ vm.highlightAccounts.length }}"
+      ng-attr-aria-current="{{ vm.activeAccountIndex === $index ? 'true' : undefined }}"
+    >
+      <div class="home-highlight-header">
+        <div class="home-highlight-title">{{ account.title }}</div>
+        <span class="material-icons" aria-hidden="true">arrow_forward</span>
+      </div>
+      <div class="home-highlight-number" ng-if="account.showDetails">{{ account.number }}</div>
+      <div class="home-highlight-number" ng-if="!account.showDetails">
+        {{ vm.getMaskedNumber(account) }}
+      </div>
+      <div class="home-highlight-label">Total Available Balance</div>
+      <div class="home-highlight-balance" ng-if="account.showDetails">₹{{ account.balance }}</div>
+      <div class="home-highlight-balance" ng-if="!account.showDetails">₹ ****</div>
+      <button
+        class="home-highlight-eye"
+        type="button"
+        aria-label="Toggle balance visibility"
+        ng-click="vm.toggleAccountDetails(account)"
+      >
+        <span class="material-icons" aria-hidden="true">
+          {{ account.showDetails ? "visibility" : "visibility_off" }}
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="sr-only" aria-live="polite" aria-atomic="true">
+    {{
+      vm.highlightAccounts[vm.activeAccountIndex]
+        ? vm.highlightAccounts[vm.activeAccountIndex].title + " selected"
+        : ""
+    }}
+  </div>
+
+  <div class="home-dots">
+    <button
+      class="home-dot"
+      type="button"
+      ng-repeat="account in vm.highlightAccounts track by $index"
+      ng-class="{ active: vm.activeAccountIndex === $index }"
+      ng-attr-aria-pressed="{{ vm.activeAccountIndex === $index }}"
+      ng-attr-aria-current="{{ vm.activeAccountIndex === $index ? 'true' : undefined }}"
+      ng-attr-aria-label="View {{ account.title }} account"
+      ng-click="vm.setActiveAccount($index)"
+    ></button>
+  </div>
+
+  <div class="home-section" ng-repeat="section in vm.sections track by $index">
+    <div class="home-section-header">
+      <div class="home-section-title">{{ section.title }}</div>
+      <button
+        class="home-section-more"
+        type="button"
+        ng-if="section.more"
+        ng-class="{ 'is-clickable': section.moreRoute }"
+        ng-click="section.moreRoute && vm.goTo(section.moreRoute)"
+        ng-disabled="!section.moreRoute"
+      >{{ section.more }}</button>
+    </div>
+    <div class="home-action-grid">
+      <button
+        class="home-action"
+        type="button"
+        ng-repeat="item in section.items track by $index"
+        ng-class="{ 'is-clickable': item.route }"
+        ng-click="item.route && vm.goTo(item.route)"
+        ng-disabled="!item.route"
+      >
+        <div class="home-action-icon">
+          <span class="material-icons" aria-hidden="true">{{ item.icon }}</span>
+        </div>
+        <div class="home-action-label">{{ item.label }}</div>
+      </button>
+    </div>
+  </div>
+</div>

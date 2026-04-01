@@ -1,0 +1,57 @@
+<div class="binddevice-page view-cheque-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">View Cheque</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">account_balance</span>
+        <div>
+          <div class="binddevice-step-title">Cheque details</div>
+          <div class="binddevice-step-text">Select account and cheque number.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">search</span>
+        <div>
+          <div class="binddevice-step-title">Check status</div>
+          <div class="binddevice-step-text">View cheque availability.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">View Cheque</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select ng-model="vm.form.account" ng-options="account.number as vm.getAccountLabel(account) for account in vm.accounts" ng-class="{ 'is-placeholder': !vm.form.account }">
+        <option value="">Account number</option>
+      </select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Cheque number</span>
+      <input type="text" ng-model="vm.form.chequeNumber" placeholder="Cheque number" />
+    </label>
+    <div class="transfer-error" ng-if="vm.formError">{{ vm.formError }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.search()">Search</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.statusMessage">
+    <div class="transfer-status-message">{{ vm.statusMessage }}</div>
+    <div class="transfer-status-table" ng-if="vm.detail">
+      <div class="transfer-status-row">
+        <div>Cheque number</div>
+        <div>{{ vm.detail.number }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Status</div>
+        <div>{{ vm.detail.status }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Reason</div>
+        <div>{{ vm.detail.reason }}</div>
+      </div>
+    </div>
+  </section>
+</div>

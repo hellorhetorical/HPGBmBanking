@@ -1,0 +1,54 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Add New Payee</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">person_add</span>
+        <div>
+          <div class="binddevice-step-title">Add new payee</div>
+          <div class="binddevice-step-text">Enter beneficiary information carefully.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <form class="binddevice-card" ng-submit="vm.submit()">
+    <label class="transfer-field">
+      <span class="transfer-field-label">Name</span>
+      <input type="text" ng-model="vm.form.name" placeholder="Name" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Nick name</span>
+      <input type="text" ng-model="vm.form.nickname" placeholder="Nick name" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <input type="text" ng-model="vm.form.accountNumber" placeholder="Account number" />
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Confirm Account number</span>
+      <input type="text" ng-model="vm.form.confirmAccountNumber" placeholder="Confirm Account number" />
+    </label>
+
+    <div ng-if="vm.isOtherBank">
+      <label class="transfer-field">
+        <span class="transfer-field-label">Transaction type</span>
+        <select ng-model="vm.form.transactionType">
+          <option value="" disabled>Select transaction type</option>
+          <option value="IMPS">IMPS</option>
+          <option value="NEFT">NEFT</option>
+          <option value="RTGS">RTGS</option>
+        </select>
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">IFSC code</span>
+        <input type="text" ng-model="vm.form.ifsc" placeholder="IFSC code" />
+      </label>
+    </div>
+
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="transfer-submit" type="submit">Add Payee</button>
+  </form>
+</div>

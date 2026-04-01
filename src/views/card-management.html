@@ -1,0 +1,129 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Card Management</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">credit_card</span>
+        <div>
+          <div class="binddevice-step-title">Enable or disable channels</div>
+          <div class="binddevice-step-text">Manage ATM, POS, E-COMM, and Contactless usage.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="vm.step === 'note'">
+    <div class="binddevice-card-title">Enable/Disable Debit Card</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select
+        ng-model="vm.form.account"
+        ng-options="account as vm.getAccountLabel(account) for account in vm.accounts"
+        ng-change="vm.updateCards()"
+      ></select>
+    </label>
+    <div class="card-mgmt-note">
+      Please note:
+      <br />
+      Through this functionality you can enable/disable ATM, POS, E-COMM and Contactless transactions.
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromNote()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'auth'">
+    <div class="binddevice-card-title">Debit Card Authentication</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select
+        ng-model="vm.form.account"
+        ng-options="account as vm.getAccountLabel(account) for account in vm.accounts"
+        ng-change="vm.updateCards()"
+      ></select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Debit Card Number</span>
+      <select ng-model="vm.form.card" ng-options="card for card in vm.getCardsForAccount(vm.form.account)"></select>
+    </label>
+    <div class="transfer-inline is-even">
+      <label class="transfer-field">
+        <span class="transfer-field-label">Expiry Month</span>
+        <select ng-model="vm.form.expMonth">
+          <option value="">MM</option>
+          <option ng-repeat="m in [1,2,3,4,5,6,7,8,9,10,11,12]" value="{{ m < 10 ? '0' + m : m }}">
+            {{ m < 10 ? '0' + m : m }}
+          </option>
+        </select>
+      </label>
+      <label class="transfer-field">
+        <span class="transfer-field-label">Expiry Year</span>
+        <select ng-model="vm.form.expYear">
+          <option value="">YY</option>
+          <option ng-repeat="y in [24,25,26,27,28,29,30]" value="{{ y }}">{{ y }}</option>
+        </select>
+      </label>
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Card PIN</span>
+      <input type="password" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" ng-model="vm.form.cardPin" placeholder="Card PIN" />
+    </label>
+    <div class="transfer-error" ng-if="vm.cardPinError">{{ vm.cardPinError }}</div>
+    <div class="card-mgmt-note">
+      Please note:
+      <br />
+      Through this functionality you can enable/disable ATM, POS, E-COMM and Contactless transactions.
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.continueFromAuth()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card transfer-authorize" ng-if="vm.step === 'authorize'">
+    <div class="binddevice-card-title">Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.statusMessage">{{ vm.statusMessage }}</div>
+    <button class="account-statement-button" type="button" ng-click="vm.authorize()">Submit</button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'preferences'">
+    <div class="binddevice-card-title">Enable Domestic transactions</div>
+    <label class="card-mgmt-toggle">
+      <span>ATM transactions</span>
+      <input type="checkbox" ng-model="vm.preferences.atm" />
+      <span class="card-mgmt-switch"></span>
+    </label>
+    <label class="card-mgmt-toggle">
+      <span>POS transactions</span>
+      <input type="checkbox" ng-model="vm.preferences.pos" />
+      <span class="card-mgmt-switch"></span>
+    </label>
+    <label class="card-mgmt-toggle">
+      <span>EComm transactions</span>
+      <input type="checkbox" ng-model="vm.preferences.ecomm" />
+      <span class="card-mgmt-switch"></span>
+    </label>
+    <label class="card-mgmt-toggle">
+      <span>Contactless transactions</span>
+      <input type="checkbox" ng-model="vm.preferences.contactless" />
+      <span class="card-mgmt-switch"></span>
+    </label>
+    <button class="account-statement-button" type="button" ng-click="vm.savePreferences()">
+      Continue
+    </button>
+  </section>
+
+  <section class="binddevice-card" ng-if="vm.step === 'success'">
+    <div class="binddevice-card-title">Enable/Disable Debit Card</div>
+    <div class="transfer-status-message">
+      Debit Card preferences updated successfully.
+    </div>
+    <button class="account-statement-button" type="button" ng-click="vm.goHome()">Dashboard</button>
+  </section>
+</div>

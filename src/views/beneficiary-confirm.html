@@ -1,0 +1,46 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Confirm And Authorize</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified</span>
+        <div>
+          <div class="binddevice-step-title">Confirm details</div>
+          <div class="binddevice-step-text">Verify payee details and authorize.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Name</div>
+        <div>{{ vm.payee.name }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Nick name</div>
+        <div>{{ vm.payee.nickname }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Account number</div>
+        <div>{{ vm.payee.accountNumber }}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="binddevice-card transfer-authorize">
+    <div class="binddevice-card-title">Authorize</div>
+    <div class="binddevice-card-subtitle">
+      Confirm transaction using your TPIN
+    </div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <div class="transfer-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="transfer-submit" type="button" ng-click="vm.confirm()">Confirm</button>
+  </section>
+</div>

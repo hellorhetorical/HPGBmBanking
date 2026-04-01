@@ -1,0 +1,84 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Hostlist Debit Card</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">Manage and secure your debit card.</div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">credit_card</span>
+        <div>
+          <div class="binddevice-step-title">Select account & card</div>
+          <div class="binddevice-step-text">Choose the card to hotlist instantly.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <div>
+          <div class="binddevice-step-title">Authorize</div>
+          <div class="binddevice-step-text">Confirm with your TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card" ng-if="!vm.showConfirm && !vm.result">
+    <div class="binddevice-card-title">Hotlist Debit Card</div>
+    <div class="binddevice-card-subtitle">Select account and debit card.</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Account number</span>
+      <select
+        ng-model="vm.form.account"
+        ng-options="account as vm.getAccountLabel(account) for account in vm.accounts"
+        ng-change="vm.updateCards()"
+      ></select>
+    </label>
+    <label class="transfer-field">
+      <span class="transfer-field-label">Debit card number</span>
+      <select
+        ng-model="vm.form.card"
+        ng-options="card for card in vm.getCardsForAccount(vm.form.account)"
+      ></select>
+    </label>
+    <button class="account-statement-button" type="button" ng-click="vm.continue()">Continue</button>
+  </section>
+
+  <section class="binddevice-card transfer-authorize" ng-if="vm.showConfirm && !vm.result">
+    <div class="binddevice-card-title">Confirm And Authorize</div>
+    <div class="binddevice-card-subtitle">Confirm transaction using your TPIN</div>
+    <label class="transfer-field">
+      <span class="transfer-field-label">TPIN</span>
+      <pin-input ng-model="vm.form.transactionPassword" pin-label="TPIN"></pin-input>
+    </label>
+    <button class="account-statement-button" type="button" ng-click="vm.confirm()">Confirm</button>
+  </section>
+
+  <section class="binddevice-card transfer-status-card" ng-if="vm.result">
+    <div class="transfer-status-check" ng-class="{ failure: !vm.result.success }">
+      <span class="material-icons" aria-hidden="true">
+        {{ vm.result.success ? "check" : "close" }}
+      </span>
+    </div>
+    <div class="transfer-status-result">{{ vm.result.success ? "Success" : "Failed" }}</div>
+    <div class="transfer-status-message">
+      {{ vm.statusMessage }}
+    </div>
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account</div>
+        <div>{{ vm.form.account.number | maskAccount }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Debit card</div>
+        <div>{{ vm.form.card }}</div>
+      </div>
+      <div class="transfer-status-row highlight">
+        <div>Date</div>
+        <div>{{ vm.result.timestamp }}</div>
+      </div>
+    </div>
+    <div class="transfer-status-actions">
+      <button class="account-statement-button" type="button" ng-click="vm.goHome()">Home</button>
+      <button class="account-statement-button" type="button" ng-click="vm.reset()">Back</button>
+    </div>
+  </section>
+</div>

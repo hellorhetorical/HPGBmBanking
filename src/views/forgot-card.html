@@ -1,0 +1,55 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Trouble signing in</div>
+    <div class="binddevice-title">Debit Card Verification</div>
+    <div class="binddevice-subtitle">
+      Enter your debit card details to continue.
+    </div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">credit_card</span>
+        <div>
+          <div class="binddevice-step-title">Card details</div>
+          <div class="binddevice-step-text">We use this to verify account ownership.</div>
+        </div>
+      </div>
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">lock</span>
+        <div>
+          <div class="binddevice-step-title">Set new password</div>
+          <div class="binddevice-step-text">Create a new login or TPIN.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="binddevice-card-title">Debit card verification</div>
+    <div class="binddevice-card-subtitle">Enter the card details linked to your account.</div>
+
+    <label class="form-field binddevice-field">
+      <span class="material-icons field-icon" aria-hidden="true">credit_card</span>
+      <input type="text" placeholder="Card Number" ng-model="vm.form.cardNumber" />
+    </label>
+    <label class="form-field binddevice-field">
+      <span class="material-icons field-icon" aria-hidden="true">person_outline</span>
+      <input type="text" placeholder="Card Holder Name" ng-model="vm.form.holderName" />
+    </label>
+    <div class="binddevice-row">
+      <label class="form-field binddevice-field">
+        <span class="material-icons field-icon" aria-hidden="true">event</span>
+        <input type="text" placeholder="Expiry (MM/YY)" ng-model="vm.form.expiry" />
+      </label>
+      <label class="form-field binddevice-field">
+        <span class="material-icons field-icon" aria-hidden="true">lock</span>
+        <input type="password" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="CVV" ng-model="vm.form.cvv" />
+      </label>
+    </div>
+    <div class="binddevice-error" ng-if="vm.error">{{ vm.error }}</div>
+    <button class="binddevice-cta" type="button" ng-click="vm.verifyCard()">Verify Card</button>
+
+    <div class="binddevice-note">
+      Your card details are used only for verification.
+    </div>
+  </section>
+</div>

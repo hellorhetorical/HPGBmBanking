@@ -1,0 +1,58 @@
+<div class="binddevice-page">
+  <header class="binddevice-hero">
+    <div class="binddevice-badge">Mini Statement</div>
+    <div class="binddevice-title">{{ vm.title }}</div>
+    <div class="binddevice-subtitle">{{ vm.subtitle }}</div>
+    <div class="fd-hero-art" aria-hidden="true"></div>
+    <div class="binddevice-steps">
+      <div class="binddevice-step">
+        <span class="material-icons" aria-hidden="true">receipt_long</span>
+        <div>
+          <div class="binddevice-step-title">Recent activity</div>
+          <div class="binddevice-step-text">Quick view of latest transactions.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="binddevice-card">
+    <div class="transfer-status-table">
+      <div class="transfer-status-row">
+        <div>Account</div>
+        <div>{{ vm.maskAccount(vm.account.number) }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Holder</div>
+        <div>{{ vm.account.holder | uppercase }}</div>
+      </div>
+      <div class="transfer-status-row">
+        <div>Type</div>
+        <div>{{ vm.account.type }}</div>
+      </div>
+      <div class="transfer-status-row highlight">
+        <div>Balance</div>
+        <div>₹ {{ vm.account.balance }}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="binddevice-card">
+    <div class="card-list">
+      <div class="card-row" ng-repeat="txn in vm.statement track by $index">
+        <div>
+          <div class="row-title">{{ txn.date }}</div>
+          <div class="row-subtitle">Tran ID: {{ txn.tranId }}</div>
+        </div>
+        <div class="mini-statement-amount">
+          <div
+            class="row-title"
+            ng-class="txn.dr !== '--' ? 'txn-debit' : 'txn-credit'"
+          >
+            ₹{{ txn.dr !== "--" ? txn.dr : txn.cr }}
+          </div>
+          <div class="row-subtitle">Bal: ₹{{ txn.balance }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
